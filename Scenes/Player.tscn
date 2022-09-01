@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Art/Placeholder Art/PlaceholderSpriteSheet.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Player.cs" type="Script" id=2]
@@ -253,79 +253,40 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="AnimationNodeAnimation" id=11]
-animation = "DemoIdleLeft"
-
-[sub_resource type="AnimationNodeAnimation" id=12]
-animation = "DemoIdleUp"
-
-[sub_resource type="AnimationNodeAnimation" id=13]
-animation = "DemoIdleRight"
-
-[sub_resource type="AnimationNodeAnimation" id=14]
-animation = "DemoIdleDown"
-
-[sub_resource type="AnimationNodeBlendSpace2D" id=15]
-blend_point_0/node = SubResource( 11 )
-blend_point_0/pos = Vector2( -1, 0 )
-blend_point_1/node = SubResource( 12 )
-blend_point_1/pos = Vector2( 0, -1 )
-blend_point_2/node = SubResource( 13 )
-blend_point_2/pos = Vector2( 1, 0 )
-blend_point_3/node = SubResource( 14 )
-blend_point_3/pos = Vector2( 0, 1 )
-blend_mode = 1
-
 [sub_resource type="AnimationNodeAnimation" id=18]
-animation = "DemoWalkLeft"
+animation = "DemoIdleRight"
 
 [sub_resource type="AnimationNodeAnimation" id=19]
 animation = "DemoWalkRight"
 
-[sub_resource type="AnimationNodeAnimation" id=20]
-animation = "DemoWalkUp"
+[sub_resource type="AnimationNodeStateMachineTransition" id=20]
 
-[sub_resource type="AnimationNodeAnimation" id=21]
-animation = "DemoWalkDown"
-
-[sub_resource type="AnimationNodeBlendSpace2D" id=22]
-blend_point_0/node = SubResource( 18 )
-blend_point_0/pos = Vector2( -1, 0 )
-blend_point_1/node = SubResource( 19 )
-blend_point_1/pos = Vector2( 1, 0 )
-blend_point_2/node = SubResource( 20 )
-blend_point_2/pos = Vector2( 0, -1 )
-blend_point_3/node = SubResource( 21 )
-blend_point_3/pos = Vector2( 0, 1 )
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=23]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=24]
+[sub_resource type="AnimationNodeStateMachineTransition" id=21]
 
 [sub_resource type="AnimationNodeStateMachine" id=16]
-states/Idle/node = SubResource( 15 )
-states/Idle/position = Vector2( 292, 112 )
-states/Walk/node = SubResource( 22 )
-states/Walk/position = Vector2( 456, 112 )
-transitions = [ "Idle", "Walk", SubResource( 23 ), "Walk", "Idle", SubResource( 24 ) ]
+states/Idle/node = SubResource( 18 )
+states/Idle/position = Vector2( 285, 53 )
+states/Walk/node = SubResource( 19 )
+states/Walk/position = Vector2( 514, 53 )
+transitions = [ "Idle", "Walk", SubResource( 20 ), "Walk", "Idle", SubResource( 21 ) ]
 start_node = "Idle"
+end_node = "Walk"
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=17]
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" groups=["Player"]]
 position = Vector2( 256, 128 )
+collision_layer = 32768
+collision_mask = 32769
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
+flip_h = true
 hframes = 48
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
-position = Vector2( -0.5, 0 )
 shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -344,5 +305,13 @@ tree_root = SubResource( 16 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/playback = SubResource( 17 )
-parameters/Idle/blend_position = Vector2( -0.244057, 0.836207 )
-parameters/Walk/blend_position = Vector2( 1.01109, 0 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+drag_margin_left = 0.1
+drag_margin_right = 0.1
+
+[node name="ProjectilePosition" type="Position2D" parent="."]
+position = Vector2( 8, 0 )

@@ -1,0 +1,131 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Art/Placeholder Art/PlayerAttackPlaceholderSpritesheet.png" type="Texture" id=1]
+[ext_resource path="res://Scripts/PlayerAttack.cs" type="Script" id=2]
+
+[sub_resource type="Animation" id=1]
+resource_name = "AttackLeft"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("AttackSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AttackSprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, true ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "AttackRight"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("AttackSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AttackSprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, false ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("AttackSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="AnimationNodeAnimation" id=4]
+animation = "AttackLeft"
+
+[sub_resource type="AnimationNodeAnimation" id=5]
+animation = "AttackRight"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id=6]
+blend_point_0/node = SubResource( 4 )
+blend_point_0/pos = -0.1
+blend_point_1/node = SubResource( 5 )
+blend_point_1/pos = 0.1
+
+[sub_resource type="AnimationNodeStateMachine" id=7]
+states/Moving/node = SubResource( 6 )
+states/Moving/position = Vector2( 224, 73 )
+start_node = "Moving"
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=8]
+
+[node name="PlayerAttack" type="RigidBody2D"]
+position = Vector2( 240, 136 )
+collision_layer = 4
+collision_mask = 3
+mass = 0.00102041
+gravity_scale = 0.0
+contacts_reported = 1
+contact_monitor = true
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="AttackSprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+hframes = 4
+
+[node name="CollisionPoly" type="CollisionPolygon2D" parent="."]
+visible = false
+polygon = PoolVector2Array( 0, -5, 8, 0, 0, 5 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/AttackLeft = SubResource( 1 )
+anims/AttackRight = SubResource( 2 )
+anims/RESET = SubResource( 3 )
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 7 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/playback = SubResource( 8 )
+parameters/Moving/blend_position = 0.235469
+
+[connection signal="body_entered" from="." to="." method="_on_PlayerAttack_body_entered"]

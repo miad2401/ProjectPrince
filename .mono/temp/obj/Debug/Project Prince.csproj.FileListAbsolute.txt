@@ -7,3 +7,12 @@ D:\Documents\Programming Stuff\Godot\Godot_v3.5-stable_mono_win64\Projects\Proje
 D:\Documents\Programming Stuff\Godot\Godot_v3.5-stable_mono_win64\Projects\ProjectPrince\ProjectPrince\.mono\temp\obj\Debug\Project Prince.csproj.CoreCompileInputs.cache
 D:\Documents\Programming Stuff\Godot\Godot_v3.5-stable_mono_win64\Projects\ProjectPrince\ProjectPrince\.mono\temp\obj\Debug\Project Prince.dll
 D:\Documents\Programming Stuff\Godot\Godot_v3.5-stable_mono_win64\Projects\ProjectPrince\ProjectPrince\.mono\temp\obj\Debug\Project Prince.pdb
+C:\Users\Thingys\Desktop\ProjectPrince\.mono\temp\bin\Debug\Project Prince.dll
+C:\Users\Thingys\Desktop\ProjectPrince\.mono\temp\bin\Debug\Project Prince.pdb
+C:\Users\Thingys\Desktop\ProjectPrince\.mono\temp\obj\Debug\Project Prince.csproj.AssemblyReference.cache
+C:\Users\Thingys\Desktop\ProjectPrince\.mono\temp\obj\Debug\Project Prince.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Thingys\Desktop\ProjectPrince\.mono\temp\obj\Debug\Project Prince.AssemblyInfoInputs.cache
+C:\Users\Thingys\Desktop\ProjectPrince\.mono\temp\obj\Debug\Project Prince.AssemblyInfo.cs
+C:\Users\Thingys\Desktop\ProjectPrince\.mono\temp\obj\Debug\Project Prince.csproj.CoreCompileInputs.cache
+C:\Users\Thingys\Desktop\ProjectPrince\.mono\temp\obj\Debug\Project Prince.dll
+C:\Users\Thingys\Desktop\ProjectPrince\.mono\temp\obj\Debug\Project Prince.pdb
