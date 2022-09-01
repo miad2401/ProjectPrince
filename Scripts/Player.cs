@@ -11,7 +11,7 @@ public class Player : KinematicBody2D
 	 * maxVSpeed - Determines the minimum speed the player can go up/down
 	 * jumpPower - Determines how high the player goes when they jump
 	 * gravity - pulls the player down at a constant rate
-	 * shotDelay - The time betweem each shot. Will be changed in the future
+	 * shotDelay - The time between each shot. Will be changed in the future
 	 *
 	 * shotTimePassed - The amount of time passed since the last shot, once a shot is fired is reset to shotDelay, then is decreased every frame by delta
 	 * velocity - the Velocity of the player. It is a Vector2, meaning it contains 2 variables, x and y.
@@ -20,11 +20,11 @@ public class Player : KinematicBody2D
 	 *             Note: Only used for x-value
 	 */
 	[Export] int xAcceleration = 10;
-	[Export] int maxHSpeed = 100;
-	[Export] int maxVSpeed = 125;
-	[Export] int jumpPower = 300;
+	[Export] int maxHSpeed = 200;
+	[Export] int maxVSpeed = 1000;
+	[Export] int jumpPower = 200;
 	[Export] int gravity = 10;
-	[Export] float shotDelay = 0.25f;
+	[Export] float shotDelay = 0.75f;
 
 	float shotTimePassed = 0.0f;
 	Vector2 velocity = new Vector2();
@@ -58,8 +58,6 @@ public class Player : KinematicBody2D
 	//Changes the Character's movement velocity
 	public void MoveCharacter(float delta)
 	{
-		//Apply the force of gravity, cap y velocity
-		velocity.y = Math.Min(velocity.y + gravity, maxVSpeed);
 		Sprite playerSprite = GetNode<Sprite>("Sprite");
 		//If ran into wall, stops the player
 		if (IsOnWall())
@@ -69,21 +67,17 @@ public class Player : KinematicBody2D
 		//Checks if the right arrowkey is pressed, and if so, sets the x portion of the velocity to 1
 		if (Input.IsActionPressed("ui_right"))
 		{
-			// Flip sprite to face right
-			playerSprite.Scale = new Vector2(1,1);
-			// Make velocity go positive and cap it
-			velocity.x = Math.Min(velocity.x + xAcceleration, maxHSpeed);
+			velocity.x += xAcceleration;
 			//Direction is the last direction the player moved, +1 is right
+			playerSprite.Scale = new Vector2(1, 1);
 			direction.x = 1;
 		}
 		//Checks if the left arrowkey is pressed, and if so, sets the x portion of the velocity to -1
 		else if (Input.IsActionPressed("ui_left"))
 		{
-			// Flip sprite to face left
-			playerSprite.Scale = new Vector2(-1,1);
-			// Make velocity go negative, but cap it
-			velocity.x = Math.Max(velocity.x - xAcceleration, -maxHSpeed);
+			velocity.x -= xAcceleration;
 			//Direction is the last direction the player moved, -1 is right
+			playerSprite.Scale = new Vector2(-1, 1);
 			direction.x = -1;
 		}
 		//If neither left/right key has been pressed, slows down the character 2x as fast as the player accelerates
@@ -114,21 +108,28 @@ public class Player : KinematicBody2D
 			velocity.y = 0;
 		}
 
+		//Apply the force of gravity
+		velocity.y += gravity;
 
 		//Checks if the Player is on the Floor
 		if (IsOnFloor())
 		{
+			//Resets vertical velocity to 0.01
+			//0.01 instead of 0 because IsOnFloor() does not realize the player isn't on the floor if they don't move after beign called
+			velocity.y = 0.01f;
 			//If the Player is on the floor and pressing the jump key, lets the player jump
 			if (Input.IsActionPressed("ui_jump"))
 			{
-				// Cap y velocity
-				velocity.y = Math.Max(velocity.y - jumpPower, -maxVSpeed);
-			}
-			else {
-				velocity.y = 0;
+				velocity.y -= jumpPower;
 			}
 		}
 
+		//Velocity is limited by the maxHSpeed and the maxVSpeed
+		//These values can be changed within the editor
+		velocity.x = Math.Min(velocity.x, maxHSpeed);
+		velocity.x = Math.Max(velocity.x, -maxHSpeed);
+		velocity.y = Math.Min(velocity.y, maxVSpeed);
+		velocity.y = Math.Max(velocity.y, -maxVSpeed);
 		//Moves the player according to the velocity and defines what direction to go
 		MoveAndSlide(velocity, floor);
 	}
@@ -171,10 +172,6 @@ public class Player : KinematicBody2D
 			Position2D p2D = GetNode<Position2D>("ProjectilePosition");
 			//Creates a reference to the instanced attack's CollisionPoly
 			CollisionPolygon2D pCollision = PPInstance.GetNode<CollisionPolygon2D>("CollisionPoly");
-			//Creates a reference to the instanced attack's AnimationTree
-			AnimationTree pTree = PPInstance.GetNode<AnimationTree>("AnimationTree");
-			//Sets the AnimationTree's blend_position value to direction
-			pTree.Set("parameters/Moving/blend_position", direction);
 			//Checks if the player is facing forward
 			if (direction.x > 0)
 			{
