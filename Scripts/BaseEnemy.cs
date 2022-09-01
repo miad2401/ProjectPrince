@@ -16,6 +16,7 @@ public class BaseEnemy : KinematicBody2D
 	[Export] int maxVSpeed = 500;
 	[Export] int jumpPower = 250;
 	[Export] int gravity = 10;
+	[Export] int pushStrength = 25;
 	//for direction, true is right, false is left
 	[Export] bool direction = false;
 
@@ -42,6 +43,22 @@ public class BaseEnemy : KinematicBody2D
 
 	public void MoveEnemy(float delta)
 	{
+		//Interaction with movable Objects
+		//Gets the number of "Slides" and checks each one
+		for (int i = 0; i < GetSlideCount(); i++)
+		{
+			//Sets the collision as a variable
+			KinematicCollision2D collision = GetSlideCollision(i);
+			//Makes sure the Object collided with is moveable
+			if ((collision.Collider as Node).IsInGroup("MoveableObject"))
+			{
+				//Sets the moving object as a variable
+				RigidBody2D moveableObject = collision.Collider as RigidBody2D;
+				//Sets a directional Impulse
+				moveableObject.ApplyCentralImpulse(-collision.Normal * pushStrength);
+			}
+		}
+
 		//If ran into wall, flips the enemy to head the other direction
 		if (IsOnWall())
 		{
@@ -102,7 +119,9 @@ public class BaseEnemy : KinematicBody2D
 			velocity.y = Math.Min(velocity.y, maxVSpeed);
 			velocity.y = Math.Max(velocity.y, -maxVSpeed);
 			//Moves the Enemy according to the velocity and defines what direction to go
-			MoveAndSlide(velocity, floor);
+			//"false, 4, 0.78598f" are default values
+			//Last argument is for infinite_inertia, We turn this off so environment can be interacted with
+			MoveAndSlide(velocity, floor, false, 4, 0.785398f, false);
 		}
 	}
 

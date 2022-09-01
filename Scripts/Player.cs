@@ -25,6 +25,7 @@ public class Player : KinematicBody2D
 	[Export] int jumpPower = 200;
 	[Export] int gravity = 10;
 	[Export] float shotDelay = 0.75f;
+	[Export] int pushStrength = 5;
 
 	float shotTimePassed = 0.0f;
 	Vector2 velocity = new Vector2();
@@ -59,6 +60,21 @@ public class Player : KinematicBody2D
 	public void MoveCharacter(float delta)
 	{
 		Sprite playerSprite = GetNode<Sprite>("Sprite");
+		//Interaction with movable Objects
+		//Gets the number of "Slides" and checks each one
+		for (int i = 0; i < GetSlideCount(); i++)
+        {
+			//Sets the collision as a variable
+			KinematicCollision2D collision = GetSlideCollision(i);
+			//Makes sure the Object collided with is moveable
+			if((collision.Collider as Node).IsInGroup("MoveableObject"))
+            {
+				//Sets the moving object as a variable
+				RigidBody2D moveableObject = collision.Collider as RigidBody2D;
+				//Sets a directional Impulse
+				moveableObject.ApplyCentralImpulse(-collision.Normal * pushStrength);
+            }
+        }
 		//If ran into wall, stops the player
 		if (IsOnWall())
 		{
@@ -131,7 +147,9 @@ public class Player : KinematicBody2D
 		velocity.y = Math.Min(velocity.y, maxVSpeed);
 		velocity.y = Math.Max(velocity.y, -maxVSpeed);
 		//Moves the player according to the velocity and defines what direction to go
-		MoveAndSlide(velocity, floor);
+		//"false, 4, 0.78598f" are default values
+		//Last argument is for infinite_inertia, We turn this off so environment can be interacted with
+		MoveAndSlide(velocity, floor, false, 4, 0.785398f, false);
 	}
 
 	//Changes the Character's animations
