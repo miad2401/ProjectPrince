@@ -25,3 +25,15 @@ C:\Users\Thingys\Desktop\ProjectPrince-main\.mono\temp\obj\Debug\Project Prince.
 C:\Users\Thingys\Desktop\ProjectPrince-main\.mono\temp\obj\Debug\Project Prince.csproj.CoreCompileInputs.cache
 C:\Users\Thingys\Desktop\ProjectPrince-main\.mono\temp\obj\Debug\Project Prince.dll
 C:\Users\Thingys\Desktop\ProjectPrince-main\.mono\temp\obj\Debug\Project Prince.pdb
+<<<<<<< Updated upstream
+=======
+C:\Users\Robert\Desktop\ProjectPrince-gui\.mono\temp\bin\Debug\Project Prince.dll
+C:\Users\Robert\Desktop\ProjectPrince-gui\.mono\temp\bin\Debug\Project Prince.pdb
+C:\Users\Robert\Desktop\ProjectPrince-gui\.mono\temp\obj\Debug\Project Prince.csproj.AssemblyReference.cache
+C:\Users\Robert\Desktop\ProjectPrince-gui\.mono\temp\obj\Debug\Project Prince.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Robert\Desktop\ProjectPrince-gui\.mono\temp\obj\Debug\Project Prince.AssemblyInfoInputs.cache
+C:\Users\Robert\Desktop\ProjectPrince-gui\.mono\temp\obj\Debug\Project Prince.AssemblyInfo.cs
+C:\Users\Robert\Desktop\ProjectPrince-gui\.mono\temp\obj\Debug\Project Prince.csproj.CoreCompileInputs.cache
+C:\Users\Robert\Desktop\ProjectPrince-gui\.mono\temp\obj\Debug\Project Prince.dll
+C:\Users\Robert\Desktop\ProjectPrince-gui\.mono\temp\obj\Debug\Project Prince.pdb
+>>>>>>> Stashed changes

@@ -1,3 +1,7 @@
 is_global = true
 build_property.RootNamespace = ProjectPrince
+<<<<<<< Updated upstream
 build_property.ProjectDir = C:\Users\Thingys\Desktop\ProjectPrince-main\
+=======
+build_property.ProjectDir = C:\Users\Robert\Desktop\ProjectPrince-gui\
+>>>>>>> Stashed changes

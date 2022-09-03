@@ -20,14 +20,20 @@ public class Player : KinematicBody2D
 	 *             Note: Only used for x-value
 	 */
 	[Export] int xAcceleration = 10;
-	[Export] int maxHSpeed = 200;
-	[Export] int maxVSpeed = 1000;
-	[Export] int jumpPower = 200;
+	[Export] int maxHSpeed = 125;
+	[Export] int maxVSpeed = 500;
+	[Export] int jumpPower = 175;
 	[Export] int gravity = 10;
 	[Export] float shotDelay = 0.75f;
 	[Export] int pushStrength = 5;
-
-	float shotTimePassed = 0.0f;
+	[Export] float wallJumpTime = 0.2f;
+	[Export] int wallJumpStrength = 12;
+	
+	
+	bool wallJumping = false;
+	float wallJumpTimePassed = 0f;
+	float shotTimePassed = 0f;
+	
 	Vector2 velocity = new Vector2();
 	Vector2 direction = new Vector2();
 
@@ -70,10 +76,22 @@ public class Player : KinematicBody2D
 				moveableObject.ApplyCentralImpulse(-collision.Normal * pushStrength);
 			}
 		}
+<<<<<<< Updated upstream
+=======
+		
+		if (wallJumping) {
+			wallJumpTimePassed = wallJumpTimePassed + delta;
+			if (wallJumpTimePassed >= wallJumpTime) {
+				wallJumping = false;
+				wallJumpTimePassed = 0f;
+			}
+		}
+>>>>>>> Stashed changes
 		//If ran into wall, stops the player
 		if (IsOnWall()) {
 			velocity.x = 0;
 		}
+<<<<<<< Updated upstream
 		//Checks if the right arrowkey is pressed, and if so, sets the x portion of the velocity to 1
 		if (Input.IsActionPressed("ui_right")) {
 			velocity.x += xAcceleration;
@@ -87,6 +105,58 @@ public class Player : KinematicBody2D
 			//Direction is the last direction the player moved, -1 is right
 			playerSprite.Scale = new Vector2(-1, 1);
 			direction.x = -1;
+=======
+		
+		//Checks if the left arrowkey is pressed
+		if (Input.IsActionPressed("move_left")) {
+			// If the player is moving left INTO a wall, not currently wall jumping, taps space, 
+			// and is falling/jumping, wall jump
+			if (IsOnWall() && !wallJumping && Input.IsActionJustPressed("move_jump") && velocity.y != 0.01f) {
+				// Set walljumping tag to true, flip direction and sprite, add force on x and y to jump diag
+				wallJumping = true;
+				direction.x = -direction.x;
+				playerSprite.Scale = new Vector2(direction.x, 1);
+				velocity.x += direction.x * (xAcceleration*wallJumpStrength);
+				// Cancel out y velocity to allow for chain walljumps
+				velocity.y = 0 - jumpPower;
+			}
+			// Otherwise, if they are just moving left and NOT walljumping, move them left and such
+			// Check if not walljumping to prevent a sort of "stutter", where player will still be holding
+			// the left key after walljumping due to human reaction time, which would cancel out the wall jump
+			else if (!wallJumping){
+				// Decrease x velocity (go left)
+				velocity.x -= xAcceleration;
+				// Set direction to -1 (left)
+				direction.x = -1;
+				// Change sprite to face new direction
+				playerSprite.Scale = new Vector2(direction.x, 1);
+			}
+		}
+		//Checks if the right arrowkey is pressed
+		else if (Input.IsActionPressed("move_right")) {
+			// If the player is moving right INTO a wall, not currently wall jumping, taps space, 
+			// and is falling/jumping, wall jump
+			if (IsOnWall() && !wallJumping && Input.IsActionJustPressed("move_jump") && velocity.y != 0.01f) {
+				// Set walljumping tag to true, flip direction and sprite, add force on x and y to jump diag
+				wallJumping = true;
+				direction.x = -direction.x;
+				playerSprite.Scale = new Vector2(direction.x, 1);
+				velocity.x += direction.x * (xAcceleration*wallJumpStrength);
+				// Cancel out current y velocity to allow for chain walljumps
+				velocity.y = 0 - jumpPower;
+			}
+			// Otherwise, if they are just moving left and NOT walljumping, move them left and such
+			// Check if not walljumping to prevent a sort of "stutter", where player will still be holding
+			// the left key after walljumping due to human reaction time, which would cancel out the wall jump
+			else if (!wallJumping){
+				// Increase x velocity (go right)
+				velocity.x += xAcceleration;
+				// Set directon to 1 (right)
+				direction.x = 1;
+				// Change sprite to face new direction
+				playerSprite.Scale = new Vector2(direction.x, 1);
+			}
+>>>>>>> Stashed changes
 		}
 		//If neither left/right key has been pressed, slows down the character 2x as fast as the player accelerates
 		else {
@@ -119,10 +189,16 @@ public class Player : KinematicBody2D
 			//0.01 instead of 0 because IsOnFloor() does not realize the player isn't on the floor if they don't move after beign called
 			velocity.y = 0.01f;
 			//If the Player is on the floor and pressing the jump key, lets the player jump
+<<<<<<< Updated upstream
 			if (Input.IsActionPressed("ui_jump")) {
+=======
+			if (Input.IsActionPressed("move_jump")) {
+>>>>>>> Stashed changes
 				velocity.y -= jumpPower;
 			}
 		}
+		
+		
 
 		//Velocity is limited by the maxHSpeed and the maxVSpeed
 		//These values can be changed within the editor
@@ -159,7 +235,11 @@ public class Player : KinematicBody2D
 		shotTimePassed -= delta;
 
 		//Checks that the fire key (Space) is pressed and that enough time has passed to fire another shot
+<<<<<<< Updated upstream
 		if (Input.IsActionPressed("ui_accept") && shotTimePassed < 0) {
+=======
+		if (Input.IsActionPressed("attack") && shotTimePassed <= 0) {
+>>>>>>> Stashed changes
 			//Resets the shot cooldown
 			shotTimePassed = shotDelay;
 			//Creates an instance of the PlayerAttack
@@ -178,7 +258,7 @@ public class Player : KinematicBody2D
 			}
 			else {
 				//Sets the starting position of the attack to the left of the player
-				p2D.Position = new Vector2(-8, 0);
+				p2D.Position = new Vector2(-8,0);
 				//Sets the position of the CollisionPoly to 0, which is a left-facing collisionbox
 				pCollision.RotationDegrees = 180;
 			}

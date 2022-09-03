@@ -415,11 +415,16 @@
     ]
   },
   "packageFolders": {
+<<<<<<< Updated upstream
     "C:\\Users\\Thingys\\.nuget\\packages\\": {}
+=======
+    "C:\\Users\\Robert\\.nuget\\packages\\": {}
+>>>>>>> Stashed changes
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< Updated upstream
       "projectUniqueName": "C:\\Users\\Thingys\\Desktop\\ProjectPrince-main\\Project Prince.csproj",
       "projectName": "Project Prince",
       "projectPath": "C:\\Users\\Thingys\\Desktop\\ProjectPrince-main\\Project Prince.csproj",
@@ -428,6 +433,16 @@
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Thingys\\AppData\\Roaming\\NuGet\\NuGet.Config"
+=======
+      "projectUniqueName": "C:\\Users\\Robert\\Desktop\\ProjectPrince-gui\\Project Prince.csproj",
+      "projectName": "Project Prince",
+      "projectPath": "C:\\Users\\Robert\\Desktop\\ProjectPrince-gui\\Project Prince.csproj",
+      "packagesPath": "C:\\Users\\Robert\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Robert\\Desktop\\ProjectPrince-gui\\.mono\\temp\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\Robert\\AppData\\Roaming\\NuGet\\NuGet.Config"
+>>>>>>> Stashed changes
       ],
       "originalTargetFrameworks": [
         "net472"
@@ -458,7 +473,11 @@
             "autoReferenced": true
           }
         },
+<<<<<<< Updated upstream
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.203\\RuntimeIdentifierGraph.json"
+=======
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+>>>>>>> Stashed changes
       }
     }
   }

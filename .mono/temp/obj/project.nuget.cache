@@ -1,11 +1,20 @@
 {
   "version": 2,
+<<<<<<< Updated upstream
   "dgSpecHash": "5RWP3g3zysmiIOMJDNKBT1iqOZ5rcUgkVi8GpSfnU+GgaJL3E3gwfOfYsXI+Oq439ll1d63/nRbn5nXUp7HlTA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Thingys\\Desktop\\ProjectPrince-main\\Project Prince.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Thingys\\.nuget\\packages\\microsoft.netframework.referenceassemblies\\1.0.2\\microsoft.netframework.referenceassemblies.1.0.2.nupkg.sha512",
     "C:\\Users\\Thingys\\.nuget\\packages\\microsoft.netframework.referenceassemblies.net472\\1.0.2\\microsoft.netframework.referenceassemblies.net472.1.0.2.nupkg.sha512"
+=======
+  "dgSpecHash": "1rbkMklBpDv0S5gf80sIVcwRRbUkcwN/zEA96xlP36GrqsYtxz653R5QuTVQNntd7HAYHBlYAVJxnKASOHICfQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Robert\\Desktop\\ProjectPrince-gui\\Project Prince.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Robert\\.nuget\\packages\\microsoft.netframework.referenceassemblies\\1.0.2\\microsoft.netframework.referenceassemblies.1.0.2.nupkg.sha512",
+    "C:\\Users\\Robert\\.nuget\\packages\\microsoft.netframework.referenceassemblies.net472\\1.0.2\\microsoft.netframework.referenceassemblies.net472.1.0.2.nupkg.sha512"
+>>>>>>> Stashed changes
   ],
   "logs": []
 }
