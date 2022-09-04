@@ -35,7 +35,7 @@ public class Main : Control
 
 	//Received from PauseMenu when reload has been selected
 	public void ReloadCurrentLevel()
-    {
+	{
 		//Deletes the current Level when it is safe to do so
 		CurrentLevelNode.QueueFree();
 		//Creates a new (clean) instance of the current level
@@ -46,10 +46,10 @@ public class Main : Control
 
 	//Received from _ when it is time to switch to the next level
 	public void NextLevel(String Level)
-    {
+	{
 		//Adds the specified Level to the curr. packedScene
-        switch (Level)
-        {
+		switch (Level)
+		{
 			case "Level1":
 				CurrentLevelPackedScene = Level1;
 				break;
@@ -68,7 +68,7 @@ public class Main : Control
 			default:
 				CurrentLevelPackedScene = Level1;
 				break;
-        }
+		}
 		//Deletes the current Level when it is safe to do so
 		CurrentLevelNode.QueueFree();
 		//Creates an instance of the next level

@@ -11,6 +11,7 @@ margin_bottom = 40.0
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
 position = Vector2( 29, 163 )
+collision/safe_margin = 0.001
 
 [node name="Environment" parent="." instance=ExtResource( 1 )]
 z_index = -5
