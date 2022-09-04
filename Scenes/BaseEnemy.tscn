@@ -262,6 +262,11 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
 }
+hSpeed = 50
+maxVSpeed = 500
+jumpPower = 250
+gravity = 10
+pushStrength = 25
 
 [node name="EnemySprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )

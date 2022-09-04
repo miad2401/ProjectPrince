@@ -8,60 +8,79 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 rect_scale = Vector2( 1.00908, 0.996325 )
 script = ExtResource( 1 )
+ResetLength = 3.0
 
 [node name="Background" type="ColorRect" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.0705882, 0.0941176, 0.192157, 0.619608 )
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="PauseCenterContainer" type="CenterContainer" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseCenterContainer"]
 margin_left = 198.0
 margin_top = 74.0
 margin_right = 281.0
 margin_bottom = 196.0
 
-[node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="PauseCenterContainer/VBoxContainer"]
 margin_right = 83.0
 margin_bottom = 14.0
 text = "Paused"
 align = 1
 valign = 1
 
-[node name="Control" type="Control" parent="CenterContainer/VBoxContainer"]
+[node name="Control" type="Control" parent="PauseCenterContainer/VBoxContainer"]
 margin_top = 18.0
 margin_right = 83.0
 margin_bottom = 26.0
 rect_min_size = Vector2( 0, 8 )
 
-[node name="ResumeButton" type="Button" parent="CenterContainer/VBoxContainer"]
+[node name="ResumeButton" type="Button" parent="PauseCenterContainer/VBoxContainer"]
 margin_top = 30.0
 margin_right = 83.0
 margin_bottom = 50.0
 text = "Resume"
 
-[node name="RestartButton" type="Button" parent="CenterContainer/VBoxContainer"]
+[node name="RestartButton" type="Button" parent="PauseCenterContainer/VBoxContainer"]
 margin_top = 54.0
 margin_right = 83.0
 margin_bottom = 74.0
 text = "Restart"
 
-[node name="MenuButton" type="Button" parent="CenterContainer/VBoxContainer"]
+[node name="MenuButton" type="Button" parent="PauseCenterContainer/VBoxContainer"]
 margin_top = 78.0
 margin_right = 83.0
 margin_bottom = 98.0
 text = "Main Menu"
 
-[node name="QuitButton" type="Button" parent="CenterContainer/VBoxContainer"]
+[node name="QuitButton" type="Button" parent="PauseCenterContainer/VBoxContainer"]
 margin_top = 102.0
 margin_right = 83.0
 margin_bottom = 122.0
 text = "Quit"
 
-[connection signal="pressed" from="CenterContainer/VBoxContainer/ResumeButton" to="." method="_on_ResumeButton_pressed"]
-[connection signal="pressed" from="CenterContainer/VBoxContainer/RestartButton" to="." method="_on_RestartButton_pressed"]
-[connection signal="pressed" from="CenterContainer/VBoxContainer/MenuButton" to="." method="_on_MenuButton_pressed"]
-[connection signal="pressed" from="CenterContainer/VBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]
+[node name="ResetProgress" type="Panel" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 16.0
+margin_top = -44.0
+margin_right = 104.0
+margin_bottom = -16.0
+
+[node name="Label" type="Label" parent="ResetProgress"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Resetting..."
+align = 1
+valign = 1
+
+[connection signal="pressed" from="PauseCenterContainer/VBoxContainer/ResumeButton" to="." method="_on_ResumeButton_pressed"]
+[connection signal="pressed" from="PauseCenterContainer/VBoxContainer/RestartButton" to="." method="_on_RestartButton_pressed"]
+[connection signal="pressed" from="PauseCenterContainer/VBoxContainer/MenuButton" to="." method="_on_MenuButton_pressed"]
+[connection signal="pressed" from="PauseCenterContainer/VBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]

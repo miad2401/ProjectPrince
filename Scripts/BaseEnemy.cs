@@ -12,11 +12,11 @@ public class BaseEnemy : KinematicBody2D
 	 * jumpPower - Determines how high the enemy goes when they jump
 	 * gravity - pulls the enemy down at a constant rate
 	 */
-	[Export] int hSpeed = 50;
-	[Export] int maxVSpeed = 500;
-	[Export] int jumpPower = 250;
-	[Export] int gravity = 10;
-	[Export] int pushStrength = 25;
+	[Export] int hSpeed;
+	[Export] int maxVSpeed;
+	[Export] int jumpPower;
+	[Export] int gravity;
+	[Export] int pushStrength;
 	//for direction, true is right, false is left
 	[Export] bool direction = false;
 
@@ -50,7 +50,8 @@ public class BaseEnemy : KinematicBody2D
 			//Sets the collision as a variable
 			KinematicCollision2D collision = GetSlideCollision(i);
 			//Makes sure the Object collided with is moveable
-			if ((collision.Collider as Node).IsInGroup("MoveableObject"))
+			//After Reset, the Collider is sometimes null, so check for it
+			if (collision.Collider != null && (collision.Collider as Node).IsInGroup("MoveableObject"))
 			{
 				//Sets the moving object as a variable
 				RigidBody2D moveableObject = collision.Collider as RigidBody2D;

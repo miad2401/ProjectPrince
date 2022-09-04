@@ -19,15 +19,15 @@ public class Player : KinematicBody2D
 	 *             usually the same as velocity, but has a value when velocity is (0,0)
 	 *             Note: Only used for x-value
 	 */
-	[Export] int xAcceleration = 10;
-	[Export] int maxHSpeed = 125;
-	[Export] int maxVSpeed = 500;
-	[Export] int jumpPower = 175;
-	[Export] int gravity = 10;
-	[Export] float shotDelay = 0.75f;
-	[Export] int pushStrength = 5;
-	[Export] float wallJumpTime = 0.2f;
-	[Export] int wallJumpStrength = 12;
+	[Export] int xAcceleration;
+	[Export] int maxHSpeed;
+	[Export] int maxVSpeed;
+	[Export] int jumpPower;
+	[Export] int gravity;
+	[Export] float shotDelay; //In Seconds
+	[Export] int pushStrength;
+	[Export] float wallJumpTime;
+	[Export] int wallJumpStrength;
 
 	bool wallJumping = false;
 	float wallJumpTimePassed = 0f;
@@ -68,7 +68,9 @@ public class Player : KinematicBody2D
 			//Sets the collision as a variable
 			KinematicCollision2D collision = GetSlideCollision(i);
 			//Makes sure the Object collided with is moveable
-			if((collision.Collider as Node).IsInGroup("MoveableObject")) {
+			//After Reset, the Collider is sometimes null, so check for it
+			if (collision.Collider != null && (collision.Collider as Node).IsInGroup("MoveableObject"))
+			{
 				//Sets the moving object as a variable
 				RigidBody2D moveableObject = collision.Collider as RigidBody2D;
 				//Sets a directional Impulse
