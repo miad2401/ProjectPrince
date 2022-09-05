@@ -284,6 +284,7 @@ xAcceleration = 10
 maxHSpeed = 125
 maxVSpeed = 500
 jumpPower = 175
+climbPower = 50
 gravity = 10
 shotDelay = 0.5
 pushStrength = 5

@@ -10,10 +10,21 @@ public class Player : KinematicBody2D
 	 * maxHSpeed - Determines the maximum speed the player can go left/right
 	 * maxVSpeed - Determines the minimum speed the player can go up/down
 	 * jumpPower - Determines how high the player goes when they jump
+	 * climbPower - Determines the speed at which the player climbs a ladder
 	 * gravity - pulls the player down at a constant rate
-	 * shotDelay - The time between each shot. Will be changed in the future
+	 * shotDelay - The time between each shot. In seconds.
+	 * pushStrength - The amount of force that is used to push moveableObjects
+	 * wallJumpTime - The maximum amount of time that a player is allowed to wall jump
+	 * wallJumpStrength - The amount of force that is used during a wall jump
 	 *
+	 * wallJumping - Holds if the player is currently wall jumping
+	 * canWallJump - Holds if the player is allowed to wall jump
+	 * wallJumpTimePassed - Holds the amount of time since a wall jump has started
+	 * wallClimbing - Holds if the player is currently wall climbing
+	 * canWallClimb - Holds if the player can wall climb
 	 * shotTimePassed - The amount of time passed since the last shot, once a shot is fired is reset to shotDelay, then is decreased every frame by delta
+	 * 
+	 * 
 	 * velocity - the Velocity of the player. It is a Vector2, meaning it contains 2 variables, x and y.
 	 * direction - Used to determine what direction the player was last looking at,
 	 *             usually the same as velocity, but has a value when velocity is (0,0)
@@ -23,6 +34,7 @@ public class Player : KinematicBody2D
 	[Export] int maxHSpeed;
 	[Export] int maxVSpeed;
 	[Export] int jumpPower;
+	[Export] int climbPower;
 	[Export] int gravity;
 	[Export] float shotDelay; //In Seconds
 	[Export] int pushStrength;
@@ -30,7 +42,10 @@ public class Player : KinematicBody2D
 	[Export] int wallJumpStrength;
 
 	bool wallJumping = false;
+	bool canWallJump = false;
 	float wallJumpTimePassed = 0f;
+	bool wallClimbing = false;
+	bool canWallClimb = false;
 	float shotTimePassed = 0f;
 
 	Vector2 velocity = new Vector2();
@@ -62,19 +77,40 @@ public class Player : KinematicBody2D
 	//Changes the Character's movement velocity
 	public void MoveCharacter(float delta) {
 		Sprite playerSprite = GetNode<Sprite>("Sprite");
+		//By default, every frame the Player can wallJump but not wallClimb
+		canWallJump = true;
+		canWallClimb = false;
 		//Interaction with movable Objects
 		//Gets the number of "Slides" and checks each one
 		for (int i = 0; i < GetSlideCount(); i++) {
 			//Sets the collision as a variable
 			KinematicCollision2D collision = GetSlideCollision(i);
-			//Makes sure the Object collided with is moveable
 			//After Reset, the Collider is sometimes null, so check for it
-			if (collision.Collider != null && (collision.Collider as Node).IsInGroup("MoveableObject"))
+			if(collision.Collider == null)
+            {
+				//If the collision is empty, skips to next collision
+				continue;
+            }
+			//Checks if the collision was with a moveableObject
+			if ((collision.Collider as Node).IsInGroup("MoveableObject"))
 			{
+				//Cannot walljump or wallclimb off moveable objects
+				canWallJump = false;
 				//Sets the moving object as a variable
 				RigidBody2D moveableObject = collision.Collider as RigidBody2D;
 				//Sets a directional Impulse
 				moveableObject.ApplyCentralImpulse(-collision.Normal * pushStrength);
+			}
+			else if ((collision.Collider as Node).IsInGroup("WallClimbable"))
+			{
+				//Can wallclimb and walljump off wallclimbable objects
+				canWallJump = true;
+				canWallClimb = true;
+			}
+			else if ((collision.Collider as Node).IsInGroup("Enemy"))
+			{
+				//Cannot walljump or wallclimb off enemies
+				canWallJump = false;
 			}
 		}
 
@@ -86,17 +122,16 @@ public class Player : KinematicBody2D
 			}
 		}
 
-		//If ran into wall, stops the player
+		//If ran into wall, stops the player from accelerating into the wall
 		if (IsOnWall()) {
 			velocity.x = 0;
 		}
-
 
 		//Checks if the left arrowkey is pressed
 		if (Input.IsActionPressed("move_left")) {
 			// If the player is moving left INTO a wall, not currently wall jumping, taps space, 
 			// and is falling/jumping, wall jump
-			if (IsOnWall() && !wallJumping && Input.IsActionJustPressed("move_jump") && velocity.y != 0.01f) {
+			if (canWallJump && IsOnWall() && !wallJumping && Input.IsActionJustPressed("move_jump") && velocity.y != 0.01f) {
 				// Set walljumping tag to true, flip direction and sprite, add force on x and y to jump diag
 				wallJumping = true;
 				direction.x = -direction.x;
@@ -109,8 +144,19 @@ public class Player : KinematicBody2D
 			// Check if not walljumping to prevent a sort of "stutter", where player will still be holding
 			// the left key after walljumping due to human reaction time, which would cancel out the wall jump
 			else if (!wallJumping){
-				// Decrease x velocity (go left)
-				velocity.x -= xAcceleration;
+				//Checks if running into climbable object
+                if (canWallClimb)
+                {
+					//If so, raises player into the air and sets wallclimbing to true
+					velocity.y = -climbPower;
+					wallClimbing = true;
+                }
+                else
+                {
+					//Otherwise, decrease x velocity (go left)
+					velocity.x -= xAcceleration;
+					wallClimbing = false;
+				}
 				// Set direction to -1 (left)
 				direction.x = -1;
 				// Change sprite to face new direction
@@ -121,7 +167,7 @@ public class Player : KinematicBody2D
 		else if (Input.IsActionPressed("move_right")) {
 			// If the player is moving right INTO a wall, not currently wall jumping, taps space, 
 			// and is falling/jumping, wall jump
-			if (IsOnWall() && !wallJumping && Input.IsActionJustPressed("move_jump") && velocity.y != 0.01f) {
+			if (canWallJump && IsOnWall() && !wallJumping && Input.IsActionJustPressed("move_jump") && velocity.y != 0.01f) {
 				// Set walljumping tag to true, flip direction and sprite, add force on x and y to jump diag
 				wallJumping = true;
 				direction.x = -direction.x;
@@ -134,8 +180,19 @@ public class Player : KinematicBody2D
 			// Check if not walljumping to prevent a sort of "stutter", where player will still be holding
 			// the left key after walljumping due to human reaction time, which would cancel out the wall jump
 			else if (!wallJumping){
-				// Increase x velocity (go right)
-				velocity.x += xAcceleration;
+				//Checks if running into climbable object
+				if (canWallClimb)
+				{
+					//If so, raises player into the air and sets wallclimbing to true
+					velocity.y = -climbPower;
+					wallClimbing = true;
+				}
+				else
+				{
+					//Otherwise, decrease x velocity (go right)
+					velocity.x += xAcceleration;
+					wallClimbing = false;
+				}
 				// Set directon to 1 (right)
 				direction.x = 1;
 				// Change sprite to face new direction
@@ -168,12 +225,14 @@ public class Player : KinematicBody2D
 		velocity.y += gravity;
 
 		//Checks if the Player is on the Floor
-		if (IsOnFloor()) {
+		if (IsOnFloor() && !wallClimbing)
+		{
 			//Resets vertical velocity to 0.01
 			//0.01 instead of 0 because IsOnFloor() does not realize the player isn't on the floor if they don't move after beign called
 			velocity.y = 0.01f;
 			//If the Player is on the floor and pressing the jump key, lets the player jump
-			if (Input.IsActionPressed("move_jump")) {
+			if (Input.IsActionPressed("move_jump"))
+			{
 				velocity.y -= jumpPower;
 			}
 		}
