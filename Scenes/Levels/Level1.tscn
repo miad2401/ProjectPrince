@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scenes/Environment.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/MovableObject.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/BaseEnemy.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scripts/PopUpHint.cs" type="Script" id=5]
+[ext_resource path="res://Art/Fonts/Size8VT323.tres" type="DynamicFont" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 9, 11 )
@@ -31,11 +32,15 @@ position = Vector2( -391, 113 )
 position = Vector2( -386, 86 )
 
 [node name="PopUpHint" type="Control" parent="."]
-margin_left = -277.0
-margin_top = 144.0
-margin_right = -267.0
-margin_bottom = 156.0
+margin_left = -143.0
+margin_top = 143.0
+margin_right = -133.0
+margin_bottom = 155.0
 script = ExtResource( 5 )
+__meta__ = {
+"_edit_group_": true
+}
+leftText = true
 fadelength = 0.5
 
 [node name="HintContainer" type="Control" parent="PopUpHint"]
@@ -56,12 +61,12 @@ __meta__ = {
 }
 
 [node name="Panel" type="Panel" parent="PopUpHint/HintContainer/HintContainerRight"]
-margin_right = 87.0
-margin_bottom = 41.0
+margin_right = 43.0
+margin_bottom = 31.0
 
 [node name="MarginContainer" type="MarginContainer" parent="PopUpHint/HintContainer/HintContainerRight"]
-margin_right = 87.0
-margin_bottom = 41.0
+margin_right = 43.0
+margin_bottom = 31.0
 custom_constants/margin_right = 5
 custom_constants/margin_top = 5
 custom_constants/margin_left = 5
@@ -70,14 +75,15 @@ custom_constants/margin_bottom = 5
 [node name="CenterContainer" type="CenterContainer" parent="PopUpHint/HintContainer/HintContainerRight/MarginContainer"]
 margin_left = 5.0
 margin_top = 5.0
-margin_right = 82.0
-margin_bottom = 36.0
+margin_right = 38.0
+margin_bottom = 26.0
 
 [node name="HintText" type="Label" parent="PopUpHint/HintContainer/HintContainerRight/MarginContainer/CenterContainer"]
-margin_right = 77.0
-margin_bottom = 31.0
-text = "Testy Righty
-Testy"
+margin_right = 33.0
+margin_bottom = 21.0
+custom_fonts/font = ExtResource( 6 )
+text = "Right Testy
+Test"
 
 [node name="HintContainerLeft" type="MarginContainer" parent="PopUpHint/HintContainer"]
 margin_left = -26.0
@@ -91,12 +97,12 @@ __meta__ = {
 }
 
 [node name="Panel" type="Panel" parent="PopUpHint/HintContainer/HintContainerLeft"]
-margin_right = 79.0
-margin_bottom = 41.0
+margin_right = 43.0
+margin_bottom = 31.0
 
 [node name="MarginContainer" type="MarginContainer" parent="PopUpHint/HintContainer/HintContainerLeft"]
-margin_right = 79.0
-margin_bottom = 41.0
+margin_right = 43.0
+margin_bottom = 31.0
 custom_constants/margin_right = 5
 custom_constants/margin_top = 5
 custom_constants/margin_left = 5
@@ -105,14 +111,15 @@ custom_constants/margin_bottom = 5
 [node name="CenterContainer" type="CenterContainer" parent="PopUpHint/HintContainer/HintContainerLeft/MarginContainer"]
 margin_left = 5.0
 margin_top = 5.0
-margin_right = 74.0
-margin_bottom = 36.0
+margin_right = 38.0
+margin_bottom = 26.0
 
 [node name="HintText" type="Label" parent="PopUpHint/HintContainer/HintContainerLeft/MarginContainer/CenterContainer"]
-margin_right = 69.0
-margin_bottom = 31.0
-text = "Testy Lefty
-Lefty"
+margin_right = 33.0
+margin_bottom = 21.0
+custom_fonts/font = ExtResource( 6 )
+text = "Lefty Testy
+Test"
 align = 2
 
 [node name="HintArea2D" type="Area2D" parent="PopUpHint"]

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Scripts/Menu.cs" type="Script" id=1]
+[ext_resource path="res://Art/Fonts/Size16VT323.tres" type="DynamicFont" id=2]
 
 [node name="Menu" type="Control"]
 anchor_left = 0.5
@@ -25,13 +26,15 @@ margin_bottom = 34.0
 
 [node name="StartButton" type="Button" parent="VBoxContainer"]
 margin_right = 183.0
-margin_bottom = 20.0
+margin_bottom = 23.0
+custom_fonts/font = ExtResource( 2 )
 text = "Start"
 
 [node name="QuitButton" type="Button" parent="VBoxContainer"]
-margin_top = 24.0
+margin_top = 27.0
 margin_right = 183.0
-margin_bottom = 44.0
+margin_bottom = 50.0
+custom_fonts/font = ExtResource( 2 )
 text = "Exit"
 
 [connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_StartButton_pressed"]

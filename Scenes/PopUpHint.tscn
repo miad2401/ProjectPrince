@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scripts/PopUpHint.cs" type="Script" id=1]
+[ext_resource path="res://Art/Fonts/Size8VT323.tres" type="DynamicFont" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 9, 11 )
@@ -11,6 +12,9 @@ margin_top = -6.0
 margin_right = 5.0
 margin_bottom = 6.0
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
 leftText = true
 fadelength = 0.5
 
@@ -50,7 +54,9 @@ margin_right = 5.0
 margin_bottom = 19.0
 
 [node name="HintText" type="Label" parent="HintContainer/HintContainerRight/MarginContainer/CenterContainer"]
-margin_bottom = 14.0
+margin_top = 2.0
+margin_bottom = 11.0
+custom_fonts/font = ExtResource( 2 )
 
 [node name="HintContainerLeft" type="MarginContainer" parent="HintContainer"]
 margin_left = -26.0
@@ -82,7 +88,9 @@ margin_right = 5.0
 margin_bottom = 19.0
 
 [node name="HintText" type="Label" parent="HintContainer/HintContainerLeft/MarginContainer/CenterContainer"]
-margin_bottom = 14.0
+margin_top = 2.0
+margin_bottom = 11.0
+custom_fonts/font = ExtResource( 2 )
 align = 2
 
 [node name="HintArea2D" type="Area2D" parent="."]
