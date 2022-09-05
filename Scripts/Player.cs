@@ -170,7 +170,7 @@ public class Player : KinematicBody2D
 			//Creates a reference to the instanced attack's CollisionPoly
 			CollisionPolygon2D pCollision = PPInstance.GetNode<CollisionPolygon2D>("CollisionPoly");
 			//Checks if the player is facing forward
-			if (direction.x >= 0) {
+			if (direction.x > 0) {
 				//Sets the starting position of the attack to the right of the player
 				p2D.Position = new Vector2(8,0);
 				//Sets the position of the CollisionPoly to 0, which is a right-facing collisionbox

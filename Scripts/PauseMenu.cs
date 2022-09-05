@@ -3,6 +3,12 @@ using System;
 
 public class PauseMenu : Control
 {
+	// Called when the node enters the scene tree for the first time.
+	public override void _Ready()
+	{
+		
+	}
+	
 	// keep track of whether or not to pause game
 	bool paused = false;
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -38,27 +44,7 @@ public class PauseMenu : Control
 	// quit button pressed, quit game
 		GetTree().Quit();
 	}
-	
-	private void _on_RestartButton_pressed() {
-	// restart button pressed, unpause game then reload scene
-		paused = false;
-		Pause();
-		GetTree().ReloadCurrentScene();
-	}
-	
-	private void _on_MenuButton_pressed() {
-	// return to main menu button pressed, unpause game then change to main menu
-		paused = false;
-		Pause();
-		GetTree().ChangeScene("res://Scenes/Menu.tscn");
-	}
 }
-
-
-
-
-
-
 
 
 
