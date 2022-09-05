@@ -1,0 +1,95 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/PopUpHint.cs" type="Script" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 9, 11 )
+
+[node name="PopUpHint" type="Control"]
+margin_left = -5.0
+margin_top = -6.0
+margin_right = 5.0
+margin_bottom = 6.0
+script = ExtResource( 1 )
+leftText = true
+fadelength = 0.5
+
+[node name="HintContainer" type="Control" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+
+[node name="HintContainerRight" type="MarginContainer" parent="HintContainer"]
+margin_left = 16.0
+margin_top = -40.0
+margin_right = 26.0
+margin_bottom = -16.0
+grow_vertical = 0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Panel" type="Panel" parent="HintContainer/HintContainerRight"]
+margin_right = 10.0
+margin_bottom = 24.0
+
+[node name="MarginContainer" type="MarginContainer" parent="HintContainer/HintContainerRight"]
+margin_right = 10.0
+margin_bottom = 24.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+
+[node name="CenterContainer" type="CenterContainer" parent="HintContainer/HintContainerRight/MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 5.0
+margin_bottom = 19.0
+
+[node name="HintText" type="Label" parent="HintContainer/HintContainerRight/MarginContainer/CenterContainer"]
+margin_bottom = 14.0
+
+[node name="HintContainerLeft" type="MarginContainer" parent="HintContainer"]
+margin_left = -26.0
+margin_top = -40.0
+margin_right = -16.0
+margin_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Panel" type="Panel" parent="HintContainer/HintContainerLeft"]
+margin_right = 10.0
+margin_bottom = 24.0
+
+[node name="MarginContainer" type="MarginContainer" parent="HintContainer/HintContainerLeft"]
+margin_right = 10.0
+margin_bottom = 24.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+
+[node name="CenterContainer" type="CenterContainer" parent="HintContainer/HintContainerLeft/MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 5.0
+margin_bottom = 19.0
+
+[node name="HintText" type="Label" parent="HintContainer/HintContainerLeft/MarginContainer/CenterContainer"]
+margin_bottom = 14.0
+align = 2
+
+[node name="HintArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HintArea2D"]
+position = Vector2( 5, 6 )
+shape = SubResource( 1 )
+
+[connection signal="body_entered" from="HintArea2D" to="." method="OnHintArea2DBodyEntered"]
+[connection signal="body_exited" from="HintArea2D" to="." method="OnHintArea2DBodyExited"]
