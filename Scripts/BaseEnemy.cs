@@ -7,11 +7,13 @@ public class BaseEnemy : KinematicBody2D
 	/*
 	 * All of these variables can be changed within the editor, but are not changed within the script
 	 * 
+	 * hurtPlayer - If true, kills player when touched
 	 * hSpeed - Determines the speed the enemy can go left/right
 	 * vSpeed - Determines the Max speed the enemy can go up/down
 	 * jumpPower - Determines how high the enemy goes when they jump
 	 * gravity - pulls the enemy down at a constant rate
 	 */
+	[Export] bool hurtPlayer;
 	[Export] int hSpeed;
 	[Export] int maxVSpeed;
 	[Export] int jumpPower;
@@ -19,6 +21,9 @@ public class BaseEnemy : KinematicBody2D
 	[Export] int pushStrength;
 	//for direction, true is right, false is left
 	[Export] bool direction = false;
+
+	//Signal that tells the PauseMenu if the player died
+	[Signal] public delegate void PlayerDeath();
 
 	//velocity is the Velocity of the enemy. It is a Vector2, meaning it contains 2 variables, x and y. 
 	Vector2 velocity = new Vector2();
@@ -28,7 +33,8 @@ public class BaseEnemy : KinematicBody2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-
+		//Connects signal that tells the PauseMenu if the player died
+		Connect(nameof(PlayerDeath), GetNode("/root/Main/GUI/PauseMenu"), "PlayerDied");
 	}
 
 	//Can be thought as being run every frame. Delta is the amount of time it took each frame to be made (This should be constant)
@@ -43,15 +49,29 @@ public class BaseEnemy : KinematicBody2D
 
 	public void MoveEnemy(float delta)
 	{
-		//Interaction with movable Objects
+		//Interaction with movable Objects and Players
 		//Gets the number of "Slides" and checks each one
 		for (int i = 0; i < GetSlideCount(); i++)
 		{
 			//Sets the collision as a variable
 			KinematicCollision2D collision = GetSlideCollision(i);
-			//Makes sure the Object collided with is moveable
 			//After Reset, the Collider is sometimes null, so check for it
-			if (collision.Collider != null && (collision.Collider as Node).IsInGroup("MoveableObject"))
+			if (collision.Collider == null)
+			{
+				//If the collision is empty, skips to next collision
+				continue;
+			}
+			//Checks if collided with the Player
+			else if((collision.Collider as Node).IsInGroup("Player"))
+            {
+				//If the enemy can hurt the player, calls the PlayerDeath signal
+                if (hurtPlayer)
+                {
+					EmitSignal(nameof(PlayerDeath));
+				}
+			}
+			//Makes sure the Object collided with is moveable
+			else if ((collision.Collider as Node).IsInGroup("MoveableObject"))
 			{
 				//Sets the moving object as a variable
 				RigidBody2D moveableObject = collision.Collider as RigidBody2D;

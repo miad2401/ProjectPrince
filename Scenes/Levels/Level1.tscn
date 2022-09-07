@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scenes/Environment.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/EnvironmentTools/MovableObject.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Scenes/BaseEnemy.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scripts/PopUpHint.cs" type="Script" id=5]
 [ext_resource path="res://Art/Fonts/Size8PBW.tres" type="DynamicFont" id=6]
+[ext_resource path="res://Scenes/EnvironmentTools/DeathField.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/EnvironmentTools/Ladder.tscn" type="PackedScene" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -24,8 +25,9 @@ climbPower = 100
 z_index = -5
 
 [node name="BaseEnemy" parent="." instance=ExtResource( 4 )]
-position = Vector2( -779, 90 )
+position = Vector2( -915, 137 )
 z_index = -1
+hurtPlayer = true
 
 [node name="MovableObject" parent="." instance=ExtResource( 2 )]
 position = Vector2( -885, 146 )
@@ -141,6 +143,10 @@ position = Vector2( -1054, 120 )
 
 [node name="Ladder4" parent="." instance=ExtResource( 8 )]
 position = Vector2( -1054, 152 )
+
+[node name="DeathField" parent="." instance=ExtResource( 7 )]
+position = Vector2( -965, 84 )
+hurtPlayer = true
 
 [connection signal="body_entered" from="PopUpHint/HintArea2D" to="PopUpHint" method="OnHintArea2DBodyEntered"]
 [connection signal="body_exited" from="PopUpHint/HintArea2D" to="PopUpHint" method="OnHintArea2DBodyExited"]
