@@ -58,7 +58,8 @@ public class Player : KinematicBody2D
 	
 	// Debug menu vars
 	Control DebugMenu;
-	Label Pos, XVelocity, YVelocity, IsAttacking, IsWallJumping, IsWallClimbing, IsOnWall, IsOnFloor, IsOnCeiling;
+	Tabs PlayerMenu;
+	Label Pos, XVelocity, YVelocity, IsAttacking, IsWallJumping, IsWallClimbing, OnWall, OnFloor, OnCeiling;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready() {
@@ -66,16 +67,17 @@ public class Player : KinematicBody2D
 		PlayerProjectilePath = GD.Load<PackedScene>("res://Scenes/PlayerAttack.tscn");
 		
 		// Debug menu vars
-		DebugMenu = GetParent().GetNode<Control>("CanvasLayer/DebugMenu");
-		Pos = GetParent().GetNode<Label>("CanvasLayer/DebugMenu/TabContainer/Player/Left/Position");
-		XVelocity = GetParent().GetNode<Label>("CanvasLayer/DebugMenu/TabContainer/Player/Left/XVelocity");
-		YVelocity = GetParent().GetNode<Label>("CanvasLayer/DebugMenu/TabContainer/Player/Left/YVelocity");
-		IsAttacking = GetParent().GetNode<Label>("CanvasLayer/DebugMenu/TabContainer/Player/Left/IsAttacking");
-		IsWallJumping = GetParent().GetNode<Label>("CanvasLayer/DebugMenu/TabContainer/Player/Left/IsWallJumping");
-		IsWallClimbing = GetParent().GetNode<Label>("CanvasLayer/DebugMenu/TabContainer/Player/Left/IsWallClimbing");
-		IsOnWall = GetParent().GetNode<Label>("CanvasLayer/DebugMenu/TabContainer/Player/Right/IsOnWall");
-		IsOnFloor = GetParent().GetNode<Label>("CanvasLayer/DebugMenu/TabContainer/Player/Right/IsOnFloor");
-		IsOnCeiling = GetParent().GetNode<Label>("CanvasLayer/DebugMenu/TabContainer/Player/Right/IsOnCeiling");
+		DebugMenu = GetNode<Control>("DebugMenu/DebugMenu");
+		PlayerMenu = DebugMenu.GetNode<Tabs>("TabContainer/Player");
+		Pos = PlayerMenu.GetNode<Label>("Left/Position");
+		XVelocity = PlayerMenu.GetNode<Label>("Left/XVelocity");
+		YVelocity = PlayerMenu.GetNode<Label>("Left/YVelocity");
+		IsAttacking = PlayerMenu.GetNode<Label>("Left/IsAttacking");
+		IsWallJumping = PlayerMenu.GetNode<Label>("Left/IsWallJumping");
+		IsWallClimbing = PlayerMenu.GetNode<Label>("Left/IsWallClimbing");
+		OnWall = PlayerMenu.GetNode<Label>("Right/IsOnWall");
+		OnFloor = PlayerMenu.GetNode<Label>("Right/IsOnFloor");
+		OnCeiling = PlayerMenu.GetNode<Label>("Right/IsOnCeiling");
 	}
 
 	//Can be thought as being run every frame. Delta is the amount of time it took each frame to be made (This should be constant)
@@ -350,9 +352,9 @@ public class Player : KinematicBody2D
 		IsAttacking.Text = "Attacking: " + (shotTimePassed > 0).ToString();
 		IsWallJumping.Text = "WallJumping: " + wallJumping.ToString();
 		IsWallClimbing.Text = "WallClimbing: " + wallClimbing.ToString();
-		IsOnWall.Text = "OnWall: " + IsOnWall().ToString();
-		IsOnFloor.Text = "OnFloor: " + IsOnFloor().ToString();
-		IsOnCeiling.Text = "OnCeiling: " + IsOnCeiling().ToString();
+		OnWall.Text = "OnWall: " + IsOnWall().ToString();
+		OnFloor.Text = "OnFloor: " + IsOnFloor().ToString();
+		OnCeiling.Text = "OnCeiling: " + IsOnCeiling().ToString();
 		
 		if (Input.IsActionJustPressed("ui_debug")) {
 			DebugMenu.Visible = !DebugMenu.Visible;
