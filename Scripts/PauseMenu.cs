@@ -26,6 +26,7 @@ public class PauseMenu : Control
 	CenterContainer PauseCenterContainer;
 	Panel DeathPanel;
 	Button RespawnButton;
+	Button RestartButton;
 	public override void _Ready()
 	{
 		//Connects the ReloadCurrentLevel Signal to Main, causing Main's ReloadCurrentLevel method to run when called
@@ -39,12 +40,14 @@ public class PauseMenu : Control
 		DeathPanel = GetNode<Panel>("DeathPanel");
 		//Adds reference to RespawnButton Button
 		RespawnButton = GetNode<Button>("DeathPanel/RespawnButton");
+		//Adds reference to RestartButton button
+		RestartButton = GetNode<Button>("PauseCenterContainer/VBoxContainer/RestartButton");
 	}
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(float delta) {
-        //Checks if Player can unpause game
+		//Checks if Player can unpause game
 		if (changeable)
-        {
+		{
 			// if pause was just pressed once
 			if (Input.IsActionJustPressed("pause"))
 			{
@@ -52,6 +55,7 @@ public class PauseMenu : Control
 				paused = !paused;
 				Pause();
 			}
+			/*
 			//Checks if the reset button is pressed and that the player is not in a menu
 			if (Input.IsActionPressed("ui_reset") && !PauseCenterContainer.Visible)
 			{
@@ -63,7 +67,7 @@ public class PauseMenu : Control
 				if (resetHeld > ResetLength)
 				{
 					//Calls Reset method
-					_on_RestartButton_pressed();
+					_on_RestartButton_pressed(true);
 					//Resets held time
 					resetHeld = 0;
 					//Makes ResetProgress invisible again
@@ -76,25 +80,24 @@ public class PauseMenu : Control
 				resetHeld = 0;
 				//Makes ResetProgress invisible again
 				ResetProgress.Modulate = new Color(1, 1, 1, 0);
-
-			}
+			} */
 		}
 		//If player cannot unpause the game and the player is in the deathscreen
 		else if (playerDied)
-        {
+		{
 			//Fades to black
 			if(deathProgress < DeathLength)
-            {
+			{
 				deathProgress += delta;
 				DeathPanel.Modulate = new Color(1, 1, 1, deathProgress * (1 / DeathLength));
 			}
 			//Onced faded to black, fades in a button to respawn
 			else if (respawnProgress < RespawnLength)
-            {
+			{
 				respawnProgress += delta;
 				RespawnButton.Modulate = new Color(1, 1, 1, respawnProgress * (1 / RespawnLength));
 			}
-        }
+		}
 	}
 	
 	public void Pause() {
@@ -123,10 +126,12 @@ public class PauseMenu : Control
 	
 	private void _on_RestartButton_pressed() {
 	// restart button pressed, unpause game then reload scene
-		paused = false;
-		Pause();
-		//Emits the ReloadCurrentLevel signal, causing the ReloadCurrentLevel method to run in Main
-		EmitSignal(nameof(ReloadCurrentLevel));
+		if (RestartButton.Visible) {
+			paused = false;
+			Pause();
+			//Emits the ReloadCurrentLevel signal, causing the ReloadCurrentLevel method to run in Main
+			EmitSignal(nameof(ReloadCurrentLevel));
+		}
 	}
 	
 	private void _on_MenuButton_pressed() {
@@ -139,6 +144,7 @@ public class PauseMenu : Control
 	private void _on_RespawnButton_pressed()
 	{
 		//Reset all PauseMenu variables
+		DeathPanel.Visible = false;
 		paused = false;
 		changeable = true;
 		playerDied = false;
@@ -153,8 +159,9 @@ public class PauseMenu : Control
 	}
 
 	private void PlayerDied()
-    {
+	{
 		//When player dies make the game un-changable-from-the-player, pause the game, and set playerDied to true
+		DeathPanel.Visible = true;
 		paused = true;
 		changeable = false;
 		GetTree().Paused = paused;

@@ -63,10 +63,10 @@ public class BaseEnemy : KinematicBody2D
 			}
 			//Checks if collided with the Player
 			else if((collision.Collider as Node).IsInGroup("Player"))
-            {
+			{
 				//If the enemy can hurt the player, calls the PlayerDeath signal
-                if (hurtPlayer)
-                {
+				if (hurtPlayer)
+				{
 					EmitSignal(nameof(PlayerDeath));
 				}
 			}

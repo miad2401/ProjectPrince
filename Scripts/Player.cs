@@ -36,13 +36,13 @@ public class Player : KinematicBody2D
 	[Export] int jumpPower;
 	[Export] int climbPower;
 	[Export] int gravity;
-	[Export] float shotDelay; //In Seconds
+	[Export] float shotDelay;
 	[Export] int pushStrength;
 	[Export] float wallJumpTime;
 	[Export] int wallJumpStrength;
 
 	bool wallJumping = false;
-	bool canWallJump = false;
+	bool canWallJump = true;
 	float wallJumpTimePassed = 0f;
 	bool wallClimbing = false;
 	bool canWallClimb = false;
@@ -55,11 +55,27 @@ public class Player : KinematicBody2D
 	public PackedScene PlayerProjectilePath;
 	//Used to determine what direction is up/down/left/right for the MoveAndCollide function
 	Vector2 floor = new Vector2(0,-1);
-
+	
+	// Debug menu vars
+	Control DebugMenu;
+	Label Pos, XVelocity, YVelocity, IsAttacking, IsWallJumping, IsWallClimbing, IsOnWall, IsOnFloor, IsOnCeiling;
+	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready() {
 		//When the player is loaded, loads the PlayerAttack PackedScene to be used later
 		PlayerProjectilePath = GD.Load<PackedScene>("res://Scenes/PlayerAttack.tscn");
+		
+		// Debug menu vars
+		DebugMenu = GetParent().GetNode<Control>("CanvasLayer/DebugMenu");
+		Pos = GetParent().GetNode<Label>("CanvasLayer/DebugMenu/TabContainer/Player/Left/Position");
+		XVelocity = GetParent().GetNode<Label>("CanvasLayer/DebugMenu/TabContainer/Player/Left/XVelocity");
+		YVelocity = GetParent().GetNode<Label>("CanvasLayer/DebugMenu/TabContainer/Player/Left/YVelocity");
+		IsAttacking = GetParent().GetNode<Label>("CanvasLayer/DebugMenu/TabContainer/Player/Left/IsAttacking");
+		IsWallJumping = GetParent().GetNode<Label>("CanvasLayer/DebugMenu/TabContainer/Player/Left/IsWallJumping");
+		IsWallClimbing = GetParent().GetNode<Label>("CanvasLayer/DebugMenu/TabContainer/Player/Left/IsWallClimbing");
+		IsOnWall = GetParent().GetNode<Label>("CanvasLayer/DebugMenu/TabContainer/Player/Right/IsOnWall");
+		IsOnFloor = GetParent().GetNode<Label>("CanvasLayer/DebugMenu/TabContainer/Player/Right/IsOnFloor");
+		IsOnCeiling = GetParent().GetNode<Label>("CanvasLayer/DebugMenu/TabContainer/Player/Right/IsOnCeiling");
 	}
 
 	//Can be thought as being run every frame. Delta is the amount of time it took each frame to be made (This should be constant)
@@ -76,48 +92,59 @@ public class Player : KinematicBody2D
 
 	//Changes the Character's movement velocity
 	public void MoveCharacter(float delta) {
+		// Store playerSprite for flipping
 		Sprite playerSprite = GetNode<Sprite>("Sprite");
-		//By default, every frame the Player can wallJump but not wallClimb
+		
+		//By default, reset canWallJump and canWallClimb vars to their default values, as they are 
+		//updated every frame
 		canWallJump = true;
 		canWallClimb = false;
+		
 		//Interaction with movable Objects
 		//Gets the number of "Slides" and checks each one
 		for (int i = 0; i < GetSlideCount(); i++) {
 			//Sets the collision as a variable
 			KinematicCollision2D collision = GetSlideCollision(i);
 			//After Reset, the Collider is sometimes null, so check for it
-			if(collision.Collider == null)
-            {
+			if (collision.Collider == null) {
 				//If the collision is empty, skips to next collision
 				continue;
-            }
+			}
 			//Checks if the collision was with a moveableObject
-			if ((collision.Collider as Node).IsInGroup("MoveableObject"))
-			{
+			if ((collision.Collider as Node).IsInGroup("MoveableObject")) {
 				//Cannot walljump or wallclimb off moveable objects
 				canWallJump = false;
-				//Sets the moving object as a variable
-				RigidBody2D moveableObject = collision.Collider as RigidBody2D;
-				//Sets a directional Impulse
-				moveableObject.ApplyCentralImpulse(-collision.Normal * pushStrength);
+				// If the player is not on floor (on top of object) and pressing jump, apply directional force
+				// Necessary to prevent downward push force from being on top of object cancelling out jump force
+				if (!(IsOnFloor() && (Input.IsActionPressed("move_jump")))) {
+					//Sets the moving object as a variable
+					RigidBody2D moveableObject = collision.Collider as RigidBody2D;
+					//Sets a directional Impulse
+					moveableObject.ApplyCentralImpulse(-collision.Normal * pushStrength);
+				}
 			}
-			else if ((collision.Collider as Node).IsInGroup("WallClimbable"))
-			{
+			// Check for collision with a climable object
+			else if ((collision.Collider as Node).IsInGroup("WallClimbable")) {
 				//Can wallclimb and walljump off wallclimbable objects
 				canWallJump = true;
 				canWallClimb = true;
 			}
-			else if ((collision.Collider as Node).IsInGroup("Enemy"))
-			{
+			// Check for collision with an enemy
+			else if ((collision.Collider as Node).IsInGroup("Enemy")) {
 				//Cannot walljump or wallclimb off enemies
 				canWallJump = false;
 			}
 		}
 
+		// Check if player is currently walljumping
 		if (wallJumping) {
-			wallJumpTimePassed = wallJumpTimePassed + delta;
+			// If so, increase time passed timer
+			wallJumpTimePassed += delta;
+			// If the timer has passed the amount of time a wall jump takes
 			if (wallJumpTimePassed >= wallJumpTime) {
+				// Stop walljumping
 				wallJumping = false;
+				// Reset timer
 				wallJumpTimePassed = 0f;
 			}
 		}
@@ -132,28 +159,32 @@ public class Player : KinematicBody2D
 			// If the player is moving left INTO a wall, not currently wall jumping, taps space, 
 			// and is falling/jumping, wall jump
 			if (canWallJump && IsOnWall() && !wallJumping && Input.IsActionJustPressed("move_jump") && velocity.y != 0.01f) {
-				// Set walljumping tag to true, flip direction and sprite, add force on x and y to jump diag
+				// Set walljumping tag to true
 				wallJumping = true;
+				// Flip direction
 				direction.x = -direction.x;
+				// Flip sprite
 				playerSprite.Scale = new Vector2(direction.x, 1);
+				// Apply x velocity in the new direction, by the force of wallJumpStrength
 				velocity.x += direction.x * (xAcceleration*wallJumpStrength);
-				// Cancel out y velocity to allow for chain walljumps
-				velocity.y = 0 - jumpPower;
+				// Set y velocity to negative jumpPower, allows for chain walljumping
+				velocity.y = -jumpPower;
 			}
 			// Otherwise, if they are just moving left and NOT walljumping, move them left and such
 			// Check if not walljumping to prevent a sort of "stutter", where player will still be holding
 			// the left key after walljumping due to human reaction time, which would cancel out the wall jump
 			else if (!wallJumping){
 				//Checks if running into climbable object
-                if (canWallClimb)
-                {
+				if (canWallClimb)
+				{
 					//If so, raises player into the air and sets wallclimbing to true
 					velocity.y = -climbPower;
 					wallClimbing = true;
-                }
-                else
-                {
-					//Otherwise, decrease x velocity (go left)
+				}
+				// Not on a climable object
+				else
+				{
+					//Decrease x velocity (go left)
 					velocity.x -= xAcceleration;
 					wallClimbing = false;
 				}
@@ -168,13 +199,16 @@ public class Player : KinematicBody2D
 			// If the player is moving right INTO a wall, not currently wall jumping, taps space, 
 			// and is falling/jumping, wall jump
 			if (canWallJump && IsOnWall() && !wallJumping && Input.IsActionJustPressed("move_jump") && velocity.y != 0.01f) {
-				// Set walljumping tag to true, flip direction and sprite, add force on x and y to jump diag
+				// Set walljumping tag to true
 				wallJumping = true;
+				// Flip direction
 				direction.x = -direction.x;
+				// Flip sprite based off new direction
 				playerSprite.Scale = new Vector2(direction.x, 1);
+				// Apply x velocity in the new direction, by the force of wallJumpStrength
 				velocity.x += direction.x * (xAcceleration*wallJumpStrength);
 				// Cancel out current y velocity to allow for chain walljumps
-				velocity.y = 0 - jumpPower;
+				velocity.y = -jumpPower;
 			}
 			// Otherwise, if they are just moving left and NOT walljumping, move them left and such
 			// Check if not walljumping to prevent a sort of "stutter", where player will still be holding
@@ -187,9 +221,10 @@ public class Player : KinematicBody2D
 					velocity.y = -climbPower;
 					wallClimbing = true;
 				}
+				// Not on climable object
 				else
 				{
-					//Otherwise, decrease x velocity (go right)
+					//Decrease x velocity (go right)
 					velocity.x += xAcceleration;
 					wallClimbing = false;
 				}
@@ -199,25 +234,29 @@ public class Player : KinematicBody2D
 				playerSprite.Scale = new Vector2(direction.x, 1);
 			}
 		}
-		//If neither left/right key has been pressed, slows down the character 2x as fast as the player accelerates
+		//If neither left/right key has been pressed (player not being told to move), 
+		//slows down character's x velocity 2x as fast as the player accelerates
+		//This makes stopping l/r movement seem more smooth and natural
 		else {
+			// If currently still going right, apply left force until it cancels out
 			if (velocity.x > 0) {
 				velocity.x -= xAcceleration * 2;
-				if (velocity.x < 0) {
+				if (velocity.x <= 0) {
 					velocity.x = 0;
 				}
 			}
+			// If currently still going left, apply right force until it cancels out
 			else {
 				velocity.x += xAcceleration * 2;
-				if (velocity.x > 0) {
+				if (velocity.x >= 0) {
 					velocity.x = 0;
 				}
 			}
 		}
 
-		//Checks if the Player is touching the Ceiling
+		//Checks if the Player is touching the ceiling
 		if (IsOnCeiling()) {
-			//Stops Player's vertial movement
+			// Stops Player's vertial movement
 			velocity.y = 0;
 		}
 
@@ -225,14 +264,12 @@ public class Player : KinematicBody2D
 		velocity.y += gravity;
 
 		//Checks if the Player is on the Floor
-		if (IsOnFloor() && !wallClimbing)
-		{
+		if (IsOnFloor() && !wallClimbing) {
 			//Resets vertical velocity to 0.01
 			//0.01 instead of 0 because IsOnFloor() does not realize the player isn't on the floor if they don't move after beign called
 			velocity.y = 0.01f;
 			//If the Player is on the floor and pressing the jump key, lets the player jump
-			if (Input.IsActionPressed("move_jump"))
-			{
+			if (Input.IsActionPressed("move_jump")) {
 				velocity.y -= jumpPower;
 			}
 		}
@@ -247,6 +284,9 @@ public class Player : KinematicBody2D
 		//"false, 4, 0.78598f" are default values
 		//Last argument is for infinite_inertia, We turn this off so environment can be interacted with
 		MoveAndSlide(velocity, floor, false, 4, 0.785398f, false);
+		
+		
+		updateDMenu();
 	}
 
 	//Changes the Character's animations
@@ -299,6 +339,23 @@ public class Player : KinematicBody2D
 			PPInstance.Position = GetNode<Position2D>("ProjectilePosition").GlobalPosition;
 			//Adds the instanced attack to the main scene
 			GetParent().AddChild(PPInstance);
+		}
+	}
+	
+	public void updateDMenu() {
+		Sprite playerSprite = GetNode<Sprite>("Sprite");
+		Pos.Text = "POS: " + "(X: " + playerSprite.GlobalPosition.x.ToString() + ", Y: " + playerSprite.GlobalPosition.y.ToString() + ")";
+		XVelocity.Text = "XVel: " + velocity.x.ToString();
+		YVelocity.Text = "YVel: " + velocity.y.ToString();
+		IsAttacking.Text = "Attacking: " + (shotTimePassed > 0).ToString();
+		IsWallJumping.Text = "WallJumping: " + wallJumping.ToString();
+		IsWallClimbing.Text = "WallClimbing: " + wallClimbing.ToString();
+		IsOnWall.Text = "OnWall: " + IsOnWall().ToString();
+		IsOnFloor.Text = "OnFloor: " + IsOnFloor().ToString();
+		IsOnCeiling.Text = "OnCeiling: " + IsOnCeiling().ToString();
+		
+		if (Input.IsActionJustPressed("ui_debug")) {
+			DebugMenu.Visible = !DebugMenu.Visible;
 		}
 	}
 }

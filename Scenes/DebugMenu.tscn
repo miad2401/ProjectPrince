@@ -1,0 +1,86 @@
+[gd_scene load_steps=4 format=2]
+
+[sub_resource type="Theme" id=1]
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.243137, 0.235294, 0.278431, 0.447059 )
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_detail = 20
+expand_margin_left = 6.0
+expand_margin_right = 6.0
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.243137, 0.235294, 0.278431, 0.447059 )
+
+[node name="DebugMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="TabContainer" type="TabContainer" parent="."]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 242.0
+margin_bottom = 145.0
+theme = SubResource( 1 )
+custom_styles/tab_fg = SubResource( 2 )
+custom_styles/panel = SubResource( 3 )
+
+[node name="Player" type="Tabs" parent="TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 24.0
+
+[node name="Left" type="VBoxContainer" parent="TabContainer/Player"]
+margin_top = 2.0
+margin_right = 114.0
+margin_bottom = 119.0
+
+[node name="Position" type="Label" parent="TabContainer/Player/Left"]
+margin_right = 114.0
+margin_bottom = 14.0
+
+[node name="XVelocity" type="Label" parent="TabContainer/Player/Left"]
+margin_top = 18.0
+margin_right = 114.0
+margin_bottom = 32.0
+
+[node name="YVelocity" type="Label" parent="TabContainer/Player/Left"]
+margin_top = 36.0
+margin_right = 114.0
+margin_bottom = 50.0
+
+[node name="IsAttacking" type="Label" parent="TabContainer/Player/Left"]
+margin_top = 54.0
+margin_right = 114.0
+margin_bottom = 68.0
+
+[node name="IsWallJumping" type="Label" parent="TabContainer/Player/Left"]
+margin_top = 72.0
+margin_right = 114.0
+margin_bottom = 86.0
+
+[node name="IsWallClimbing" type="Label" parent="TabContainer/Player/Left"]
+margin_top = 90.0
+margin_right = 114.0
+margin_bottom = 104.0
+
+[node name="Right" type="VBoxContainer" parent="TabContainer/Player"]
+margin_left = 123.0
+margin_top = 18.0
+margin_right = 239.0
+margin_bottom = 119.0
+
+[node name="IsOnWall" type="Label" parent="TabContainer/Player/Right"]
+margin_right = 116.0
+margin_bottom = 14.0
+
+[node name="IsOnFloor" type="Label" parent="TabContainer/Player/Right"]
+margin_top = 18.0
+margin_right = 116.0
+margin_bottom = 32.0
+
+[node name="IsOnCeiling" type="Label" parent="TabContainer/Player/Right"]
+margin_top = 36.0
+margin_right = 116.0
+margin_bottom = 50.0
