@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scenes/Environment.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/EnvironmentTools/MovableObject.tscn" type="PackedScene" id=2]
@@ -8,8 +8,13 @@
 [ext_resource path="res://Art/Fonts/Size8PBW.tres" type="DynamicFont" id=6]
 [ext_resource path="res://Scenes/EnvironmentTools/DeathField.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/EnvironmentTools/Ladder.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Art/Placeholder Art/Sprites/08-Box/Idle.png" type="Texture" id=9]
+[ext_resource path="res://Scenes/EnvironmentTools/TransitionField.tscn" type="PackedScene" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 10.5, 10 )
+
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 9, 11 )
 
 [node name="Level1" type="Control"]
@@ -17,7 +22,7 @@ margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
-position = Vector2( -981, 148 )
+position = Vector2( -971, 143 )
 collision/safe_margin = 0.001
 climbPower = 100
 
@@ -25,15 +30,29 @@ climbPower = 100
 z_index = -5
 
 [node name="BaseEnemy" parent="." instance=ExtResource( 4 )]
-position = Vector2( -915, 137 )
+position = Vector2( -771, 94 )
 z_index = -1
 hurtPlayer = true
 
-[node name="MovableObject" parent="." instance=ExtResource( 2 )]
-position = Vector2( -885, 146 )
+[node name="MovableObject3" type="RigidBody2D" parent="." groups=["MoveableObject"]]
+position = Vector2( -992, 120 )
+mass = 0.5
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="MovableObject3"]
+position = Vector2( 0, -2 )
+scale = Vector2( 1, 1.25 )
+texture = ExtResource( 9 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MovableObject3"]
+visible = false
+position = Vector2( -0.5, -2 )
+shape = SubResource( 1 )
 
 [node name="MovableObject2" parent="." instance=ExtResource( 2 )]
-position = Vector2( -884, 116 )
+position = Vector2( -902, 150 )
 
 [node name="PopUpHint" type="Control" parent="."]
 margin_left = -143.0
@@ -130,10 +149,10 @@ align = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PopUpHint/HintArea2D"]
 position = Vector2( 5, 6 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="Ladder" parent="." instance=ExtResource( 8 )]
-position = Vector2( -1025, 121 )
+position = Vector2( -990, 136 )
 
 [node name="Ladder2" parent="." instance=ExtResource( 8 )]
 position = Vector2( -1054, 136 )
@@ -150,9 +169,12 @@ hurtPlayer = true
 hurtEnemy = true
 
 [node name="BaseEnemy2" parent="." instance=ExtResource( 4 )]
-position = Vector2( -920, 117 )
+position = Vector2( -755, 101 )
 z_index = -1
 hurtPlayer = true
+
+[node name="TransitionField" parent="." instance=ExtResource( 10 )]
+position = Vector2( -1148, 132 )
 
 [connection signal="body_entered" from="PopUpHint/HintArea2D" to="PopUpHint" method="OnHintArea2DBodyEntered"]
 [connection signal="body_exited" from="PopUpHint/HintArea2D" to="PopUpHint" method="OnHintArea2DBodyExited"]

@@ -5,10 +5,12 @@ public class PauseMenu : Control
 {
 	//Creates a signal to connect to another script
 	[Signal] public delegate void ReloadCurrentLevel();
+	[Signal] public delegate void ChangeLevel(Level nLevel);
 
 	[Export] public float ResetLength; //Time needed to reset Level
 	[Export] public float DeathLength; //Time needed to fade to black when dead
-	[Export] public float RespawnLength; //Time needed to respawn button to appear after faded to black
+	[Export] public float RespawnLength; //Time needed for respawn button to appear after faded to black
+	[Export] public float TransitionLength; //Time needed for Transition to appear then fade
 
 	// keep track of whether or not to pause game
 	bool paused = false;
@@ -16,22 +18,30 @@ public class PauseMenu : Control
 	bool changeable = true;
 	//Value of how faded the black fade-in is
 	float deathProgress = 0;
+	float transitionProgress = 0;
 	float respawnProgress = 0;
 	//Keeps track on if the player died
 	bool playerDied = false;
+	bool transitioning = false;
+	bool fadeIn = true;
 	//Keeps track of how long the reset button has been held down for
 	float resetHeld = 0f;
+	Level nextLevel;
 
 	Panel ResetProgress;
 	CenterContainer PauseCenterContainer;
 	Panel DeathPanel;
+	Panel TransitionPanel;
 	Button RespawnButton;
 	Button RestartButton;
 	public override void _Ready()
 	{
 		//Connects the ReloadCurrentLevel Signal to Main, causing Main's ReloadCurrentLevel method to run when called
 		Connect(nameof(ReloadCurrentLevel), GetNode("/root/Main"), "ReloadCurrentLevel");
+		Connect(nameof(ChangeLevel), GetNode("/root/Main"), "NextLevel");
 
+		//Adds reference to TransitionPanel Panel
+		TransitionPanel = GetNode<Panel>("TransitionPanel");
 		//Adds reference to ResetProgress Panel
 		ResetProgress = GetNode<Panel>("ResetProgress");
 		//Adds reference to CenterContainer PauseCenterContainer
@@ -55,7 +65,6 @@ public class PauseMenu : Control
 				paused = !paused;
 				Pause();
 			}
-			/*
 			//Checks if the reset button is pressed and that the player is not in a menu
 			if (Input.IsActionPressed("ui_reset") && !PauseCenterContainer.Visible)
 			{
@@ -67,7 +76,7 @@ public class PauseMenu : Control
 				if (resetHeld > ResetLength)
 				{
 					//Calls Reset method
-					_on_RestartButton_pressed(true);
+					_on_RestartButton_pressed();
 					//Resets held time
 					resetHeld = 0;
 					//Makes ResetProgress invisible again
@@ -80,7 +89,7 @@ public class PauseMenu : Control
 				resetHeld = 0;
 				//Makes ResetProgress invisible again
 				ResetProgress.Modulate = new Color(1, 1, 1, 0);
-			} */
+			}
 		}
 		//If player cannot unpause the game and the player is in the deathscreen
 		else if (playerDied)
@@ -98,6 +107,29 @@ public class PauseMenu : Control
 				RespawnButton.Modulate = new Color(1, 1, 1, respawnProgress * (1 / RespawnLength));
 			}
 		}
+        else if (transitioning)
+        {
+			transitionProgress += delta;
+			if(fadeIn)
+            {
+				TransitionPanel.Modulate = new Color(1, 1, 1, transitionProgress * (1 / TransitionLength));
+				if((transitionProgress * (1 / TransitionLength)) > 1)
+                {
+					fadeIn = false;
+					ChangeNextLevel();
+					GetTree().Paused = false;
+				}
+			}
+            else
+            {
+				TransitionPanel.Modulate = new Color(1, 1, 1, 2 - transitionProgress * (1 / TransitionLength));
+				if (2 - transitionProgress * (1 / TransitionLength) < 0)
+				{
+					fadeIn = true;
+					ResetVariables();
+				}
+			}
+		}
 	}
 	
 	public void Pause() {
@@ -113,6 +145,22 @@ public class PauseMenu : Control
 		GetTree().Paused = paused;
 	}
 	
+	private void ResetVariables()
+    {
+		//Reset all PauseMenu variables
+		DeathPanel.Visible = false;
+		paused = false;
+		changeable = true;
+		playerDied = false;
+		transitioning = false;
+		transitionProgress = 0;
+		fadeIn = true;
+		respawnProgress = 0;
+		deathProgress = 0;
+		DeathPanel.Modulate = new Color(1, 1, 1, 0);
+		RespawnButton.Modulate = new Color(1, 1, 1, 0);
+	}
+
 	private void _on_ResumeButton_pressed() {
 	// when resume button is pressed, set pause to false and call func
 		paused = false;
@@ -143,15 +191,7 @@ public class PauseMenu : Control
 
 	private void _on_RespawnButton_pressed()
 	{
-		//Reset all PauseMenu variables
-		DeathPanel.Visible = false;
-		paused = false;
-		changeable = true;
-		playerDied = false;
-		respawnProgress = 0;
-		deathProgress = 0;
-		DeathPanel.Modulate = new Color(1, 1, 1, 0);
-		RespawnButton.Modulate = new Color(1, 1, 1, 0);
+		ResetVariables();
 		//Unpause the game
 		GetTree().Paused = paused;
 		//Emits the ReloadCurrentLevel signal, causing the ReloadCurrentLevel method to run in Main
@@ -167,6 +207,21 @@ public class PauseMenu : Control
 		GetTree().Paused = paused;
 		playerDied = true;
 	}
+
+	private void TransitionFade(Level nLevel)
+    {
+		nextLevel = nLevel;
+		TransitionPanel.Visible = true;
+		paused = true;
+		changeable = false;
+		GetTree().Paused = paused;
+		transitioning = true;
+	}
+
+	private void ChangeNextLevel()
+    {
+		EmitSignal(nameof(ChangeLevel), nextLevel);
+    }
 }
 
 

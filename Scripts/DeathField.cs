@@ -19,7 +19,7 @@ public class DeathField : Area2D
 	}
 
 	//If the field is entered, checks if the invading body should be deleted, then deletes then if so
-	public void _on_DeathField_body_entered(Node body)
+	private void _on_DeathField_body_entered(Node body)
 	{
 		//Checks if the touched object was a player and if hurtPlayer is true, if so, sends the PlayerDeath signal
 		if (hurtPlayer && body.IsInGroup("Player"))

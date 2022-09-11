@@ -242,14 +242,14 @@ public class Player : KinematicBody2D
 		else {
 			// If currently still going right, apply left force until it cancels out
 			if (velocity.x > 0) {
-				velocity.x -= xAcceleration * 2;
+				velocity.x -= xAcceleration;
 				if (velocity.x <= 0) {
 					velocity.x = 0;
 				}
 			}
 			// If currently still going left, apply right force until it cancels out
 			else {
-				velocity.x += xAcceleration * 2;
+				velocity.x += xAcceleration;
 				if (velocity.x >= 0) {
 					velocity.x = 0;
 				}

@@ -13,12 +13,19 @@ script = ExtResource( 1 )
 ResetLength = 3.0
 DeathLength = 1.0
 RespawnLength = 2.0
+TransitionLength = 0.5
 
 [node name="Background" type="ColorRect" parent="."]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.0705882, 0.0941176, 0.192157, 0.619608 )
+
+[node name="TransitionPanel" type="Panel" parent="."]
+visible = false
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
 
 [node name="DeathPanel" type="Panel" parent="."]
 visible = false

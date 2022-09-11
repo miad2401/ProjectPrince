@@ -7,6 +7,7 @@ public class Main : Control
 	public PackedScene Level1;
 	public PackedScene Level2;
 	public PackedScene Level3;
+	public PackedScene Level3Indoors;
 	public PackedScene Level4;
 	public PackedScene BossLevel;
 
@@ -14,6 +15,7 @@ public class Main : Control
 	public PackedScene CurrentLevelPackedScene;
 	//Stores the current level as a referenceable node
 	public Control CurrentLevelNode;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -21,6 +23,7 @@ public class Main : Control
 		Level1 = GD.Load<PackedScene>("res://Scenes/Levels/Level1.tscn");
 		Level2 = GD.Load<PackedScene>("res://Scenes/Levels/Level2.tscn");
 		Level3 = GD.Load<PackedScene>("res://Scenes/Levels/Level3.tscn");
+		Level3Indoors = GD.Load<PackedScene>("res://Scenes/Levels/Level3Indoors.tscn");
 		Level4 = GD.Load<PackedScene>("res://Scenes/Levels/Level4.tscn");
 		BossLevel = GD.Load<PackedScene>("res://Scenes/Levels/BossLevel.tscn");
 
@@ -44,36 +47,42 @@ public class Main : Control
 		AddChild(CurrentLevelNode);
 	}
 
-	//Received from _ when it is time to switch to the next level
-	public void NextLevel(String Level)
+	//Received from TransitionField when it is time to switch to the next level
+	public void NextLevel(Level nextLevel)
 	{
 		//Adds the specified Level to the curr. packedScene
-		switch (Level)
+		switch (nextLevel)
 		{
-			case "Level1":
+			case Level.Level1:
 				CurrentLevelPackedScene = Level1;
 				break;
-			case "Level2":
+			case Level.Level2:
 				CurrentLevelPackedScene = Level2;
 				break;
-			case "Level3":
+			case Level.Level3:
 				CurrentLevelPackedScene = Level3;
 				break;
-			case "Level4":
+			case Level.Level3Indoors:
+				CurrentLevelPackedScene = Level3Indoors;
+				break;
+			case Level.Level4:
 				CurrentLevelPackedScene = Level4;
 				break;
-			case "BossLevel":
+			case Level.BossLevel:
 				CurrentLevelPackedScene = BossLevel;
 				break;
 			default:
 				CurrentLevelPackedScene = Level1;
 				break;
 		}
+		
 		//Deletes the current Level when it is safe to do so
 		CurrentLevelNode.QueueFree();
 		//Creates an instance of the next level
 		CurrentLevelNode = CurrentLevelPackedScene.Instance() as Control;
 		//Adds the next Level to the scene (Starts the next level)
-		AddChild(CurrentLevelNode);
+		//CallDeferred so that we don't accidently try to add a child on physics frame
+		//This adds the CurrentLevelNode as a child when it is safe to do so
+		CallDeferred("add_child", CurrentLevelNode);
 	}
 }
