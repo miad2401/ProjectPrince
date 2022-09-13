@@ -16,7 +16,11 @@ public class Player : KinematicBody2D
 	 * pushStrength - The amount of force that is used to push moveableObjects
 	 * wallJumpTime - The maximum amount of time that a player is allowed to wall jump
 	 * wallJumpStrength - The amount of force that is used during a wall jump
+	 * magicJumpPower - Determine how high the player goes when they magic jump
+	 * jumpXDeacceleration - (Not final) Factor that decreases x velocity deacceleration when l/r input stops
 	 *
+	 * jumping - Holds if the player is currently jumping
+	 * magicJumping - Holds if the player has magicJumped
 	 * wallJumping - Holds if the player is currently wall jumping
 	 * canWallJump - Holds if the player is allowed to wall jump
 	 * wallJumpTimePassed - Holds the amount of time since a wall jump has started
@@ -40,7 +44,12 @@ public class Player : KinematicBody2D
 	[Export] int pushStrength;
 	[Export] float wallJumpTime;
 	[Export] int wallJumpStrength;
+	[Export] int magicJumpPower;
+	[Export] float jumpXDeacceleration;
 
+	
+	bool jumping = false;
+	bool magicJumping = false;
 	bool wallJumping = false;
 	bool canWallJump = true;
 	float wallJumpTimePassed = 0f;
@@ -137,10 +146,14 @@ public class Player : KinematicBody2D
 				canWallJump = false;
 			}
 		}
-
-		// Check if player is currently walljumping
+		
+		
+		/*** Walljumping delay check ***/
+		// Used to put a buffer between when the player jumps off a wall and when the L/R keys receive input
+		// Prevents a sort of stutter where the player will immediately turn back around from a walljump due to still having key pressed
+		// Player is currently wallJumping
 		if (wallJumping) {
-			// If so, increase time passed timer
+			// Increase time passed timer
 			wallJumpTimePassed += delta;
 			// If the timer has passed the amount of time a wall jump takes
 			if (wallJumpTimePassed >= wallJumpTime) {
@@ -150,7 +163,7 @@ public class Player : KinematicBody2D
 				wallJumpTimePassed = 0f;
 			}
 		}
-
+		
 		//If ran into wall, stops the player from accelerating into the wall
 		if (IsOnWall()) {
 			velocity.x = 0;
@@ -158,11 +171,12 @@ public class Player : KinematicBody2D
 
 		//Checks if the left arrowkey is pressed
 		if (Input.IsActionPressed("move_left")) {
-			// If the player is moving left INTO a wall, not currently wall jumping, taps space, 
+			// If the player is moving left INTO a wall, not currently wall jumping, taps jump, 
 			// and is falling/jumping, wall jump
-			if (canWallJump && IsOnWall() && !wallJumping && Input.IsActionJustPressed("move_jump") && velocity.y != 0.01f) {
+			if (canWallJump && IsOnWall() && Input.IsActionJustPressed("move_jump") && velocity.y != 0.01f) {
 				// Set walljumping tag to true
 				wallJumping = true;
+				jumping = true;
 				// Flip direction
 				direction.x = -direction.x;
 				// Flip sprite
@@ -198,11 +212,13 @@ public class Player : KinematicBody2D
 		}
 		//Checks if the right arrowkey is pressed
 		else if (Input.IsActionPressed("move_right")) {
-			// If the player is moving right INTO a wall, not currently wall jumping, taps space, 
+			// If the player is moving right INTO a wall, not currently wall jumping, taps jump, 
+			// If the player is moving right INTO a wall, not currently wall jumping, taps jump, 
 			// and is falling/jumping, wall jump
-			if (canWallJump && IsOnWall() && !wallJumping && Input.IsActionJustPressed("move_jump") && velocity.y != 0.01f) {
+			if (canWallJump && IsOnWall() && Input.IsActionJustPressed("move_jump") && velocity.y != 0.01f) {
 				// Set walljumping tag to true
 				wallJumping = true;
+				jumping = true;
 				// Flip direction
 				direction.x = -direction.x;
 				// Flip sprite based off new direction
@@ -237,24 +253,39 @@ public class Player : KinematicBody2D
 			}
 		}
 		//If neither left/right key has been pressed (player not being told to move), 
-		//slows down character's x velocity 2x as fast as the player accelerates
+		//Slows down character's x velocity
 		//This makes stopping l/r movement seem more smooth and natural
 		else {
 			// If currently still going right, apply left force until it cancels out
 			if (velocity.x > 0) {
-				velocity.x -= xAcceleration;
+				// If player is currently jumping, divide the added force to slow down slower (for better realistic feel)
+				//TODO: Take into account y velocity for divide factor
+				velocity.x -= (jumping ? (xAcceleration/jumpXDeacceleration) : xAcceleration);
 				if (velocity.x <= 0) {
 					velocity.x = 0;
 				}
 			}
 			// If currently still going left, apply right force until it cancels out
 			else {
-				velocity.x += xAcceleration;
+				// If player is currently jumping, divide the added force to slow down slower (for better realistic feel)
+				//TODO: Take into account y velocity for divide factor
+				velocity.x += (jumping ? (xAcceleration/jumpXDeacceleration) : xAcceleration);
 				if (velocity.x >= 0) {
 					velocity.x = 0;
 				}
 			}
 		}
+		
+		// If player is currently jumping, and hasn't already magicJumped
+		if (jumping && !magicJumping) {
+			// Check for input
+			if (Input.IsActionPressed("move_magicJump")) {
+				// Magic jump
+				magicJumping = true;
+				velocity.y = -magicJumpPower;
+			}
+		}
+		
 
 		//Checks if the Player is touching the ceiling
 		if (IsOnCeiling()) {
@@ -270,9 +301,14 @@ public class Player : KinematicBody2D
 			//Resets vertical velocity to 0.01
 			//0.01 instead of 0 because IsOnFloor() does not realize the player isn't on the floor if they don't move after beign called
 			velocity.y = 0.01f;
+			// Reset jumping flags
+			jumping = false;
+			magicJumping = false;
+			wallJumping = false;
 			//If the Player is on the floor and pressing the jump key, lets the player jump
 			if (Input.IsActionPressed("move_jump")) {
 				velocity.y -= jumpPower;
+				jumping = true;
 			}
 		}
 
@@ -287,7 +323,7 @@ public class Player : KinematicBody2D
 		//Last argument is for infinite_inertia, We turn this off so environment can be interacted with
 		MoveAndSlide(velocity, floor, false, 4, 0.785398f, false);
 		
-		
+		// Update debug menu
 		updateDMenu();
 	}
 

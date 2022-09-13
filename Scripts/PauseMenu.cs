@@ -107,21 +107,21 @@ public class PauseMenu : Control
 				RespawnButton.Modulate = new Color(1, 1, 1, respawnProgress * (1 / RespawnLength));
 			}
 		}
-        else if (transitioning)
-        {
+		else if (transitioning)
+		{
 			transitionProgress += delta;
 			if(fadeIn)
-            {
+			{
 				TransitionPanel.Modulate = new Color(1, 1, 1, transitionProgress * (1 / TransitionLength));
 				if((transitionProgress * (1 / TransitionLength)) > 1)
-                {
+				{
 					fadeIn = false;
 					ChangeNextLevel();
 					GetTree().Paused = false;
 				}
 			}
-            else
-            {
+			else
+			{
 				TransitionPanel.Modulate = new Color(1, 1, 1, 2 - transitionProgress * (1 / TransitionLength));
 				if (2 - transitionProgress * (1 / TransitionLength) < 0)
 				{
@@ -146,7 +146,7 @@ public class PauseMenu : Control
 	}
 	
 	private void ResetVariables()
-    {
+	{
 		//Reset all PauseMenu variables
 		DeathPanel.Visible = false;
 		paused = false;
@@ -209,7 +209,7 @@ public class PauseMenu : Control
 	}
 
 	private void TransitionFade(Level nLevel)
-    {
+	{
 		nextLevel = nLevel;
 		TransitionPanel.Visible = true;
 		paused = true;
@@ -219,9 +219,9 @@ public class PauseMenu : Control
 	}
 
 	private void ChangeNextLevel()
-    {
+	{
 		EmitSignal(nameof(ChangeLevel), nextLevel);
-    }
+	}
 }
 
 

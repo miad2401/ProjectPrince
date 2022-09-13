@@ -25,6 +25,9 @@ margin_bottom = 40.0
 position = Vector2( -971, 143 )
 collision/safe_margin = 0.001
 climbPower = 100
+wallJumpTime = 0.35
+magicJumpPower = 300
+jumpXDeacceleration = 4.0
 
 [node name="Environment" parent="." instance=ExtResource( 1 )]
 z_index = -5
