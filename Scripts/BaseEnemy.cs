@@ -1,34 +1,23 @@
 using Godot;
 using System;
 
-public class BaseEnemy : KinematicBody2D
+public abstract class BaseEnemy : KinematicBody2D
 {
 
-	/*
-	 * All of these variables can be changed within the editor, but are not changed within the script
-	 * 
-	 * hurtPlayer - If true, kills player when touched
-	 * hSpeed - Determines the speed the enemy can go left/right
-	 * vSpeed - Determines the Max speed the enemy can go up/down
-	 * jumpPower - Determines how high the enemy goes when they jump
-	 * gravity - pulls the enemy down at a constant rate
-	 */
-	[Export] bool hurtPlayer;
-	[Export] int hSpeed;
-	[Export] int maxVSpeed;
-	[Export] int jumpPower;
-	[Export] int gravity;
-	[Export] int pushStrength;
-	//for direction, true is right, false is left
-	[Export] bool direction = false;
+	/* 
+	 * Export - Changed within Godot editor itself
+     * bool hurtPlayer - If true, kills player when touched
+     * Direction direction - The Direction the enemy last moved towards
+     * Vector2 velocity - The x and y movement of the enemy
+     * Vector2 floor - Shows where the floor is, used for MoveAndSlide()
+     */
+	[Export] protected bool hurtPlayer;
+	[Export] protected Direction direction;
+	protected Vector2 velocity = new Vector2();
+	protected Vector2 floor = new Vector2(0, -1);
 
 	//Signal that tells the PauseMenu if the player died
 	[Signal] public delegate void PlayerDeath();
-
-	//velocity is the Velocity of the enemy. It is a Vector2, meaning it contains 2 variables, x and y. 
-	Vector2 velocity = new Vector2();
-	//Used to determine what direction is up/down/left/right
-	Vector2 floor = new Vector2(0, -1);
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -47,73 +36,7 @@ public class BaseEnemy : KinematicBody2D
 		AnimateEnemy();
 	}
 
-	public void MoveEnemy(float delta)
-	{
-		//Interaction with movable Objects and Players
-		//Gets the number of "Slides" and checks each one
-		for (int i = 0; i < GetSlideCount(); i++)
-		{
-			//Sets the collision as a variable
-			KinematicCollision2D collision = GetSlideCollision(i);
-			//After Reset, the Collider is sometimes null, so check for it
-			if (collision.Collider == null)
-			{
-				//If the collision is empty, skips to next collision
-				continue;
-			}
-			//Checks if collided with the Player
-			else if((collision.Collider as Node).IsInGroup("Player"))
-			{
-				//If the enemy can hurt the player, calls the PlayerDeath signal
-				if (hurtPlayer)
-				{
-					EmitSignal(nameof(PlayerDeath));
-				}
-			}
-			//Makes sure the Object collided with is moveable
-			else if ((collision.Collider as Node).IsInGroup("MoveableObject"))
-			{
-				//Sets the moving object as a variable
-				RigidBody2D moveableObject = collision.Collider as RigidBody2D;
-				//Sets a directional Impulse
-				moveableObject.ApplyCentralImpulse(-collision.Normal * pushStrength);
-			}
-		}
-
-		//If ran into wall, flips the enemy to head the other direction
-		if (IsOnWall())
-		{
-			direction = !direction;
-		}
-
-		//Checks what direction the enemy is facing, and moves forward that direction
-		if (direction)
-		{
-			velocity.x = hSpeed;
-		}
-		else
-		{
-			velocity.x = -hSpeed;
-		}
-
-		//Checks if the Enemy is touching the Ceiling
-		if (IsOnCeiling())
-		{
-			//Stops Enemy's vertial movement
-			velocity.y = 0;
-
-		}
-
-		//Apply the force of gravity
-		velocity.y += gravity;
-
-		//Checks if the Enemy is on the Floor
-		if (IsOnFloor())
-		{
-			//Changes Enemy Velocity upwards to make them jump
-			velocity.y = -jumpPower;
-		}
-	}
+	public abstract void MoveEnemy(float delta);
 
 	public void AnimateEnemy()
 	{
@@ -134,16 +57,6 @@ public class BaseEnemy : KinematicBody2D
 			//Changes direction of the animation based on the velocity
 			animationTree.Set("parameters/Idle/blend_position", velocity);
 			animationTree.Set("parameters/Walk/blend_position", velocity);
-
-			//Verticy velocity is limited by the maxVSpeed
-			//These values can be changed within the editor
-			velocity.y = Math.Min(velocity.y, maxVSpeed);
-			velocity.y = Math.Max(velocity.y, -maxVSpeed);
-			//Moves the Enemy according to the velocity and defines what direction to go
-			//"false, 4, 0.78598f" are default values
-			//Last argument is for infinite_inertia, We turn this off so environment can be interacted with
-			MoveAndSlide(velocity, floor, false, 4, 0.785398f, false);
 		}
 	}
-
 }

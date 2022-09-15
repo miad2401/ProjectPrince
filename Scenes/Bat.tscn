@@ -1,9 +1,9 @@
 [gd_scene load_steps=21 format=2]
 
-[ext_resource path="res://Art/Placeholder Art/PlaceholderSpriteSheet2.png" type="Texture" id=1]
-[ext_resource path="res://Scripts/BaseEnemy.cs" type="Script" id=2]
+[ext_resource path="res://Art/Placeholder Art/BatSpriteSheet.png" type="Texture" id=1]
+[ext_resource path="res://Scripts/Bat.cs" type="Script" id=2]
 
-[sub_resource type="CapsuleShape2D" id=1]
+[sub_resource type="CapsuleShape2D" id=25]
 radius = 7.0
 height = 2.0
 
@@ -234,27 +234,24 @@ start_node = "Idle"
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=24]
 
-[node name="BaseEnemy" type="KinematicBody2D" groups=["Enemy"]]
+[node name="Bat" type="KinematicBody2D" groups=["Bat", "Enemy"]]
 collision_layer = 2
-collision_mask = 32771
+collision_mask = 32775
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
 }
+hurtPlayer = true
 hSpeed = 50
-maxVSpeed = 500
-jumpPower = 250
-gravity = 10
-pushStrength = 25
 
 [node name="EnemySprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
-hframes = 24
-frame = 5
+hframes = 8
+frame = 2
 
 [node name="EnemyCollisionBox" type="CollisionShape2D" parent="."]
 visible = false
-shape = SubResource( 1 )
+shape = SubResource( 25 )
 
 [node name="EnemyAnimationPlayer" type="AnimationPlayer" parent="."]
 anims/IdleLeft = SubResource( 2 )

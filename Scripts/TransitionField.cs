@@ -1,18 +1,6 @@
 using Godot;
 using System;
 
-//Enum for level select
-
-public enum Level
-{
-    Level1,
-    Level2,
-    Level3,
-    Level3Indoors,
-    Level4,
-    BossLevel
-}
-
 public class TransitionField : Area2D
 {
     //Change values in editor, not in code

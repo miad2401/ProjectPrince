@@ -282,15 +282,17 @@ collision_layer = 32768
 collision_mask = 32769
 script = ExtResource( 2 )
 xAcceleration = 10
-maxHSpeed = 125
+maxHSpeed = 150
 maxVSpeed = 500
-jumpPower = 175
-climbPower = 50
+jumpPower = 240
+climbPower = 100
 gravity = 10
 shotDelay = 0.5
 pushStrength = 5
-wallJumpTime = 0.2
+wallJumpTime = 0.35
 wallJumpStrength = 12
+magicJumpPower = 300
+jumpXDeacceleration = 4.0
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0, -2 )

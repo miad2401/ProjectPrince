@@ -1,7 +1,7 @@
 [gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Art/Placeholder Art/PlaceholderSpriteSheet2.png" type="Texture" id=1]
-[ext_resource path="res://Scripts/BaseEnemy.cs" type="Script" id=2]
+[ext_resource path="res://Scripts/Knight.cs" type="Script" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 7.0
@@ -234,13 +234,15 @@ start_node = "Idle"
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=24]
 
-[node name="BaseEnemy" type="KinematicBody2D" groups=["Enemy"]]
+[node name="Knight" type="KinematicBody2D" groups=["Enemy"]]
 collision_layer = 2
 collision_mask = 32771
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
 }
+hurtPlayer = true
+direction = 3
 hSpeed = 50
 maxVSpeed = 500
 jumpPower = 250
@@ -250,7 +252,7 @@ pushStrength = 25
 [node name="EnemySprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
 hframes = 24
-frame = 5
+frame = 1
 
 [node name="EnemyCollisionBox" type="CollisionShape2D" parent="."]
 visible = false
