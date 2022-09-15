@@ -3,7 +3,7 @@
 [ext_resource path="res://Scripts/PopUpHint.cs" type="Script" id=1]
 [ext_resource path="res://Art/Fonts/Size8PBW.tres" type="DynamicFont" id=2]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 9, 11 )
 
 [node name="PopUpHint" type="Control"]
@@ -15,7 +15,6 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
-leftText = true
 fadelength = 0.5
 
 [node name="HintContainer" type="Control" parent="."]
@@ -97,7 +96,7 @@ align = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HintArea2D"]
 position = Vector2( 5, 6 )
-shape = SubResource( 1 )
+shape = SubResource( 5 )
 
 [connection signal="body_entered" from="HintArea2D" to="." method="OnHintArea2DBodyEntered"]
 [connection signal="body_exited" from="HintArea2D" to="." method="OnHintArea2DBodyExited"]
