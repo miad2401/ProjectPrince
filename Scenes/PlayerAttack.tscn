@@ -107,6 +107,9 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
 }
+magicSpeed = 3
+swordSpeed = 15
+swordRange = 40
 
 [node name="AttackSprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )

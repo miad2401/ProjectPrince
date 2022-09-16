@@ -435,12 +435,12 @@ __meta__ = {
 }
 
 [node name="Panel" type="Panel" parent="PopUpHint/HintContainer/HintContainerRight"]
-margin_right = 79.0
-margin_bottom = 25.0
+margin_right = 211.0
+margin_bottom = 24.0
 
 [node name="MarginContainer" type="MarginContainer" parent="PopUpHint/HintContainer/HintContainerRight"]
-margin_right = 79.0
-margin_bottom = 25.0
+margin_right = 211.0
+margin_bottom = 24.0
 custom_constants/margin_right = 5
 custom_constants/margin_top = 5
 custom_constants/margin_left = 5
@@ -449,15 +449,15 @@ custom_constants/margin_bottom = 5
 [node name="CenterContainer" type="CenterContainer" parent="PopUpHint/HintContainer/HintContainerRight/MarginContainer"]
 margin_left = 5.0
 margin_top = 5.0
-margin_right = 74.0
-margin_bottom = 20.0
+margin_right = 206.0
+margin_bottom = 19.0
 
 [node name="HintText" type="Label" parent="PopUpHint/HintContainer/HintContainerRight/MarginContainer/CenterContainer"]
-margin_right = 69.0
-margin_bottom = 15.0
+margin_top = 4.0
+margin_right = 201.0
+margin_bottom = 10.0
 custom_fonts/font = ExtResource( 5 )
-text = "Use Space on a wall while
-moving into it to walljump"
+text = "While jumping and moving into a wall, press the jump key again to wall jump!"
 
 [node name="HintContainerLeft" type="MarginContainer" parent="PopUpHint/HintContainer"]
 margin_left = -26.0

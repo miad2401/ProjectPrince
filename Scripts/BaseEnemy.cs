@@ -6,13 +6,13 @@ public abstract class BaseEnemy : KinematicBody2D
 
 	/* 
 	 * Export - Changed within Godot editor itself
-     * bool hurtPlayer - If true, kills player when touched
-     * Direction direction - The Direction the enemy last moved towards
-     * int pushStrength - The amount of force that is used to push moveableObjects
-     * bool pushable - If true, moveableObjects can be moved by this enemy
-     * Vector2 velocity - The x and y movement of the enemy
-     * Vector2 floor - Shows where the floor is, used for MoveAndSlide()
-     */
+	 * bool hurtPlayer - If true, kills player when touched
+	 * Direction direction - The Direction the enemy last moved towards
+	 * int pushStrength - The amount of force that is used to push moveableObjects
+	 * bool pushable - If true, moveableObjects can be moved by this enemy
+	 * Vector2 velocity - The x and y movement of the enemy
+	 * Vector2 floor - Shows where the floor is, used for MoveAndSlide()
+	 */
 	[Export] protected bool hurtPlayer;
 	[Export] protected Direction direction;
 	[Export] protected int pushStrength;
@@ -43,7 +43,7 @@ public abstract class BaseEnemy : KinematicBody2D
 	public abstract void MoveEnemy(float delta);
 
 	public void CheckForCollision()
-    {
+	{
 		//Interaction with movable Objects and Players
 		//Gets the number of "Slides" and checks each one
 		for (int i = 0; i < GetSlideCount(); i++)

@@ -46,7 +46,12 @@ public class Player : KinematicBody2D
 	[Export] int wallJumpStrength;
 	[Export] int magicJumpPower;
 	[Export] float jumpXDeacceleration;
-
+	[Export] float swingDelay;
+	
+	
+	bool currentlySwinging = false;
+	bool swordEquipped = false;
+	bool magicEquipped = true;
 	bool running = false;
 	bool jumping = false;
 	bool magicJumping = false;
@@ -56,6 +61,7 @@ public class Player : KinematicBody2D
 	bool wallClimbing = false;
 	bool canWallClimb = false;
 	float shotTimePassed = 0f;
+	float swingTimePassed = 0f; //Between swings
 
 	Vector2 velocity = new Vector2();
 	Vector2 direction = new Vector2();
@@ -95,7 +101,7 @@ public class Player : KinematicBody2D
 		MoveCharacter(delta);
 
 		//Shoots a projectile
-		Fire(delta);
+		Attack(delta);
 
 		//Changes the Character's animations
 		AnimatePlayer();
@@ -301,7 +307,7 @@ public class Player : KinematicBody2D
 			wallJumping = false;
 			//If the Player is on the floor and pressing the jump key, lets the player jump
 			if (Input.IsActionPressed("move_jump")) {
-				velocity.y -= jumpPower;
+				velocity.y = -jumpPower;
 				jumping = true;
 			}
 		}
@@ -333,6 +339,10 @@ public class Player : KinematicBody2D
 			myANSMP.Travel("Idle");
 			animationTree.Set("parameters/Idle/blend_position", direction.x);
 		}
+		/*else if (currentlySwinging) {
+			myANSMP.Travel("Swing");
+			animationTree.Set("parameters/Swing/blend_position", direction.x);
+		}*/
 		else {
 			//If a key is being pressed, switches to a run animation
 			myANSMP.Travel("Run");
@@ -341,16 +351,29 @@ public class Player : KinematicBody2D
 	}
 
 	//Shoots a projectile from the player
-	public void Fire(float delta) {
-		//Decreases the amount of time left needed to fire a shot
+	public void Attack(float delta) {
+		//Decreases the amount of time left needed to fire a shot/swing sword
 		shotTimePassed -= delta;
-
-		//Checks that the fire key (Space) is pressed and that enough time has passed to fire another shot
-		if (Input.IsActionPressed("attack") && shotTimePassed < 0) {
-			//Resets the shot cooldown
-			shotTimePassed = shotDelay;
+		swingTimePassed -= delta;
+		if (Input.IsActionJustPressed("weapon_cycle")) {
+			magicEquipped = !magicEquipped;
+			swordEquipped = !swordEquipped;
+		}
+		//Checks that the fire key (Space) is pressed and that enough time has passed to fire another shot/swing sword
+		if (Input.IsActionPressed("attack") && ((shotTimePassed <= 0 && magicEquipped) || (swingTimePassed <= 0 && swordEquipped))) {
+			
 			//Creates an instance of the PlayerAttack
 			RigidBody2D PPInstance = PlayerProjectilePath.Instance() as RigidBody2D;
+			if (magicEquipped) {
+				shotTimePassed = shotDelay;
+				PPInstance.GetNode<Sprite>("AttackSprite").Visible = true;
+				currentlySwinging = false;
+			}
+			else {
+				swingTimePassed = swingDelay;
+				PPInstance.GetNode<Sprite>("AttackSprite").Visible = false;
+				currentlySwinging = true;
+			}
 			//Finds the position of the Player's ProjectilePosition node
 			//This is used to determine where to spawn the shot
 			Position2D p2D = GetNode<Position2D>("ProjectilePosition");
@@ -376,6 +399,7 @@ public class Player : KinematicBody2D
 		}
 	}
 	
+	// debug menu
 	public void updateDMenu() {
 		Sprite playerSprite = GetNode<Sprite>("Sprite");
 		Pos.Text = "POS: " + "(X: " + playerSprite.GlobalPosition.x.ToString() + ", Y: " + playerSprite.GlobalPosition.y.ToString() + ")";
