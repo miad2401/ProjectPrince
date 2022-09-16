@@ -16,12 +16,3 @@ C:\Users\Thingys\Desktop\ProjectPrince\.mono\temp\obj\Debug\Project Prince.Assem
 C:\Users\Thingys\Desktop\ProjectPrince\.mono\temp\obj\Debug\Project Prince.csproj.CoreCompileInputs.cache
 C:\Users\Thingys\Desktop\ProjectPrince\.mono\temp\obj\Debug\Project Prince.dll
 C:\Users\Thingys\Desktop\ProjectPrince\.mono\temp\obj\Debug\Project Prince.pdb
-C:\Users\Thingys\Desktop\ProjectPrince-main\.mono\temp\bin\Debug\Project Prince.dll
-C:\Users\Thingys\Desktop\ProjectPrince-main\.mono\temp\bin\Debug\Project Prince.pdb
-C:\Users\Thingys\Desktop\ProjectPrince-main\.mono\temp\obj\Debug\Project Prince.csproj.AssemblyReference.cache
-C:\Users\Thingys\Desktop\ProjectPrince-main\.mono\temp\obj\Debug\Project Prince.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Thingys\Desktop\ProjectPrince-main\.mono\temp\obj\Debug\Project Prince.AssemblyInfoInputs.cache
-C:\Users\Thingys\Desktop\ProjectPrince-main\.mono\temp\obj\Debug\Project Prince.AssemblyInfo.cs
-C:\Users\Thingys\Desktop\ProjectPrince-main\.mono\temp\obj\Debug\Project Prince.csproj.CoreCompileInputs.cache
-C:\Users\Thingys\Desktop\ProjectPrince-main\.mono\temp\obj\Debug\Project Prince.dll
-C:\Users\Thingys\Desktop\ProjectPrince-main\.mono\temp\obj\Debug\Project Prince.pdb
