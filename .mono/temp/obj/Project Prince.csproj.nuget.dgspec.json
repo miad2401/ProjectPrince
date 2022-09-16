@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Documents\\GitHub\\ProjectPrince\\Project Prince.csproj": {}
+    "D:\\Work\\Game Making\\Project Prince\\ProjectPrince\\Project Prince.csproj": {}
   },
   "projects": {
-    "D:\\Documents\\GitHub\\ProjectPrince\\Project Prince.csproj": {
+    "D:\\Work\\Game Making\\Project Prince\\ProjectPrince\\Project Prince.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Documents\\GitHub\\ProjectPrince\\Project Prince.csproj",
+        "projectUniqueName": "D:\\Work\\Game Making\\Project Prince\\ProjectPrince\\Project Prince.csproj",
         "projectName": "Project Prince",
-        "projectPath": "D:\\Documents\\GitHub\\ProjectPrince\\Project Prince.csproj",
-        "packagesPath": "C:\\Users\\Thingys\\.nuget\\packages\\",
-        "outputPath": "D:\\Documents\\GitHub\\ProjectPrince\\.mono\\temp\\obj\\",
+        "projectPath": "D:\\Work\\Game Making\\Project Prince\\ProjectPrince\\Project Prince.csproj",
+        "packagesPath": "C:\\Users\\miad2\\.nuget\\packages\\",
+        "outputPath": "D:\\Work\\Game Making\\Project Prince\\ProjectPrince\\.mono\\temp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Thingys\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\miad2\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net472"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -37,15 +39,7 @@
       "frameworks": {
         "net472": {
           "targetAlias": "net472",
-          "dependencies": {
-            "Microsoft.NETFramework.ReferenceAssemblies": {
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[1.0.2, )",
-              "autoReferenced": true
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Art/Tilemaps/MasterTileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Scripts/DeathField.cs" type="Script" id=2]
@@ -41,6 +41,9 @@ extents = Vector2( 12, 11 )
 
 [sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 16, 64 )
+
+[sub_resource type="RectangleShape2D" id=13]
+extents = Vector2( 9, 11 )
 
 [node name="Level1" type="Control"]
 margin_right = 40.0
@@ -876,6 +879,105 @@ nextLevel = 1
 position = Vector2( -8, -40 )
 shape = SubResource( 8 )
 
+[node name="PopUpHint2" type="Control" parent="."]
+anchor_left = 0.217
+anchor_top = -2.578
+anchor_right = 0.784
+anchor_bottom = -2.578
+margin_left = 408.32
+margin_top = -1001.88
+margin_right = 395.64
+margin_bottom = -989.88
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_group_": true
+}
+fadelength = 0.1
+
+[node name="HintContainer" type="Control" parent="PopUpHint2"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+
+[node name="HintContainerRight" type="MarginContainer" parent="PopUpHint2/HintContainer"]
+margin_left = 16.0
+margin_top = -40.0
+margin_right = 26.0
+margin_bottom = -16.0
+grow_vertical = 0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Panel" type="Panel" parent="PopUpHint2/HintContainer/HintContainerRight"]
+margin_right = 93.0
+margin_bottom = 24.0
+
+[node name="MarginContainer" type="MarginContainer" parent="PopUpHint2/HintContainer/HintContainerRight"]
+margin_right = 93.0
+margin_bottom = 24.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+
+[node name="CenterContainer" type="CenterContainer" parent="PopUpHint2/HintContainer/HintContainerRight/MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 88.0
+margin_bottom = 19.0
+
+[node name="HintText" type="Label" parent="PopUpHint2/HintContainer/HintContainerRight/MarginContainer/CenterContainer"]
+margin_top = 4.0
+margin_right = 83.0
+margin_bottom = 10.0
+custom_fonts/font = ExtResource( 5 )
+text = "You've gone too far! Turn back!"
+
+[node name="HintContainerLeft" type="MarginContainer" parent="PopUpHint2/HintContainer"]
+visible = false
+margin_left = -26.0
+margin_top = -40.0
+margin_right = -16.0
+margin_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Panel" type="Panel" parent="PopUpHint2/HintContainer/HintContainerLeft"]
+margin_right = 10.0
+margin_bottom = 24.0
+
+[node name="MarginContainer" type="MarginContainer" parent="PopUpHint2/HintContainer/HintContainerLeft"]
+margin_right = 10.0
+margin_bottom = 24.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+
+[node name="CenterContainer" type="CenterContainer" parent="PopUpHint2/HintContainer/HintContainerLeft/MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 5.0
+margin_bottom = 19.0
+
+[node name="HintText" type="Label" parent="PopUpHint2/HintContainer/HintContainerLeft/MarginContainer/CenterContainer"]
+margin_top = 4.0
+margin_bottom = 10.0
+custom_fonts/font = ExtResource( 5 )
+align = 2
+
+[node name="HintArea2D" type="Area2D" parent="PopUpHint2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PopUpHint2/HintArea2D"]
+position = Vector2( 5, 6 )
+shape = SubResource( 13 )
+
 [connection signal="body_entered" from="Movement Instructions/HintArea2D" to="Movement Instructions" method="OnHintArea2DBodyEntered"]
 [connection signal="body_exited" from="Movement Instructions/HintArea2D" to="Movement Instructions" method="OnHintArea2DBodyExited"]
 [connection signal="body_entered" from="Jump Instructions/HintArea2D" to="Jump Instructions" method="OnHintArea2DBodyEntered"]
@@ -894,3 +996,5 @@ shape = SubResource( 8 )
 [connection signal="body_entered" from="Reset Inctructions/HintArea2D" to="Reset Inctructions" method="OnHintArea2DBodyEntered"]
 [connection signal="body_exited" from="Reset Inctructions/HintArea2D" to="Reset Inctructions" method="OnHintArea2DBodyExited"]
 [connection signal="body_entered" from="ToLevel2" to="ToLevel2" method="OnTransitionFieldBodyEntered"]
+[connection signal="body_entered" from="PopUpHint2/HintArea2D" to="PopUpHint2" method="OnHintArea2DBodyEntered"]
+[connection signal="body_exited" from="PopUpHint2/HintArea2D" to="PopUpHint2" method="OnHintArea2DBodyExited"]

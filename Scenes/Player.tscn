@@ -222,7 +222,7 @@ tracks/4/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ true ]
+"values": [ false ]
 }
 tracks/5/type = "value"
 tracks/5/path = NodePath("CollisionPolygon2D:disabled")
@@ -311,7 +311,7 @@ tracks/4/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ true ]
+"values": [ false ]
 }
 tracks/5/type = "value"
 tracks/5/path = NodePath("CollisionPolygon2D:disabled")
@@ -400,14 +400,12 @@ swingDelay = 0.75
 position = Vector2( 0, -2 )
 texture = ExtResource( 1 )
 hframes = 4
-frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 1 )
 shape = ExtResource( 6 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-scale = Vector2( -1, 1 )
 polygon = PoolVector2Array( -7, 22, 7, 22, 8, 2, 8, -2, 17, -15, 12, -19, 7, -15, -5, 2 )
 disabled = true
 
