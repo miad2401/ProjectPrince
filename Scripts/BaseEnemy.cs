@@ -8,11 +8,15 @@ public abstract class BaseEnemy : KinematicBody2D
 	 * Export - Changed within Godot editor itself
      * bool hurtPlayer - If true, kills player when touched
      * Direction direction - The Direction the enemy last moved towards
+     * int pushStrength - The amount of force that is used to push moveableObjects
+     * bool pushable - If true, moveableObjects can be moved by this enemy
      * Vector2 velocity - The x and y movement of the enemy
      * Vector2 floor - Shows where the floor is, used for MoveAndSlide()
      */
 	[Export] protected bool hurtPlayer;
 	[Export] protected Direction direction;
+	[Export] protected int pushStrength;
+	[Export] protected bool pushable;
 	protected Vector2 velocity = new Vector2();
 	protected Vector2 floor = new Vector2(0, -1);
 
@@ -38,25 +42,41 @@ public abstract class BaseEnemy : KinematicBody2D
 
 	public abstract void MoveEnemy(float delta);
 
-	public void AnimateEnemy()
-	{
-		//Finds the child AnimationTree node and sets a references to it to a AnimationTree variable
-		AnimationTree animationTree = GetNode<AnimationTree>("EnemyAnimationTree");
-		//Finds the AnimationNodeStateMachinePlayback resource within the animationTree and sets it to its own variable
-		//Because Godot doesn't allow arguments in the .Get() function, we also must cast it as a AnimationNodeStateMachinePlayback
-		AnimationNodeStateMachinePlayback enemyANSMP = animationTree.Get("parameters/playback") as AnimationNodeStateMachinePlayback;
-		if (velocity == Vector2.Zero)
+	public void CheckForCollision()
+    {
+		//Interaction with movable Objects and Players
+		//Gets the number of "Slides" and checks each one
+		for (int i = 0; i < GetSlideCount(); i++)
 		{
-			//If not moving, switches to an idle animation
-			enemyANSMP.Travel("Idle");
-		}
-		else
-		{
-			//If moving, switches to an walk animation
-			enemyANSMP.Travel("Walk");
-			//Changes direction of the animation based on the velocity
-			animationTree.Set("parameters/Idle/blend_position", velocity);
-			animationTree.Set("parameters/Walk/blend_position", velocity);
+			//Sets the collision as a variable
+			KinematicCollision2D collision = GetSlideCollision(i);
+			//After Reset, the Collider is sometimes null, so check for it
+			if (collision.Collider == null)
+			{
+				//If the collision is empty, skips to next collision
+				continue;
+			}
+			//Checks if collided with the Player
+			else if ((collision.Collider as Node).IsInGroup("Player"))
+			{
+				//If the enemy can hurt the player, calls the PlayerDeath signal
+				if (hurtPlayer)
+				{
+					EmitSignal(nameof(PlayerDeath));
+					//Used to make sure PlayerDeath isn't called twice
+					hurtPlayer = false;
+				}
+			}
+			//Makes sure the Object collided with is moveable
+			else if (pushable && (collision.Collider as Node).IsInGroup("MoveableObject"))
+			{
+				//Sets the moving object as a variable
+				RigidBody2D moveableObject = collision.Collider as RigidBody2D;
+				//Sets a directional Impulse
+				moveableObject.ApplyCentralImpulse(-collision.Normal * pushStrength);
+			}
 		}
 	}
+
+	public abstract void AnimateEnemy();
 }

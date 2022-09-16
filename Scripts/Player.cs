@@ -47,7 +47,7 @@ public class Player : KinematicBody2D
 	[Export] int magicJumpPower;
 	[Export] float jumpXDeacceleration;
 
-	
+	bool running = false;
 	bool jumping = false;
 	bool magicJumping = false;
 	bool wallJumping = false;
@@ -110,6 +110,7 @@ public class Player : KinematicBody2D
 		//updated every frame
 		canWallJump = true;
 		canWallClimb = false;
+		running = false;
 		
 		//Interaction with movable Objects
 		//Gets the number of "Slides" and checks each one
@@ -171,6 +172,7 @@ public class Player : KinematicBody2D
 
 		//Checks if the left arrowkey is pressed
 		if (Input.IsActionPressed("move_left")) {
+			running = true;
 			// If the player is moving left INTO a wall, not currently wall jumping, taps jump, 
 			// and is falling/jumping, wall jump
 			if (canWallJump && IsOnWall() && Input.IsActionJustPressed("move_jump") && velocity.y != 0.01f) {
@@ -179,8 +181,6 @@ public class Player : KinematicBody2D
 				jumping = true;
 				// Flip direction
 				direction.x = -direction.x;
-				// Flip sprite
-				playerSprite.Scale = new Vector2(direction.x, 1);
 				// Apply x velocity in the new direction, by the force of wallJumpStrength
 				velocity.x += direction.x * (xAcceleration*wallJumpStrength);
 				// Set y velocity to negative jumpPower, allows for chain walljumping
@@ -206,13 +206,11 @@ public class Player : KinematicBody2D
 				}
 				// Set direction to -1 (left)
 				direction.x = -1;
-				// Change sprite to face new direction
-				playerSprite.Scale = new Vector2(direction.x, 1);
 			}
 		}
 		//Checks if the right arrowkey is pressed
 		else if (Input.IsActionPressed("move_right")) {
-			// If the player is moving right INTO a wall, not currently wall jumping, taps jump, 
+			running = true;
 			// If the player is moving right INTO a wall, not currently wall jumping, taps jump, 
 			// and is falling/jumping, wall jump
 			if (canWallJump && IsOnWall() && Input.IsActionJustPressed("move_jump") && velocity.y != 0.01f) {
@@ -221,8 +219,6 @@ public class Player : KinematicBody2D
 				jumping = true;
 				// Flip direction
 				direction.x = -direction.x;
-				// Flip sprite based off new direction
-				playerSprite.Scale = new Vector2(direction.x, 1);
 				// Apply x velocity in the new direction, by the force of wallJumpStrength
 				velocity.x += direction.x * (xAcceleration*wallJumpStrength);
 				// Cancel out current y velocity to allow for chain walljumps
@@ -248,8 +244,6 @@ public class Player : KinematicBody2D
 				}
 				// Set directon to 1 (right)
 				direction.x = 1;
-				// Change sprite to face new direction
-				playerSprite.Scale = new Vector2(direction.x, 1);
 			}
 		}
 		//If neither left/right key has been pressed (player not being told to move), 
@@ -334,13 +328,15 @@ public class Player : KinematicBody2D
 		//Finds the AnimationNodeStateMachinePlayback resource within the animationTree and sets it to its own variable
 		//Because Godot doesn't allow arguments in the .Get() function, we also must cast it as a AnimationNodeStateMachinePlayback
 		AnimationNodeStateMachinePlayback myANSMP = animationTree.Get("parameters/playback") as AnimationNodeStateMachinePlayback;
-		if (velocity.x == 0 && velocity.y == 0.01f) {
+		if (!running && velocity.y == 0.01f) {
 			//If no key is being pressed, switches to an idle animation
 			myANSMP.Travel("Idle");
+			animationTree.Set("parameters/Idle/blend_position", direction.x);
 		}
 		else {
-			//If a key is being pressed, switches to an walk animation
-			myANSMP.Travel("Walk");
+			//If a key is being pressed, switches to a run animation
+			myANSMP.Travel("Run");
+			animationTree.Set("parameters/Run/blend_position", direction.x);
 		}
 	}
 

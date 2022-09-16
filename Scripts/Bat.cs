@@ -11,8 +11,9 @@ public class Bat : BaseEnemy
      */
 
     [Export] private int amplitude;
-    [Export] private int vSpeed;
+    [Export] private float frequency;
     [Export] private int hSpeed;
+    private float timePassed;
 
     /*
      * Inherited Fields
@@ -21,11 +22,45 @@ public class Bat : BaseEnemy
      * Vector2 velocity - The x and y movement of the bat
      * Vector2 floor - Shows where the floor is, used for MoveAndSlide()
      */
+    public override void _Ready()
+    {
+        base._Ready();
+        if (direction == Direction.Left)
+        {
+            hSpeed = -hSpeed;
+        }
+    }
+
+    public override void _PhysicsProcess(float delta)
+    {
+        //Method to move the enemy
+        MoveEnemy(delta);
+    }
 
     public override void MoveEnemy(float delta)
     {
-        velocity.x = 1;
+        timePassed += delta;
+        CheckForCollision();
+        if (IsOnWall())
+        {
+            if(direction == Direction.Left) 
+            { 
+                direction = Direction.Right;
+            }
+            else 
+            { 
+                direction = Direction.Left;
+                hSpeed = -hSpeed;
+            }
+        }
+        velocity.y = (float)(amplitude *Math.Cos(2*Math.PI*frequency*timePassed));
+        velocity.x = hSpeed;
 
         MoveAndSlide(velocity, floor, false, 4, 0.785398f, false);
+    }
+
+    public override void AnimateEnemy()
+    {
+        throw new NotImplementedException();
     }
 }

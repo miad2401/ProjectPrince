@@ -7,15 +7,11 @@ public class Knight : BaseEnemy
 	 * Fields
 	 * int hSpeed - The speed that the knight accelerates horizontally
 	 * int maxVSpeed - The maximum speed that the knight can move vertically
-	 * int jumpPower - The power at which the knight can jump
 	 * int gravity - The constant rate that the knight is pulled towards the ground
-	 * int pushStrength - The amount of force that is used to push moveableObjects
 	 */
 	[Export] private int hSpeed;
 	[Export] private int maxVSpeed;
-	[Export] private int jumpPower;
 	[Export] private int gravity;
-	[Export] private int pushStrength;
 
 	/*
      * Inherited Fields
@@ -27,36 +23,7 @@ public class Knight : BaseEnemy
 
 	public override void MoveEnemy(float delta)
     {
-		//Interaction with movable Objects and Players
-		//Gets the number of "Slides" and checks each one
-		for (int i = 0; i < GetSlideCount(); i++)
-		{
-			//Sets the collision as a variable
-			KinematicCollision2D collision = GetSlideCollision(i);
-			//After Reset, the Collider is sometimes null, so check for it
-			if (collision.Collider == null)
-			{
-				//If the collision is empty, skips to next collision
-				continue;
-			}
-			//Checks if collided with the Player
-			else if ((collision.Collider as Node).IsInGroup("Player"))
-			{
-				//If the enemy can hurt the player, calls the PlayerDeath signal
-				if (hurtPlayer)
-				{
-					EmitSignal(nameof(PlayerDeath));
-				}
-			}
-			//Makes sure the Object collided with is moveable
-			else if ((collision.Collider as Node).IsInGroup("MoveableObject"))
-			{
-				//Sets the moving object as a variable
-				RigidBody2D moveableObject = collision.Collider as RigidBody2D;
-				//Sets a directional Impulse
-				moveableObject.ApplyCentralImpulse(-collision.Normal * pushStrength);
-			}
-		}
+		CheckForCollision();
 
 		//If ran into wall, flips the enemy to head the other direction
 		if (IsOnWall())
@@ -92,13 +59,10 @@ public class Knight : BaseEnemy
 		//Apply the force of gravity
 		velocity.y += gravity;
 
-		//Checks if the Enemy is on the Floor
-		if (IsOnFloor())
-		{
-			//Changes Enemy Velocity upwards to make them jump
-			velocity.y = -jumpPower;
-		}
-
+        if (IsOnFloor())
+        {
+			velocity.y = 0;
+        }
 		//Verticy velocity is limited by the maxVSpeed
 		//These values can be changed within the editor
 		velocity.y = Math.Min(velocity.y, maxVSpeed);
@@ -107,5 +71,27 @@ public class Knight : BaseEnemy
 		//"false, 4, 0.78598f" are default values
 		//Last argument is for infinite_inertia, We turn this off so environment can be interacted with
 		MoveAndSlide(velocity, floor, false, 4, 0.785398f, false);
+	}
+
+    public override void AnimateEnemy()
+    {
+		//Finds the child AnimationTree node and sets a references to it to a AnimationTree variable
+		AnimationTree animationTree = GetNode<AnimationTree>("EnemyAnimationTree");
+		//Finds the AnimationNodeStateMachinePlayback resource within the animationTree and sets it to its own variable
+		//Because Godot doesn't allow arguments in the .Get() function, we also must cast it as a AnimationNodeStateMachinePlayback
+		AnimationNodeStateMachinePlayback enemyANSMP = animationTree.Get("parameters/playback") as AnimationNodeStateMachinePlayback;
+		if (velocity == Vector2.Zero)
+		{
+			//If not moving, switches to an idle animation
+			enemyANSMP.Travel("Idle");
+		}
+		else
+		{
+			//If moving, switches to an walk animation
+			enemyANSMP.Travel("Walk");
+			//Changes direction of the animation based on the velocity
+			animationTree.Set("parameters/Idle/blend_position", velocity);
+			animationTree.Set("parameters/Walk/blend_position", velocity);
+		}
 	}
 }
