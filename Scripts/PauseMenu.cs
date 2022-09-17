@@ -221,7 +221,7 @@ public class PauseMenu : Control
 	}
 
 	private void PauseFromOutsidePauseMenu(bool outPause)
-    {
+	{
 		paused = outPause;
 		changeable = !outPause;
 		GetTree().Paused = paused;
