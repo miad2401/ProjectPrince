@@ -14,6 +14,8 @@ public class PauseMenu : Control
 
 	// keep track of whether or not to pause game
 	bool paused = false;
+	// keep track of the game has been paused from outside PauseMenu
+	bool outsidePaused = false;
 	//Keeps track if the game is in a changeable state (if it is possible to pause/reset)
 	bool changeable = true;
 	//Value of how faded the black fade-in is
@@ -151,6 +153,7 @@ public class PauseMenu : Control
 		DeathPanel.Visible = false;
 		paused = false;
 		changeable = true;
+		outsidePaused = false;
 		playerDied = false;
 		transitioning = false;
 		transitionProgress = 0;
@@ -202,9 +205,8 @@ public class PauseMenu : Control
 	{
 		//When player dies make the game un-changable-from-the-player, pause the game, and set playerDied to true
 		DeathPanel.Visible = true;
-		paused = true;
-		changeable = false;
-		GetTree().Paused = paused;
+		playerDied = true;
+		PauseFromOutsidePauseMenu(true);
 		playerDied = true;
 	}
 
@@ -218,6 +220,13 @@ public class PauseMenu : Control
 		transitioning = true;
 	}
 
+	private void PauseFromOutsidePauseMenu(bool outPause)
+    {
+		paused = outPause;
+		changeable = !outPause;
+		GetTree().Paused = paused;
+	}
+	
 	private void ChangeNextLevel()
 	{
 		EmitSignal(nameof(ChangeLevel), nextLevel);

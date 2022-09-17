@@ -39,11 +39,11 @@ extents = Vector2( 40, 11 )
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 12, 11 )
 
-[sub_resource type="RectangleShape2D" id=8]
-extents = Vector2( 16, 64 )
-
 [sub_resource type="RectangleShape2D" id=13]
 extents = Vector2( 9, 11 )
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 16, 64 )
 
 [node name="Level1" type="Control"]
 margin_right = 40.0
@@ -867,55 +867,40 @@ position = Vector2( 103, -984 )
 [node name="GroundObj3" parent="Puzzle 1" instance=ExtResource( 6 )]
 position = Vector2( 80, -984 )
 
-[node name="ToLevel2" type="Area2D" parent="."]
-position = Vector2( 1368, -920 )
-script = ExtResource( 8 )
-__meta__ = {
-"_edit_group_": true
-}
-nextLevel = 1
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ToLevel2"]
-position = Vector2( -8, -40 )
-shape = SubResource( 8 )
-
-[node name="PopUpHint2" type="Control" parent="."]
+[node name="GoneTooFar" type="Control" parent="Puzzle 1"]
 anchor_left = 0.217
 anchor_top = -2.578
 anchor_right = 0.784
 anchor_bottom = -2.578
-margin_left = 408.32
-margin_top = -1001.88
-margin_right = 395.64
-margin_bottom = -989.88
+margin_left = 312.84
+margin_top = -408.94
+margin_right = 300.16
+margin_bottom = -396.94
 script = ExtResource( 4 )
-__meta__ = {
-"_edit_group_": true
-}
 fadelength = 0.1
 
-[node name="HintContainer" type="Control" parent="PopUpHint2"]
+[node name="HintContainer" type="Control" parent="Puzzle 1/GoneTooFar"]
 modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 
-[node name="HintContainerRight" type="MarginContainer" parent="PopUpHint2/HintContainer"]
-margin_left = 16.0
-margin_top = -40.0
-margin_right = 26.0
-margin_bottom = -16.0
+[node name="HintContainerRight" type="MarginContainer" parent="Puzzle 1/GoneTooFar/HintContainer"]
+margin_left = -210.74
+margin_top = -29.0
+margin_right = -117.74
+margin_bottom = -5.0
 grow_vertical = 0
 __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Panel" type="Panel" parent="PopUpHint2/HintContainer/HintContainerRight"]
+[node name="Panel" type="Panel" parent="Puzzle 1/GoneTooFar/HintContainer/HintContainerRight"]
 margin_right = 93.0
 margin_bottom = 24.0
 
-[node name="MarginContainer" type="MarginContainer" parent="PopUpHint2/HintContainer/HintContainerRight"]
+[node name="MarginContainer" type="MarginContainer" parent="Puzzle 1/GoneTooFar/HintContainer/HintContainerRight"]
 margin_right = 93.0
 margin_bottom = 24.0
 custom_constants/margin_right = 5
@@ -923,20 +908,20 @@ custom_constants/margin_top = 5
 custom_constants/margin_left = 5
 custom_constants/margin_bottom = 5
 
-[node name="CenterContainer" type="CenterContainer" parent="PopUpHint2/HintContainer/HintContainerRight/MarginContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="Puzzle 1/GoneTooFar/HintContainer/HintContainerRight/MarginContainer"]
 margin_left = 5.0
 margin_top = 5.0
 margin_right = 88.0
 margin_bottom = 19.0
 
-[node name="HintText" type="Label" parent="PopUpHint2/HintContainer/HintContainerRight/MarginContainer/CenterContainer"]
+[node name="HintText" type="Label" parent="Puzzle 1/GoneTooFar/HintContainer/HintContainerRight/MarginContainer/CenterContainer"]
 margin_top = 4.0
 margin_right = 83.0
 margin_bottom = 10.0
 custom_fonts/font = ExtResource( 5 )
 text = "You've gone too far! Turn back!"
 
-[node name="HintContainerLeft" type="MarginContainer" parent="PopUpHint2/HintContainer"]
+[node name="HintContainerLeft" type="MarginContainer" parent="Puzzle 1/GoneTooFar/HintContainer"]
 visible = false
 margin_left = -26.0
 margin_top = -40.0
@@ -948,11 +933,11 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Panel" type="Panel" parent="PopUpHint2/HintContainer/HintContainerLeft"]
+[node name="Panel" type="Panel" parent="Puzzle 1/GoneTooFar/HintContainer/HintContainerLeft"]
 margin_right = 10.0
 margin_bottom = 24.0
 
-[node name="MarginContainer" type="MarginContainer" parent="PopUpHint2/HintContainer/HintContainerLeft"]
+[node name="MarginContainer" type="MarginContainer" parent="Puzzle 1/GoneTooFar/HintContainer/HintContainerLeft"]
 margin_right = 10.0
 margin_bottom = 24.0
 custom_constants/margin_right = 5
@@ -960,23 +945,35 @@ custom_constants/margin_top = 5
 custom_constants/margin_left = 5
 custom_constants/margin_bottom = 5
 
-[node name="CenterContainer" type="CenterContainer" parent="PopUpHint2/HintContainer/HintContainerLeft/MarginContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="Puzzle 1/GoneTooFar/HintContainer/HintContainerLeft/MarginContainer"]
 margin_left = 5.0
 margin_top = 5.0
 margin_right = 5.0
 margin_bottom = 19.0
 
-[node name="HintText" type="Label" parent="PopUpHint2/HintContainer/HintContainerLeft/MarginContainer/CenterContainer"]
+[node name="HintText" type="Label" parent="Puzzle 1/GoneTooFar/HintContainer/HintContainerLeft/MarginContainer/CenterContainer"]
 margin_top = 4.0
 margin_bottom = 10.0
 custom_fonts/font = ExtResource( 5 )
 align = 2
 
-[node name="HintArea2D" type="Area2D" parent="PopUpHint2"]
+[node name="HintArea2D" type="Area2D" parent="Puzzle 1/GoneTooFar"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PopUpHint2/HintArea2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Puzzle 1/GoneTooFar/HintArea2D"]
 position = Vector2( 5, 6 )
 shape = SubResource( 13 )
+
+[node name="ToLevel2" type="Area2D" parent="."]
+position = Vector2( 1368, -920 )
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_group_": true
+}
+nextLevel = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ToLevel2"]
+position = Vector2( -8, -40 )
+shape = SubResource( 8 )
 
 [connection signal="body_entered" from="Movement Instructions/HintArea2D" to="Movement Instructions" method="OnHintArea2DBodyEntered"]
 [connection signal="body_exited" from="Movement Instructions/HintArea2D" to="Movement Instructions" method="OnHintArea2DBodyExited"]
@@ -995,6 +992,6 @@ shape = SubResource( 13 )
 [connection signal="body_exited" from="Ladders Intructions/HintArea2D" to="Ladders Intructions" method="OnHintArea2DBodyExited"]
 [connection signal="body_entered" from="Reset Inctructions/HintArea2D" to="Reset Inctructions" method="OnHintArea2DBodyEntered"]
 [connection signal="body_exited" from="Reset Inctructions/HintArea2D" to="Reset Inctructions" method="OnHintArea2DBodyExited"]
+[connection signal="body_entered" from="Puzzle 1/GoneTooFar/HintArea2D" to="Puzzle 1/GoneTooFar" method="OnHintArea2DBodyEntered"]
+[connection signal="body_exited" from="Puzzle 1/GoneTooFar/HintArea2D" to="Puzzle 1/GoneTooFar" method="OnHintArea2DBodyExited"]
 [connection signal="body_entered" from="ToLevel2" to="ToLevel2" method="OnTransitionFieldBodyEntered"]
-[connection signal="body_entered" from="PopUpHint2/HintArea2D" to="PopUpHint2" method="OnHintArea2DBodyEntered"]
-[connection signal="body_exited" from="PopUpHint2/HintArea2D" to="PopUpHint2" method="OnHintArea2DBodyExited"]

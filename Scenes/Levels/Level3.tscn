@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Art/Tilemaps/MasterTileset.tres" type="TileSet" id=2]
+[ext_resource path="res://Scenes/EnvironmentTools/Note.tscn" type="PackedScene" id=3]
 
 [node name="Level3" type="Control"]
 anchor_right = 1.0
@@ -39,3 +40,9 @@ cell_size = Vector2( 16, 16 )
 collision_layer = 0
 collision_mask = 0
 format = 1
+
+[node name="Note" parent="." instance=ExtResource( 3 )]
+margin_left = 128.0
+margin_top = -93.0
+margin_right = 128.0
+margin_bottom = -93.0

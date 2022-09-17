@@ -27,8 +27,6 @@ public class Player : KinematicBody2D
 	 * wallClimbing - Holds if the player is currently wall climbing
 	 * canWallClimb - Holds if the player can wall climb
 	 * shotTimePassed - The amount of time passed since the last shot, once a shot is fired is reset to shotDelay, then is decreased every frame by delta
-	 * 
-	 * 
 	 * velocity - the Velocity of the player. It is a Vector2, meaning it contains 2 variables, x and y.
 	 * direction - Used to determine what direction the player was last looking at,
 	 *             usually the same as velocity, but has a value when velocity is (0,0)
@@ -62,7 +60,7 @@ public class Player : KinematicBody2D
 	bool canWallClimb = false;
 	float shotTimePassed = 0f;
 	float swingTimePassed = 0f; //Between swings
-
+	bool movingAnObject = false;
 	Vector2 velocity = new Vector2();
 	Vector2 direction = new Vector2();
 
@@ -117,6 +115,7 @@ public class Player : KinematicBody2D
 		canWallJump = true;
 		canWallClimb = false;
 		running = false;
+		movingAnObject = false;
 		
 		//Interaction with movable Objects
 		//Gets the number of "Slides" and checks each one
@@ -139,6 +138,7 @@ public class Player : KinematicBody2D
 					RigidBody2D moveableObject = collision.Collider as RigidBody2D;
 					//Sets a directional Impulse
 					moveableObject.ApplyCentralImpulse(-collision.Normal * pushStrength);
+					movingAnObject = true;
 				}
 			}
 			// Check for collision with a climable object
@@ -172,7 +172,7 @@ public class Player : KinematicBody2D
 		}
 		
 		//If ran into wall, stops the player from accelerating into the wall
-		if (IsOnWall()) {
+		if (IsOnWall() && !movingAnObject) {
 			velocity.x = 0;
 		}
 
