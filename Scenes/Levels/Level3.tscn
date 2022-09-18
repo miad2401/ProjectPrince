@@ -42,7 +42,7 @@ collision_mask = 0
 format = 1
 
 [node name="Note" parent="." instance=ExtResource( 3 )]
-margin_left = 128.0
-margin_top = -93.0
-margin_right = 128.0
-margin_bottom = -93.0
+margin_left = 100.0
+margin_top = -94.0
+margin_right = 100.0
+margin_bottom = -94.0

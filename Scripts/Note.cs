@@ -21,6 +21,7 @@ public class Note : Control
      * slideIn - Bool for if the note is sliding in
      * slideOut - Bool for if the note is sliding out
      * slideProgress - The current progress that the note has slid in/out
+     * noteActivated - Determines if the node has already been read
      */
     [Export] float slideInTime;
     [Export] float slideOutTime;
@@ -34,6 +35,7 @@ public class Note : Control
     bool slideIn = false;
     bool slideOut = false;
     float slideProgress = 0;
+    bool noteActivated = false;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -99,7 +101,7 @@ public class Note : Control
     public void OnNoteBodyEntered(Node body)
     {
         //Checks if the touched object was a player
-        if (body.IsInGroup("Player"))
+        if (body.IsInGroup("Player") && !noteActivated)
         {
             //Send a Signal to PauseMenu to pause the game
             EmitSignal(nameof(PauseForNote), true);
@@ -108,9 +110,11 @@ public class Note : Control
             NoteBackground.Visible = true;
             //Start sliding in the note to the center of the screen
             slideIn = true;
+            //Mark the note as activated
+            noteActivated = true;
         }
     }
-    public void OnExitNotePressed()
+    public virtual void OnExitNotePressed()
     {
         slideOut = true;
         //Tells PauseMenu to unpause game

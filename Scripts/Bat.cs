@@ -10,10 +10,10 @@ public class Bat : BaseEnemy
      * int hSpeed - The speed at which the bat moves horizontally
      */
 
-    [Export] private int amplitude;
-    [Export] private float frequency;
-    [Export] private int hSpeed;
-    private float timePassed;
+    [Export] protected int amplitude;
+    [Export] protected float frequency;
+    [Export] protected int hSpeed;
+    protected float timePassed;
 
     /*
      * Inherited Fields
@@ -22,6 +22,7 @@ public class Bat : BaseEnemy
      * Vector2 velocity - The x and y movement of the bat
      * Vector2 floor - Shows where the floor is, used for MoveAndSlide()
      */
+
     public override void _Ready()
     {
         base._Ready();
@@ -62,5 +63,19 @@ public class Bat : BaseEnemy
     public override void AnimateEnemy()
     {
         throw new NotImplementedException();
+    }
+
+    //Setters
+    public void SetAmplitude(int a)
+    {
+        amplitude = a;
+    }
+    public void SetFrequency(float f)
+    {
+        frequency = f;
+    }
+    public void SetHSpeed(int hS)
+    {
+        hSpeed = hS;
     }
 }
