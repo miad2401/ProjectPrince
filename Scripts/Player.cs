@@ -337,12 +337,12 @@ public class Player : KinematicBody2D
 		{
 			//If no key is being pressed, switches to an idle animation
 			if (swordEquipped)
-            {
+			{
 				myANSMP.Travel("IdleSword");
 				animationTree.Set("parameters/IdleSword/blend_position", direction.x);
 			}
-            else
-            {
+			else
+			{
 				myANSMP.Travel("Idle");
 				animationTree.Set("parameters/Idle/blend_position", direction.x);
 			}
@@ -351,13 +351,13 @@ public class Player : KinematicBody2D
 		{
 			//If a key is being pressed, switches to a run animation
 			if (swordEquipped)
-            {
+			{
 				//If a key is being pressed, switches to a run animation
 				myANSMP.Travel("RunSword");
 				animationTree.Set("parameters/RunSword/blend_position", direction.x);
 			}
-            else
-            {
+			else
+			{
 				myANSMP.Travel("Run");
 				animationTree.Set("parameters/Run/blend_position", direction.x);
 			}

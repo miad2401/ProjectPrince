@@ -109,7 +109,7 @@ __meta__ = {
 }
 magicSpeed = 3
 swordSpeed = 15
-swordRange = 40
+swordRange = 50
 
 [node name="AttackSprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
