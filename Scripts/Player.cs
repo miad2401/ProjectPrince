@@ -45,8 +45,7 @@ public class Player : KinematicBody2D
 	[Export] int magicJumpPower;
 	[Export] float jumpXDeacceleration;
 	[Export] float swingDelay;
-	
-	
+
 	bool currentlySwinging = false;
 	bool swordEquipped = false;
 	bool magicEquipped = true;
@@ -334,19 +333,34 @@ public class Player : KinematicBody2D
 		//Finds the AnimationNodeStateMachinePlayback resource within the animationTree and sets it to its own variable
 		//Because Godot doesn't allow arguments in the .Get() function, we also must cast it as a AnimationNodeStateMachinePlayback
 		AnimationNodeStateMachinePlayback myANSMP = animationTree.Get("parameters/playback") as AnimationNodeStateMachinePlayback;
-		if (!running && velocity.y == 0.01f) {
+		if (!running && velocity.y == 0.01f)
+		{
 			//If no key is being pressed, switches to an idle animation
-			myANSMP.Travel("Idle");
-			animationTree.Set("parameters/Idle/blend_position", direction.x);
+			if (swordEquipped)
+            {
+				myANSMP.Travel("IdleSword");
+				animationTree.Set("parameters/IdleSword/blend_position", direction.x);
+			}
+            else
+            {
+				myANSMP.Travel("Idle");
+				animationTree.Set("parameters/Idle/blend_position", direction.x);
+			}
 		}
-		/*else if (currentlySwinging) {
-			myANSMP.Travel("Swing");
-			animationTree.Set("parameters/Swing/blend_position", direction.x);
-		}*/
-		else {
+		else
+		{
 			//If a key is being pressed, switches to a run animation
-			myANSMP.Travel("Run");
-			animationTree.Set("parameters/Run/blend_position", direction.x);
+			if (swordEquipped)
+            {
+				//If a key is being pressed, switches to a run animation
+				myANSMP.Travel("RunSword");
+				animationTree.Set("parameters/RunSword/blend_position", direction.x);
+			}
+            else
+            {
+				myANSMP.Travel("Run");
+				animationTree.Set("parameters/Run/blend_position", direction.x);
+			}
 		}
 	}
 
