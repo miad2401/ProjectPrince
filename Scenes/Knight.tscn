@@ -237,7 +237,7 @@ start_node = "Idle"
 [node name="Knight" type="KinematicBody2D" groups=["Enemy"]]
 position = Vector2( 0, -24 )
 collision_layer = 2
-collision_mask = 32771
+collision_mask = 32779
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
@@ -253,7 +253,7 @@ gravity = 10
 [node name="EnemySprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
 hframes = 4
-frame = 2
+frame = 1
 
 [node name="EnemyCollisionBox" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 3 )

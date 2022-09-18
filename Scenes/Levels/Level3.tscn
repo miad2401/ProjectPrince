@@ -1,14 +1,32 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Art/Tilemaps/MasterTileset.tres" type="TileSet" id=2]
 [ext_resource path="res://Scenes/EnvironmentTools/Note.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/EnvironmentTools/PopUpHint.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Knight.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/EnvironmentTools/EnemyBarrier.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/EnvironmentTools/DeathField.tscn" type="PackedScene" id=7]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 6, 64 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 0.5, 47.5 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 0.5, 8 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 32, 8 )
 
 [node name="Level3" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 1596, 547 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 495, 628 )
 
 [node name="Environment" type="Node2D" parent="."]
 
@@ -24,13 +42,14 @@ cell_size = Vector2( 16, 16 )
 collision_layer = 0
 collision_mask = 0
 format = 1
+tile_data = PoolIntArray( 983119, 14, 720896, 983120, 14, 720896, 983121, 14, 720896, 983122, 14, 720896, 983123, 14, 720896, 983124, 14, 720896, 983125, 14, 720896, 983126, 14, 720896, 1048652, 14, 720896, 1048653, 14, 720896, 1048654, 14, 720896, 1048655, 14, 720896, 1048662, 14, 720896, 1048663, 14, 720896, 1048664, 14, 720896, 1114187, 14, 720896, 1114188, 14, 720896, 1114200, 14, 720896, 1114201, 14, 720896, 1179722, 14, 720896, 1179723, 14, 720896, 1179737, 14, 720896, 1179738, 14, 720896, 1245257, 14, 720896, 1245258, 14, 720896, 1245274, 14, 720896, 1245275, 14, 720896, 1310792, 14, 720896, 1310793, 14, 720896, 1310811, 14, 720896, 1376328, 14, 720896, 1376347, 14, 720896, 1376348, 14, 720896, 1441863, 14, 720896, 1441864, 14, 720896, 1441884, 14, 720896, 1507399, 14, 720896, 1507420, 14, 720896, 1507421, 14, 720896, 1572935, 14, 720896, 1572957, 14, 720896, 1638470, 14, 720896, 1638471, 14, 720896, 1638493, 14, 720896, 1704006, 14, 720896, 1704029, 14, 720896, 1704030, 14, 720896, 1769542, 14, 720896, 1769566, 14, 720896, 1835077, 14, 720896, 1835078, 14, 720896, 1835102, 14, 720896, 1900613, 14, 720896, 1900638, 14, 720896, 1966149, 14, 720896, 1966174, 14, 720896, 1966175, 14, 720896, 2031684, 14, 720896, 2031685, 14, 720896, 2031711, 14, 720896, 2097220, 14, 720896, 2097247, 14, 720896, 2162756, 14, 720896, 2162783, 14, 720896, 2228292, 14, 720896, 2228319, 14, 720896, 2621453, 38, 65536, 2621454, 38, 65536 )
 
 [node name="Baseground" type="TileMap" parent="Environment"]
 z_as_relative = false
 tile_set = ExtResource( 2 )
 cell_size = Vector2( 16, 16 )
 format = 1
-tile_data = PoolIntArray( 720906, 89, 327685, 720907, 89, 327685, 720908, 89, 327685, 720909, 89, 327685, 720910, 89, 327685, 720911, 89, 327685, 720912, 89, 327685, 720913, 89, 327685, 720914, 89, 327685, 720915, 89, 327685, 720916, 89, 327685, 720917, 89, 327685, 720918, 89, 327685, 720919, 89, 327685, 720920, 89, 327685, 720921, 89, 327685 )
+tile_data = PoolIntArray( -1900529, 89, 655376, -1834993, 89, 655376, -1769457, 89, 655376, -1703921, 89, 655376, -1638385, 89, 655376, -1572849, 89, 655376, -1507314, 89, 655376, -1507313, 89, 655376, -1441778, 89, 655376, -1376242, 89, 655376, -1310706, 89, 655376, -1245170, 89, 655376, -1179634, 89, 655376, -1114098, 89, 655376, -1048562, 89, 655376, -983027, 89, 655376, -917491, 89, 655376, -851968, 89, 655376, -851967, 89, 655376, -851966, 89, 655376, -851965, 89, 655376, -851964, 89, 655376, -851963, 89, 655376, -851962, 89, 655376, -851961, 89, 655376, -851956, 89, 655376, -851955, 89, 655376, -720897, 89, 655376, -786432, 89, 655376, -786425, 89, 655376, -786424, 89, 655376, -786420, 89, 655376, -655361, 89, 655376, -720888, 89, 655376, -720884, 89, 655376, -589826, 89, 655376, -589825, 89, 655376, -655352, 89, 655376, -655351, 89, 655376, -655348, 89, 655376, -524290, 89, 655376, -589815, 89, 655376, -589813, 89, 655376, -589812, 89, 655376, -458754, 89, 655376, -524279, 89, 655376, -524278, 89, 655376, -524277, 89, 655376, -524276, 89, 655376, -393217, 89, 655376, -458742, 89, 655376, -458741, 89, 655376, -327681, 89, 655376, -393206, 93, 0, -262145, 89, 655376, -327670, 93, 0, -196609, 89, 655376, -262134, 93, 0, -131073, 89, 655376, -196598, 93, 0, -65537, 89, 655376, -131062, 93, 0, -1, 89, 655376, -65526, 93, 0, 65535, 89, 655376, 10, 93, 0, 131071, 89, 655376, 65546, 93, 0, 196607, 89, 655376, 131082, 93, 0, 262143, 89, 655376, 196618, 93, 0, 327679, 89, 655376, 262154, 93, 0, 393215, 89, 655376, 327690, 93, 0, 458751, 89, 655376, 393226, 93, 0, 524287, 89, 655376, 458762, 93, 0, 589823, 89, 655376, 524298, 93, 0, 655359, 89, 655376, 589834, 93, 0, 720895, 89, 655376, 655370, 93, 0, 786431, 89, 655376, 720906, 93, 0, 851967, 89, 655376, 786442, 93, 0, 917503, 89, 655376, 851978, 93, 0, 983039, 89, 655376, 917514, 93, 0, 1048575, 89, 655376, 983050, 93, 0, 1114111, 89, 655376, 1048586, 93, 0, 1048656, 14, 851982, 1048657, 14, 851982, 1048658, 14, 851982, 1048659, 14, 851982, 1048660, 14, 851982, 1048661, 14, 851982, 1048662, 14, 851982, 1179647, 89, 655376, 1114122, 93, 0, 1114194, 14, 851982, 1114198, 14, 851982, 1114199, 14, 851982, 1245183, 89, 655376, 1179658, 93, 0, 1179723, 14, 393241, 1179724, 14, 393241, 1179725, 14, 393241, 1179730, 14, 851982, 1179735, 14, 851982, 1179736, 14, 851982, 1179737, 14, 851982, 1310719, 89, 655376, 1245194, 93, 0, 1245266, 14, 851982, 1245273, 14, 851982, 1376255, 89, 655376, 1310730, 93, 0, 1310802, 14, 851982, 1310809, 14, 851982, 1310810, 14, 851982, 1441791, 89, 655376, 1376266, 93, 0, 1376327, 14, 393241, 1376328, 14, 393241, 1376329, 14, 393241, 1376338, 14, 851982, 1376346, 14, 851982, 1507327, 89, 655376, 1441802, 93, 0, 1441874, 14, 851982, 1441882, 14, 851982, 1441883, 14, 851982, 1572863, 89, 655376, 1507338, 93, 0, 1507410, 14, 851982, 1507419, 14, 851982, 1638399, 89, 655376, 1572874, 93, 0, 1572940, 14, 393241, 1572941, 14, 393241, 1572942, 14, 393241, 1572946, 14, 851982, 1572955, 14, 851982, 1572956, 14, 851982, 1703935, 89, 655376, 1638410, 93, 0, 1638482, 14, 851982, 1638492, 14, 851982, 1769471, 89, 655376, 1703946, 93, 0, 1704018, 14, 851982, 1704028, 14, 851982, 1835007, 89, 655376, 1769482, 93, 0, 1769545, 14, 393241, 1769546, 14, 393241, 1769547, 14, 393241, 1769554, 14, 851982, 1769564, 14, 851982, 1769565, 14, 851982, 1900543, 89, 655376, 1835018, 93, 0, 1835090, 14, 851982, 1835101, 14, 851982, 1966079, 89, 655376, 1900554, 93, 0, 1900611, 14, 393241, 1900612, 14, 393241, 1900613, 14, 393241, 1900614, 14, 393241, 1900626, 14, 851982, 1900637, 14, 851982, 2031615, 89, 655376, 1966090, 93, 0, 1966162, 14, 851982, 1966173, 14, 851982, 2097151, 89, 655376, 2031626, 93, 0, 2031698, 14, 851982, 2031709, 14, 851982, 2031710, 14, 851982, 2162687, 14, 589837, 2097162, 93, 0, 2097222, 14, 393241, 2097223, 14, 393241, 2097224, 14, 393241, 2097225, 14, 393241, 2097234, 14, 851982, 2097246, 14, 851982, 2228223, 14, 589837, 2162770, 14, 851982, 2162782, 14, 851982, 2293759, 14, 589837, 2228306, 14, 851982, 2228318, 14, 851982, 2359295, 14, 589837, 2293826, 14, 262159, 2293827, 14, 262160, 2293828, 14, 851982, 2293829, 14, 851982, 2293830, 14, 851982, 2293831, 14, 851982, 2293832, 14, 851982, 2293833, 14, 851982, 2293834, 14, 851982, 2293835, 14, 851982, 2293836, 14, 851982, 2293837, 14, 851982, 2293838, 14, 851982, 2293839, 14, 851982, 2293840, 14, 851982, 2293841, 14, 851982, 2293842, 14, 851982, 2293843, 14, 851982, 2293844, 14, 851982, 2293845, 14, 851982, 2293846, 14, 851982, 2293847, 14, 851982, 2293848, 14, 851982, 2293849, 14, 851982, 2293850, 14, 851982, 2293851, 14, 851982, 2293852, 14, 851982, 2293853, 14, 851982, 2293854, 14, 851982, 2293855, 14, 851982, 2293856, 14, 851982, 2293857, 14, 851982, 2293858, 14, 851982, 2293859, 14, 851982, 2293860, 14, 851982, 2293861, 14, 851982, 2293862, 14, 851982, 2293863, 14, 851982, 2293864, 14, 851982, 2293865, 14, 851982, 2293866, 14, 851982, 2293867, 14, 851982, 2293868, 14, 851982, 2293869, 14, 851982, 2293870, 14, 851982, 2293871, 14, 851982, 2293872, 14, 851982, 2293873, 14, 851982, 2293874, 14, 851982, 2293875, 14, 851982, 2293876, 14, 851982, 2293877, 14, 851982, 2424831, 14, 589837, 2359360, 14, 262159, 2359361, 14, 262160, 2490367, 14, 589837, 2424894, 14, 262159, 2424895, 14, 262160, 2555903, 14, 589837, 2490395, 14, 851982, 2490415, 14, 262159, 2490416, 14, 262160, 2490417, 14, 851982, 2490418, 14, 851982, 2490419, 14, 851982, 2490420, 14, 851982, 2490421, 14, 851982, 2490422, 14, 851982, 2490423, 14, 851982, 2490424, 14, 851982, 2490425, 14, 851982, 2490426, 14, 851982, 2490427, 14, 851982, 2490428, 14, 851982, 2490429, 14, 851982, 2490430, 14, 327695, 2621439, 14, 589837, 2555930, 14, 851982, 2555931, 14, 851982, 2555949, 14, 262159, 2555950, 14, 262160, 2686975, 14, 589837, 2621465, 14, 851982, 2621466, 14, 851982, 2621467, 14, 851982, 2621483, 14, 262159, 2621484, 14, 262160, 2621485, 14, 327695, 2752511, 14, 851981, 2686976, 14, 851982, 2686977, 14, 851982, 2686978, 14, 851982, 2686979, 14, 851982, 2686980, 14, 851982, 2686981, 14, 851982, 2686982, 14, 851982, 2686983, 14, 851982, 2686984, 14, 851982, 2686985, 14, 851982, 2686986, 14, 851982, 2686987, 14, 851982, 2686988, 14, 851982, 2686989, 14, 851982, 2686990, 14, 851982, 2686991, 14, 851982, 2686992, 14, 851982, 2686993, 14, 851982, 2686994, 14, 851982, 2686995, 14, 851982, 2686996, 14, 851982, 2686997, 14, 851982, 2686998, 14, 851982, 2686999, 14, 851982, 2687000, 14, 851982, 2687001, 14, 851982, 2687002, 14, 851982, 2687003, 14, 851982, 2687004, 14, 851982, 2687005, 14, 851982, 2687006, 14, 851982, 2687007, 14, 851982, 2687012, 14, 851982, 2687013, 14, 851982, 2687014, 14, 851982, 2687015, 14, 851982, 2687016, 14, 851982, 2687017, 14, 851982, 2687018, 14, 851982, 2752543, 14, 851982, 2752548, 14, 851982, 2818079, 14, 851982, 2818084, 14, 851982, 2883615, 14, 851982, 2883620, 14, 851982, 2949151, 14, 851982, 2949152, 14, 851982, 2949153, 14, 851982, 2949154, 14, 851982, 2949155, 14, 851982, 2949156, 14, 851982 )
 
 [node name="Foreground" type="TileMap" parent="Environment"]
 z_index = 2
@@ -40,9 +59,243 @@ cell_size = Vector2( 16, 16 )
 collision_layer = 0
 collision_mask = 0
 format = 1
+tile_data = PoolIntArray( 2424833, 63, 0, 2424835, 63, 0, 2424880, 14, 196624, 2490372, 63, 0, 2490414, 14, 196624, 2555904, 58, 0, 2555906, 59, 0, 2555948, 14, 196624, 2555951, 14, 851991, 2555952, -2147483634, 786443, 2621485, 14, 851991, 2621486, -2147483634, 786443, 2621487, -2147483634, 786443, 2621488, -2147483634, 11, 2687019, 14, 851991, 2687020, -2147483634, 786443, 2687021, -2147483634, 786443, 2687022, -2147483634, 11, 2687023, -2147483634, 11, 2687024, -2147483634, 11 )
 
-[node name="Note" parent="." instance=ExtResource( 3 )]
-margin_left = 100.0
-margin_top = -94.0
-margin_right = 100.0
-margin_bottom = -94.0
+[node name="Level3Note" parent="." instance=ExtResource( 3 )]
+margin_left = -71.0
+margin_top = 386.0
+margin_right = -71.0
+margin_bottom = 386.0
+
+[node name="CollisionShape2D" parent="Level3Note/Area2D" index="0"]
+position = Vector2( -1, -48 )
+shape = SubResource( 1 )
+
+[node name="PopUpHint" parent="." instance=ExtResource( 4 )]
+margin_left = 278.0
+margin_top = 639.0
+margin_right = 288.0
+margin_bottom = 651.0
+
+[node name="HintContainerRight" parent="PopUpHint/HintContainer" index="0"]
+margin_left = -7.0
+margin_top = -36.0
+margin_right = 76.0
+margin_bottom = -11.0
+
+[node name="Panel" parent="PopUpHint/HintContainer/HintContainerRight" index="0"]
+margin_right = 83.0
+margin_bottom = 25.0
+
+[node name="MarginContainer" parent="PopUpHint/HintContainer/HintContainerRight" index="1"]
+margin_right = 83.0
+margin_bottom = 25.0
+
+[node name="CenterContainer" parent="PopUpHint/HintContainer/HintContainerRight/MarginContainer" index="0"]
+margin_right = 78.0
+margin_bottom = 20.0
+
+[node name="HintText" parent="PopUpHint/HintContainer/HintContainerRight/MarginContainer/CenterContainer" index="0"]
+margin_top = 0.0
+margin_right = 73.0
+margin_bottom = 15.0
+text = "To switch to Magic, press q
+then use space to shoot!"
+
+[node name="Knight1" parent="." instance=ExtResource( 5 )]
+position = Vector2( 632, 632 )
+hSpeed = 120
+
+[node name="Knight2" parent="." instance=ExtResource( 5 )]
+position = Vector2( 854, 584 )
+direction = 2
+hSpeed = 120
+
+[node name="Knight3" parent="." instance=ExtResource( 5 )]
+position = Vector2( 954, 584 )
+hSpeed = 120
+
+[node name="EnemyBarriers" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="KB1" parent="EnemyBarriers" instance=ExtResource( 6 )]
+position = Vector2( 1000, 599 )
+detectKnight = true
+
+[node name="CollisionShape2D" parent="EnemyBarriers/KB1" index="0"]
+position = Vector2( -8.5, -38.5 )
+shape = SubResource( 2 )
+
+[node name="KB2" parent="EnemyBarriers" instance=ExtResource( 6 )]
+position = Vector2( 585, 647 )
+detectKnight = true
+
+[node name="CollisionShape2D" parent="EnemyBarriers/KB2" index="0"]
+position = Vector2( -8.5, -38.5 )
+shape = SubResource( 2 )
+
+[node name="KB3" parent="EnemyBarriers" instance=ExtResource( 6 )]
+position = Vector2( 696, 647 )
+detectKnight = true
+
+[node name="CollisionShape2D" parent="EnemyBarriers/KB3" index="0"]
+position = Vector2( -8.5, -38.5 )
+shape = SubResource( 2 )
+
+[node name="KB4" parent="EnemyBarriers" instance=ExtResource( 6 )]
+position = Vector2( 793, 599 )
+detectKnight = true
+
+[node name="CollisionShape2D" parent="EnemyBarriers/KB4" index="0"]
+position = Vector2( -8.5, -38.5 )
+shape = SubResource( 2 )
+
+[node name="KB5" parent="EnemyBarriers" instance=ExtResource( 6 )]
+position = Vector2( 1129, 503 )
+detectKnight = true
+
+[node name="CollisionShape2D" parent="EnemyBarriers/KB5" index="0"]
+position = Vector2( -8.5, 1 )
+shape = SubResource( 3 )
+
+[node name="KB6" parent="EnemyBarriers" instance=ExtResource( 6 )]
+position = Vector2( 1192, 503 )
+detectKnight = true
+
+[node name="CollisionShape2D" parent="EnemyBarriers/KB6" index="0"]
+position = Vector2( -8.5, 1 )
+shape = SubResource( 3 )
+
+[node name="KB7" parent="EnemyBarriers" instance=ExtResource( 6 )]
+position = Vector2( 1081, 455 )
+detectKnight = true
+
+[node name="CollisionShape2D" parent="EnemyBarriers/KB7" index="0"]
+position = Vector2( -8.5, 1 )
+shape = SubResource( 3 )
+
+[node name="KB8" parent="EnemyBarriers" instance=ExtResource( 6 )]
+position = Vector2( 1144, 455 )
+detectKnight = true
+
+[node name="CollisionShape2D" parent="EnemyBarriers/KB8" index="0"]
+position = Vector2( -8.5, 1 )
+shape = SubResource( 3 )
+
+[node name="KB9" parent="EnemyBarriers" instance=ExtResource( 6 )]
+position = Vector2( 1177, 423 )
+detectKnight = true
+
+[node name="CollisionShape2D" parent="EnemyBarriers/KB9" index="0"]
+position = Vector2( -8.5, 1 )
+shape = SubResource( 3 )
+
+[node name="KB10" parent="EnemyBarriers" instance=ExtResource( 6 )]
+position = Vector2( 1224, 423 )
+detectKnight = true
+
+[node name="CollisionShape2D" parent="EnemyBarriers/KB10" index="0"]
+position = Vector2( -8.5, 1 )
+shape = SubResource( 3 )
+
+[node name="KB11" parent="EnemyBarriers" instance=ExtResource( 6 )]
+position = Vector2( 1225, 375 )
+detectKnight = true
+
+[node name="CollisionShape2D" parent="EnemyBarriers/KB11" index="0"]
+position = Vector2( -8.5, 1 )
+shape = SubResource( 3 )
+
+[node name="KB12" parent="EnemyBarriers" instance=ExtResource( 6 )]
+position = Vector2( 1272, 375 )
+detectKnight = true
+
+[node name="CollisionShape2D" parent="EnemyBarriers/KB12" index="0"]
+position = Vector2( -8.5, 1 )
+shape = SubResource( 3 )
+
+[node name="KB13" parent="EnemyBarriers" instance=ExtResource( 6 )]
+position = Vector2( 1145, 327 )
+detectKnight = true
+
+[node name="CollisionShape2D" parent="EnemyBarriers/KB13" index="0"]
+position = Vector2( -8.5, 1 )
+shape = SubResource( 3 )
+
+[node name="KB14" parent="EnemyBarriers" instance=ExtResource( 6 )]
+position = Vector2( 1192, 327 )
+detectKnight = true
+
+[node name="CollisionShape2D" parent="EnemyBarriers/KB14" index="0"]
+position = Vector2( -8.5, 1 )
+shape = SubResource( 3 )
+
+[node name="KB15" parent="EnemyBarriers" instance=ExtResource( 6 )]
+position = Vector2( 1209, 279 )
+detectKnight = true
+
+[node name="CollisionShape2D" parent="EnemyBarriers/KB15" index="0"]
+position = Vector2( -8.5, 1 )
+shape = SubResource( 3 )
+
+[node name="KB16" parent="EnemyBarriers" instance=ExtResource( 6 )]
+position = Vector2( 1256, 279 )
+detectKnight = true
+
+[node name="CollisionShape2D" parent="EnemyBarriers/KB16" index="0"]
+position = Vector2( -8.5, 1 )
+shape = SubResource( 3 )
+
+[node name="KB17" parent="EnemyBarriers" instance=ExtResource( 6 )]
+position = Vector2( 1705, 551 )
+detectKnight = true
+
+[node name="CollisionShape2D" parent="EnemyBarriers/KB17" index="0"]
+position = Vector2( -8.5, 1 )
+shape = SubResource( 3 )
+
+[node name="KB18" parent="EnemyBarriers" instance=ExtResource( 6 )]
+position = Vector2( 1880, 551 )
+detectKnight = true
+
+[node name="CollisionShape2D" parent="EnemyBarriers/KB18" index="0"]
+position = Vector2( -8.5, 1 )
+shape = SubResource( 3 )
+
+[node name="DeathField1" parent="." instance=ExtResource( 7 )]
+position = Vector2( 544, 707 )
+
+[node name="CollisionShape2D" parent="DeathField1" index="0"]
+position = Vector2( 0, 5 )
+shape = SubResource( 4 )
+
+[node name="Knight4" parent="." instance=ExtResource( 5 )]
+position = Vector2( 1722, 536 )
+hSpeed = 120
+
+[node name="Knight5" parent="." instance=ExtResource( 5 )]
+position = Vector2( 1806, 536 )
+hSpeed = 120
+
+[editable path="Level3Note"]
+[editable path="PopUpHint"]
+[editable path="EnemyBarriers/KB1"]
+[editable path="EnemyBarriers/KB2"]
+[editable path="EnemyBarriers/KB3"]
+[editable path="EnemyBarriers/KB4"]
+[editable path="EnemyBarriers/KB5"]
+[editable path="EnemyBarriers/KB6"]
+[editable path="EnemyBarriers/KB7"]
+[editable path="EnemyBarriers/KB8"]
+[editable path="EnemyBarriers/KB9"]
+[editable path="EnemyBarriers/KB10"]
+[editable path="EnemyBarriers/KB11"]
+[editable path="EnemyBarriers/KB12"]
+[editable path="EnemyBarriers/KB13"]
+[editable path="EnemyBarriers/KB14"]
+[editable path="EnemyBarriers/KB15"]
+[editable path="EnemyBarriers/KB16"]
+[editable path="EnemyBarriers/KB17"]
+[editable path="EnemyBarriers/KB18"]
+[editable path="DeathField1"]
