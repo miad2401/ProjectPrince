@@ -1,0 +1,1034 @@
+[gd_scene load_steps=24 format=2]
+
+[ext_resource path="res://Art/Tilemaps/MasterTileset.tres" type="TileSet" id=1]
+[ext_resource path="res://Scripts/DeathField.cs" type="Script" id=2]
+[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scripts/PopUpHint.cs" type="Script" id=4]
+[ext_resource path="res://Art/Fonts/Size8PBW.tres" type="DynamicFont" id=5]
+[ext_resource path="res://Scenes/EnvironmentTools/MovableObject.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/EnvironmentTools/Ladder.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scripts/TransitionField.cs" type="Script" id=8]
+[ext_resource path="res://Art/Parallax/FOREST_bakcground_day1.png" type="Texture" id=9]
+[ext_resource path="res://Art/Parallax/FOREST_bakcground_day3.png" type="Texture" id=10]
+[ext_resource path="res://Art/Parallax/FOREST_bakcground_day2.png" type="Texture" id=11]
+
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 36, 11 )
+
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 48, 11 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 24, 4 )
+
+[sub_resource type="RectangleShape2D" id=12]
+extents = Vector2( 36, 11 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 40, 4 )
+
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 30, 22 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 112, 4 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 32, 20 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 40, 11 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 12, 11 )
+
+[sub_resource type="RectangleShape2D" id=13]
+extents = Vector2( 9, 11 )
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 16, 64 )
+
+[node name="Level1" type="Control"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Player" parent="." instance=ExtResource( 3 )]
+position = Vector2( -19, -24 )
+
+[node name="Environment" type="Node2D" parent="."]
+z_index = -5
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="Environment"]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Environment/ParallaxBackground"]
+position = Vector2( 0, -500 )
+motion_scale = Vector2( 0.04, 0.04 )
+motion_mirroring = Vector2( 1914, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Environment/ParallaxBackground/ParallaxLayer"]
+scale = Vector2( 3, 3 )
+texture = ExtResource( 9 )
+centered = false
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="Environment/ParallaxBackground"]
+position = Vector2( 0, -500 )
+motion_scale = Vector2( 0.1, 0.1 )
+motion_mirroring = Vector2( 1914, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Environment/ParallaxBackground/ParallaxLayer2"]
+scale = Vector2( 3, 3 )
+texture = ExtResource( 11 )
+centered = false
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="Environment/ParallaxBackground"]
+position = Vector2( 0, -500 )
+motion_scale = Vector2( 0.2, 0.2 )
+motion_mirroring = Vector2( 1914, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Environment/ParallaxBackground/ParallaxLayer3"]
+scale = Vector2( 3, 3 )
+texture = ExtResource( 10 )
+centered = false
+
+[node name="Background" type="TileMap" parent="Environment"]
+z_index = -2
+z_as_relative = false
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 16, 16 )
+collision_layer = 0
+collision_mask = 0
+format = 1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Baseground" type="TileMap" parent="Environment"]
+z_as_relative = false
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( -5177318, 14, 720899, -5111782, 14, 720899, -5111781, 14, 720899, -5046245, 14, 720899, -4980709, 14, 720899, -4915174, 14, 720899, -4915173, 14, 720899, -4849638, 14, 720899, -4849637, 14, 720899, -4849586, -1073741773, 262149, -4784101, 14, 720899, -4784090, 14, 720899, -4784089, 14, 720899, -4784088, 14, 720899, -4784050, -1073741773, 262149, -4718565, 14, 720899, -4718558, 14, 720899, -4718557, 14, 720899, -4718556, 14, 720899, -4718555, 14, 720899, -4718554, 14, 720899, -4718514, -1073741773, 262149, -4653029, 14, 720899, -4653024, 14, 720899, -4653023, 14, 720899, -4653022, 14, 720899, -4652978, -1073741773, 262149, -4587493, 14, 720899, -4587491, 14, 720899, -4587490, 14, 720899, -4587489, 14, 720899, -4587442, -1073741773, 262149, -4521957, 14, 720899, -4521956, 14, 720899, -4521955, 14, 720899, -4521906, -1073741773, 262149, -4521905, -1073741773, 262149, -4456422, 14, 720899, -4456421, 14, 720899, -4456420, 14, 720899, -4456369, -1073741773, 262149, -4456368, -1073741773, 262149, -4390889, 14, 720899, -4390888, 14, 720899, -4390887, 14, 720899, -4390886, 14, 720899, -4390832, -1073741773, 262149, -4390831, -1073741773, 262149, -4390830, -1073741773, 262149, -4325355, 14, 720899, -4325354, 14, 720899, -4325353, 14, 720899, -4325294, -1073741773, 262149, -4325293, -1073741773, 262149, -4259822, 14, 720899, -4259821, 14, 720899, -4259820, 14, 720899, -4259756, -1073741773, 262149, -4259755, -1073741773, 262149, -4194288, 14, 720899, -4194287, 14, 720899, -4194286, 14, 720899, -4194219, -1073741773, 262149, -4194218, -1073741773, 262149, -4128754, 14, 720899, -4128753, 14, 720899, -4128752, 14, 720899, -4128682, -1073741773, 262149, -4128681, -1073741773, 262149, -4128680, -1073741773, 262149, -4063220, 14, 720899, -4063219, 14, 720899, -4063218, 14, 720899, -4063144, -1073741773, 262149, -3997693, 14, 720899, -3997692, 14, 720899, -3997691, 14, 720899, -3997690, 14, 720899, -3997685, 14, 720899, -3997684, 14, 720899, -3997608, -1073741773, 262149, -3997607, -1073741773, 262149, -3932159, 14, 720899, -3932158, 14, 720899, -3932157, 14, 720899, -3932071, -1073741773, 262149, -3801090, 14, 720899, -3801089, 14, 720899, -3866624, 14, 720899, -3866623, 14, 720899, -3866535, -1073741773, 262149, -3735556, 14, 720899, -3735555, 14, 720899, -3735554, 14, 720899, -3801070, 14, 393241, -3801069, 14, 393241, -3801068, 14, 393241, -3801067, 14, 393241, -3801066, 14, 393241, -3801040, 14, 720897, -3801039, 14, 720897, -3801000, -1073741773, 262149, -3800999, -1073741773, 262149, -3670021, 14, 720899, -3670020, 14, 720899, -3735512, 14, 393241, -3735511, 14, 393241, -3735510, 14, 393241, -3735509, 14, 393241, -3735508, 14, 393241, -3735503, 14, 720897, -3735502, 14, 720897, -3735501, 14, 720897, -3735500, 14, 720897, -3735499, 14, 720897, -3735498, 14, 720897, -3735497, 14, 720897, -3735496, 14, 720897, -3735495, 14, 720897, -3735494, 14, 720897, -3735493, 14, 720897, -3735492, 14, 720897, -3735466, -1073741773, 262149, -3735465, -1073741773, 262149, -3735464, -1073741773, 262149, -3604486, 14, 720899, -3604485, 14, 720899, -3669990, 14, 393241, -3669989, 14, 393241, -3669988, 14, 393241, -3669987, 14, 393241, -3669956, 14, 720897, -3669955, 14, 720897, -3669954, 14, 720897, -3669953, 14, 720897, -3669952, 14, 720897, -3669951, 14, 720897, -3669950, 14, 720897, -3669949, 14, 720897, -3669948, 14, 720897, -3669947, 14, 720897, -3669939, -1073741773, 262149, -3669938, -1073741773, 262149, -3669937, -1073741773, 262149, -3669936, -1073741773, 262149, -3669935, -1073741773, 262149, -3669934, -1073741773, 262149, -3669933, -1073741773, 262149, -3669932, -1073741773, 262149, -3669931, -1073741773, 262149, -3669930, -1073741773, 262149, -3538952, 14, 720899, -3538951, 14, 720899, -3538950, 14, 720899, -3604402, -1073741773, 262149, -3473417, 14, 720899, -3473416, 14, 720899, -3538911, 14, 393241, -3538910, 14, 393241, -3538909, 14, 393241, -3538908, 14, 393241, -3538907, 14, 393241, -3538866, -1073741773, 262149, -3407882, 14, 720899, -3407881, 14, 720899, -3473330, -1073741773, 262149, -3473329, -1073741773, 262149, -3407793, -1073741773, 262149, -3342257, -1073741773, 262149, -3276721, -1073741773, 262149, -3211186, -1073741773, 262149, -3211185, -1073741773, 262149, -3145650, -1073741773, 262149, -3014673, 14, 720899, -3014672, 14, 720899, -3014671, 14, 720899, -3014670, 14, 720899, -3014669, 14, 720899, -3014668, 14, 720899, -3014667, 14, 720899, -3014666, 14, 720899, -3014665, 14, 720899, -3014664, 14, 720899, -3014663, 14, 720899, -3014662, 14, 720899, -3014661, 14, 720899, -3014660, 14, 720899, -3014659, 14, 720899, -3014658, 14, 720899, -3014657, 14, 720899, -3080192, 14, 720899, -3080191, 14, 720899, -3080190, 14, 720899, -3080189, 14, 720899, -3080188, 14, 720899, -3080187, 14, 720899, -3080186, 14, 720899, -3080185, 14, 720899, -3080184, 14, 720899, -3080183, 14, 720899, -3080182, 14, 720899, -3080181, 14, 720899, -3080180, 14, 720899, -3080179, 14, 720899, -3080178, 14, 720899, -3080177, 14, 720899, -3080176, 14, 720899, -3080175, 14, 720899, -3080115, -1073741773, 262149, -3080114, -1073741773, 262149, -3014579, -1073741773, 262149, -2949043, -1073741773, 262149, -2949042, -1073741773, 262149, -2883565, 14, 524303, -2883506, -1073741773, 262149, -2817970, -1073741773, 262149, -2752435, -1073741773, 262149, -2686953, 14, 524303, -2686899, -1073741773, 262149, -2686898, -1073741773, 262149, -2686897, -1073741773, 262149, -2621361, -1073741773, 262149, -2555876, 14, 524303, -2555863, 14, 524303, -2555825, -1073741773, 262149, -2490331, 14, 524303, -2490289, -1073741773, 262149, -2424799, 14, 524303, -2424753, -1073741773, 262149, -2359252, 14, 524303, -2359218, -1073741773, 262149, -2293682, -1073741773, 262149, -2228146, -1073741773, 262149, -2162650, 14, 393241, -2162649, 14, 393241, -2162648, 14, 393241, -2162647, 14, 393241, -2162646, 14, 393241, -2162645, 14, 393241, -2162610, -1073741773, 262149, -2097074, -1073741773, 262149, -2031538, -1073741773, 262149, -2031537, -1073741773, 262149, -1966051, 14, 393241, -1966050, 14, 393241, -1966049, 14, 393241, -1966048, 14, 393241, -1966047, 14, 393241, -1966046, 14, 393241, -1966001, -1073741773, 262149, -1900524, 14, 393241, -1900523, 14, 393241, -1900522, 14, 393241, -1900521, 14, 393241, -1900520, 14, 393241, -1900465, -1073741773, 262149, -1834929, -1073741773, 262149, -1769393, -1073741773, 262149, -1703857, -1073741773, 262149, -1638321, -1073741773, 262149, -1572785, -1073741773, 262149, -1507248, -1073741773, 262149, -1441712, -1073741773, 262149, -1376176, -1073741773, 262149, -1310640, -1073741773, 262149, -1310639, -1073741773, 262149, -1245176, 15, 851971, -1245175, 15, 851971, -1245174, 15, 851971, -1245173, 15, 851971, -1245172, 15, 851971, -1245171, 15, 851971, -1245170, 15, 851971, -1245169, 15, 851971, -1245168, 15, 851971, -1245167, 15, 851971, -1245166, 15, 851971, -1245165, 15, 851971, -1245103, -1073741773, 262149, -1179568, -1073741773, 262149, -1179567, -1073741773, 262149, -1114032, -1073741773, 262149, -1048553, 14, 393242, -1048552, 14, 393242, -1048551, 14, 393242, -1048550, 14, 393242, -1048549, 14, 393242, -1048530, -1073741810, 327707, -1048529, -1073741810, 393243, -1048497, -1073741773, 262149, -1048496, -1073741773, 262149, -982994, -1073741810, 327705, -982993, -1073741810, 393242, -982961, -1073741773, 262149, -851992, 14, 655361, -851990, 14, 655361, -851988, 14, 655361, -851987, 14, 655361, -851986, 14, 655361, -851984, 14, 655361, -851982, 14, 655361, -851980, 14, 655361, -851979, 14, 655361, -851978, 14, 655361, -851976, 14, 655361, -851975, 14, 655361, -851974, 14, 655361, -917474, 14, 393242, -917473, 14, 393242, -917472, 14, 393242, -917471, 14, 393242, -917470, 14, 393243, -917461, -536870898, 393243, -917460, -536870898, 327707, -917458, -1073741810, 327705, -917457, -1073741810, 393242, -917425, -1073741773, 262149, -786456, 14, 655361, -786454, 14, 655361, -786452, 14, 655361, -786450, 14, 655361, -786448, 14, 655361, -786446, 14, 655361, -786444, 14, 655361, -786440, 14, 655361, -851931, 14, 393240, -851930, 14, 393242, -851929, 14, 393242, -851928, 14, 393242, -851927, 14, 393243, -851925, -536870898, 393242, -851924, -1610612722, 327705, -851922, -1073741810, 327705, -851921, -1073741810, 393242, -851889, -1073741773, 262149, -851888, -1073741773, 262149, -720920, 14, 655361, -720919, 14, 655361, -720918, 14, 655361, -720916, 14, 655361, -720914, 14, 655361, -720912, 14, 655361, -720910, 14, 655361, -720908, 14, 655361, -720907, 14, 655361, -720906, 14, 655361, -720904, 14, 655361, -720903, 14, 655361, -720902, 14, 655361, -786389, -536870898, 393241, -786388, -1610612722, 327705, -786386, -1073741810, 327705, -786385, -1073741810, 393241, -786352, -1073741773, 262149, -655384, 14, 655361, -655382, 14, 655361, -655380, 14, 655361, -655378, 14, 655361, -655376, 14, 655361, -655374, 14, 655361, -655370, 14, 655361, -655368, 14, 655361, -720853, -536870898, 393242, -720852, -1610612722, 327705, -720850, -1073741810, 327705, -720849, -1073741810, 393242, -720816, -1073741773, 262149, -720815, -1073741773, 262149, -589848, 14, 655361, -589846, 14, 655361, -589844, 14, 655361, -589843, 14, 655361, -589842, 14, 655361, -589840, 14, 655361, -589839, 14, 655361, -589838, 14, 655361, -589836, 14, 655361, -589835, 14, 655361, -589834, 14, 655361, -589832, 14, 655361, -589831, 14, 655361, -589830, 14, 655361, -655317, -536870898, 393241, -655316, -1610612722, 327705, -655314, -1073741810, 327705, -655313, -1073741810, 393241, -655279, -1073741773, 262149, -589781, -536870898, 393242, -589780, -1610612722, 327705, -589778, -1073741810, 327705, -589777, -1073741810, 393241, -589743, -1073741773, 262149, -458774, 14, 655361, -458772, 14, 655361, -458770, 14, 655361, -458769, 14, 655361, -458768, 14, 655361, -458766, 14, 655361, -458765, 14, 655361, -458764, 14, 655361, -458762, 14, 655361, -458761, 14, 655361, -458760, 14, 655361, -524245, -536870898, 393241, -524244, -1610612722, 327705, -524242, -1073741810, 327705, -524241, -1073741810, 393242, -524207, -1073741773, 262149, -393238, 14, 655361, -393236, 14, 655361, -393234, 14, 655361, -393230, 14, 655361, -393228, 14, 655361, -393226, 14, 655361, -458709, -536870898, 393242, -458708, -1610612722, 327705, -458706, -1073741810, 327705, -458705, -1073741810, 393241, -458671, -1073741773, 262149, -327702, 14, 655361, -327701, 14, 655361, -327700, 14, 655361, -327698, 14, 655361, -327697, 14, 655361, -327696, 14, 655361, -327694, 14, 655361, -327693, 14, 655361, -327692, 14, 655361, -327690, 14, 655361, -327689, 14, 655361, -327688, 14, 655361, -393173, -536870898, 393240, -393172, -536870898, 327704, -393170, -1073741810, 327704, -393169, -1073741810, 393240, -393135, -1073741773, 262149, -262166, 14, 655361, -262164, 14, 655361, -262162, 14, 655361, -262158, 14, 655361, -262157, 14, 655361, -262154, 14, 655361, -327600, -1073741773, 262149, -327599, -1073741773, 262149, -196630, 14, 655361, -196628, 14, 655361, -196626, 14, 655361, -196625, 14, 655361, -196624, 14, 655361, -196622, 14, 655361, -196620, 14, 655361, -196618, 14, 655361, -196617, 14, 655361, -196616, 14, 655361, -262064, -1073741773, 262149, -131075, 14, 655361, -196528, -1073741773, 262149, -65539, 14, 655361, -131037, 14, 196624, -131020, 14, 196625, -130992, -1073741773, 262149, -3, 14, 655361, -65502, 14, 262159, -65501, 14, 262160, -65484, 14, 262161, -65483, 14, 262162, -65457, -1073741773, 262149, -65456, -1073741773, 262149, 65527, 15, 917510, 65528, 15, 917510, 65529, 15, 917510, 65530, 15, 917510, 65531, 15, 917510, 65532, 15, 917510, 65533, 15, 917512, 65534, 15, 917512, 65535, 15, 917512, 0, 15, 917512, 1, 15, 917508, 2, 15, 917524, 3, 15, 917524, 4, 15, 917524, 5, 15, 917524, 6, 15, 917513, 7, 15, 917513, 8, 15, 917510, 9, 15, 917511, 10, 15, 917512, 11, 15, 917510, 12, 15, 917511, 13, 15, 917513, 14, 15, 917510, 18, 14, 851975, 19, 14, 851975, 20, 14, 851975, 21, 14, 851975, 22, 14, 851975, 23, 14, 851975, 29, 14, 851974, 30, 14, 851974, 31, 14, 851974, 32, 14, 851974, 33, 14, 851974, 34, 14, 851974, 35, 14, 851976, 36, 14, 851976, 37, 14, 851976, 38, 14, 851976, 39, 14, 851976, 40, 14, 851976, 41, 14, 851976, 42, 14, 851976, 43, 14, 851976, 44, 14, 851976, 45, 14, 851976, 46, 14, 851976, 47, 14, 851976, 48, 14, 851976, 49, 14, 851976, 50, 14, 851976, 51, 14, 851976, 52, 14, 851976, 53, 14, 851976, 54, 14, 851976, 55, 14, 851974, 56, 14, 851974, 57, 14, 851974, 58, 14, 851974, 59, 14, 851974, 60, 14, 851974, 61, 14, 851974, 62, 14, 851974, 63, 14, 851974, 64, 14, 851974, 65, 14, 851975, 66, 14, 851975, 67, 14, 851975, 79, 14, 12, 65550, 14, 851993, 65554, 14, 12, 65559, 14, 12, 65565, 14, 12, 65603, -1073741773, 327682, 65615, 14, 12, 131086, 14, 12, 131090, 14, 12, 131095, 14, 12, 131101, 14, 12, 131139, -1073741773, 327682, 131151, 14, 12, 196622, 14, 12, 196623, 14, 12, 196624, 14, 12, 196625, 14, 12, 196626, 14, 12, 196631, 14, 12, 196632, 14, 12, 196633, 14, 12, 196634, 14, 12, 196635, 14, 12, 196636, 14, 12, 196637, 14, 12, 196675, -1073741773, 327682, 196687, 14, 12, 262211, -1073741773, 327682, 262212, 14, 12, 262213, 14, 12, 262214, 14, 12, 262215, 14, 12, 262216, 14, 12, 262217, 14, 12, 262218, 14, 12, 262219, 14, 12, 262220, 14, 12, 262221, 14, 12, 262222, 14, 12, 262223, 14, 12 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Foreground" type="TileMap" parent="Environment"]
+z_index = 2
+z_as_relative = false
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 16, 16 )
+collision_layer = 0
+collision_mask = 0
+format = 1
+tile_data = PoolIntArray( -4325295, -1073741773, 327682, -4259759, -1073741773, 327682, -4259758, -1073741773, 327682, -4259757, -1073741773, 327682, -4194223, -1073741773, 327682, -4194222, -1073741773, 327682, -4194221, -1073741773, 327682, -4194220, -1073741773, 327682, -4128687, -1073741773, 327682, -4128686, -1073741773, 327682, -4128685, -1073741773, 327682, -4128684, -1073741773, 327682, -4128683, -1073741773, 327682, -4063151, -1073741773, 327682, -4063150, -1073741773, 327682, -4063149, -1073741773, 327682, -4063148, -1073741773, 327682, -4063147, -1073741773, 327682, -4063146, -1073741773, 327682, -4063145, -1073741773, 327682, -3997615, -1073741773, 327682, -3997614, -1073741773, 327682, -3997613, -1073741773, 327682, -3997612, -1073741773, 327682, -3997611, -1073741773, 327682, -3997610, -1073741773, 327682, -3997609, -1073741773, 327682, -3932079, -1073741773, 327682, -3932078, -1073741773, 327682, -3932077, -1073741773, 327682, -3932076, -1073741773, 327682, -3932075, -1073741773, 327682, -3932074, -1073741773, 327682, -3932073, -1073741773, 327682, -3932072, -1073741773, 327682, -3866543, -1073741773, 327682, -3866542, -1073741773, 327682, -3866541, -1073741773, 327682, -3866540, -1073741773, 327682, -3866539, -1073741773, 327682, -3866538, -1073741773, 327682, -3866537, -1073741773, 327682, -3866536, -1073741773, 327682, -3801007, -1073741773, 327682, -3801006, -1073741773, 327682, -3801005, -1073741773, 327682, -3801004, -1073741773, 327682, -3801003, -1073741773, 327682, -3801002, -1073741773, 327682, -3801001, -1073741773, 327682, -3735471, -1073741773, 327682, -3735470, -1073741773, 327682, -3735469, -1073741773, 327682, -3735468, -1073741773, 327682, -3735467, -1073741773, 327682, 15, 6, 0, 16, 6, 0, 17, 6, 0, 24, 6, 0, 25, 6, 0, 26, 6, 0, 27, 6, 0, 28, 6, 0, 68, 6, 0, 69, 6, 0, 70, 6, 0, 71, 6, 0, 72, 6, 0, 73, 6, 0, 74, 6, 0, 75, 6, 0, 76, 6, 0, 77, 6, 0, 78, 6, 0, 65551, 6, 0, 65552, 6, 0, 65553, 6, 0, 65560, 6, 0, 65561, 6, 0, 65562, 6, 0, 65563, 6, 0, 65564, 6, 0, 131087, 6, 0, 131088, 6, 0, 131089, 6, 0, 131096, 6, 0, 131097, 6, 0, 131098, 6, 0, 131099, 6, 0, 131100, 6, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Movement Instructions" type="Control" parent="."]
+margin_left = -8.0
+margin_top = -25.0
+margin_right = 2.0
+margin_bottom = -13.0
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_group_": true
+}
+fadelength = 0.5
+
+[node name="HintContainer" type="Control" parent="Movement Instructions"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+
+[node name="HintContainerRight" type="MarginContainer" parent="Movement Instructions/HintContainer"]
+margin_left = 16.0
+margin_top = -40.0
+margin_right = 26.0
+margin_bottom = -16.0
+grow_vertical = 0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Panel" type="Panel" parent="Movement Instructions/HintContainer/HintContainerRight"]
+margin_right = 82.0
+margin_bottom = 24.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Movement Instructions/HintContainer/HintContainerRight"]
+margin_right = 82.0
+margin_bottom = 24.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+
+[node name="CenterContainer" type="CenterContainer" parent="Movement Instructions/HintContainer/HintContainerRight/MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 77.0
+margin_bottom = 19.0
+
+[node name="HintText" type="Label" parent="Movement Instructions/HintContainer/HintContainerRight/MarginContainer/CenterContainer"]
+margin_top = 4.0
+margin_right = 72.0
+margin_bottom = 10.0
+custom_fonts/font = ExtResource( 5 )
+text = "Use [Left] and [Right] to Move"
+
+[node name="HintContainerLeft" type="MarginContainer" parent="Movement Instructions/HintContainer"]
+margin_left = -26.0
+margin_top = -40.0
+margin_right = -16.0
+margin_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Panel" type="Panel" parent="Movement Instructions/HintContainer/HintContainerLeft"]
+margin_right = 10.0
+margin_bottom = 24.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Movement Instructions/HintContainer/HintContainerLeft"]
+margin_right = 10.0
+margin_bottom = 24.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+
+[node name="CenterContainer" type="CenterContainer" parent="Movement Instructions/HintContainer/HintContainerLeft/MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 5.0
+margin_bottom = 19.0
+
+[node name="HintText" type="Label" parent="Movement Instructions/HintContainer/HintContainerLeft/MarginContainer/CenterContainer"]
+margin_top = 4.0
+margin_bottom = 10.0
+custom_fonts/font = ExtResource( 5 )
+align = 2
+
+[node name="HintArea2D" type="Area2D" parent="Movement Instructions"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Movement Instructions/HintArea2D"]
+position = Vector2( 12, 6 )
+shape = SubResource( 10 )
+
+[node name="Jump Instructions" type="Control" parent="."]
+margin_left = 208.0
+margin_top = -25.0
+margin_right = 218.0
+margin_bottom = -13.0
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_group_": true
+}
+fadelength = 0.5
+
+[node name="HintContainer" type="Control" parent="Jump Instructions"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+
+[node name="HintContainerRight" type="MarginContainer" parent="Jump Instructions/HintContainer"]
+margin_left = 16.0
+margin_top = -40.0
+margin_right = 26.0
+margin_bottom = -16.0
+grow_vertical = 0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Panel" type="Panel" parent="Jump Instructions/HintContainer/HintContainerRight"]
+margin_right = 55.0
+margin_bottom = 24.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Jump Instructions/HintContainer/HintContainerRight"]
+margin_right = 55.0
+margin_bottom = 24.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+
+[node name="CenterContainer" type="CenterContainer" parent="Jump Instructions/HintContainer/HintContainerRight/MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 50.0
+margin_bottom = 19.0
+
+[node name="HintText" type="Label" parent="Jump Instructions/HintContainer/HintContainerRight/MarginContainer/CenterContainer"]
+margin_top = 4.0
+margin_right = 45.0
+margin_bottom = 10.0
+custom_fonts/font = ExtResource( 5 )
+text = "Press [Up] to Jump"
+
+[node name="HintContainerLeft" type="MarginContainer" parent="Jump Instructions/HintContainer"]
+margin_left = -26.0
+margin_top = -40.0
+margin_right = -16.0
+margin_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Panel" type="Panel" parent="Jump Instructions/HintContainer/HintContainerLeft"]
+margin_right = 10.0
+margin_bottom = 24.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Jump Instructions/HintContainer/HintContainerLeft"]
+margin_right = 10.0
+margin_bottom = 24.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+
+[node name="CenterContainer" type="CenterContainer" parent="Jump Instructions/HintContainer/HintContainerLeft/MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 5.0
+margin_bottom = 19.0
+
+[node name="HintText" type="Label" parent="Jump Instructions/HintContainer/HintContainerLeft/MarginContainer/CenterContainer"]
+margin_top = 4.0
+margin_bottom = 10.0
+custom_fonts/font = ExtResource( 5 )
+align = 2
+
+[node name="HintArea2D" type="Area2D" parent="Jump Instructions"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Jump Instructions/HintArea2D"]
+position = Vector2( -16, 6 )
+shape = SubResource( 11 )
+
+[node name="WaterPit1" type="Area2D" parent="."]
+position = Vector2( 264, 56 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
+hurtPlayer = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WaterPit1"]
+position = Vector2( 0, -12 )
+shape = SubResource( 2 )
+
+[node name="Run and Jump" type="Control" parent="."]
+margin_left = 336.0
+margin_top = -25.0
+margin_right = 346.0
+margin_bottom = -13.0
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_group_": true
+}
+fadelength = 0.5
+
+[node name="HintContainer" type="Control" parent="Run and Jump"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+
+[node name="HintContainerRight" type="MarginContainer" parent="Run and Jump/HintContainer"]
+margin_left = 16.0
+margin_top = -40.0
+margin_right = 26.0
+margin_bottom = -16.0
+grow_vertical = 0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Panel" type="Panel" parent="Run and Jump/HintContainer/HintContainerRight"]
+margin_right = 136.0
+margin_bottom = 24.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Run and Jump/HintContainer/HintContainerRight"]
+margin_right = 136.0
+margin_bottom = 24.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+
+[node name="CenterContainer" type="CenterContainer" parent="Run and Jump/HintContainer/HintContainerRight/MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 131.0
+margin_bottom = 19.0
+
+[node name="HintText" type="Label" parent="Run and Jump/HintContainer/HintContainerRight/MarginContainer/CenterContainer"]
+margin_top = 4.0
+margin_right = 126.0
+margin_bottom = 10.0
+custom_fonts/font = ExtResource( 5 )
+text = "Hold [Left] or [Right] while jumping to go further!"
+
+[node name="HintContainerLeft" type="MarginContainer" parent="Run and Jump/HintContainer"]
+margin_left = -26.0
+margin_top = -40.0
+margin_right = -16.0
+margin_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Panel" type="Panel" parent="Run and Jump/HintContainer/HintContainerLeft"]
+margin_right = 10.0
+margin_bottom = 24.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Run and Jump/HintContainer/HintContainerLeft"]
+margin_right = 10.0
+margin_bottom = 24.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+
+[node name="CenterContainer" type="CenterContainer" parent="Run and Jump/HintContainer/HintContainerLeft/MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 5.0
+margin_bottom = 19.0
+
+[node name="HintText" type="Label" parent="Run and Jump/HintContainer/HintContainerLeft/MarginContainer/CenterContainer"]
+margin_top = 4.0
+margin_bottom = 10.0
+custom_fonts/font = ExtResource( 5 )
+align = 2
+
+[node name="HintArea2D" type="Area2D" parent="Run and Jump"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Run and Jump/HintArea2D"]
+position = Vector2( 12, 6 )
+shape = SubResource( 12 )
+
+[node name="WaterPit2" type="Area2D" parent="."]
+position = Vector2( 424, 55 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
+hurtPlayer = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WaterPit2"]
+position = Vector2( 0, -11 )
+shape = SubResource( 3 )
+
+[node name="MovableObject" parent="." instance=ExtResource( 6 )]
+position = Vector2( 648, -8 )
+
+[node name="PopUpHint" type="Control" parent="."]
+margin_left = 704.0
+margin_top = -39.0
+margin_right = 714.0
+margin_bottom = -27.0
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_group_": true
+}
+fadelength = 0.5
+
+[node name="HintContainer" type="Control" parent="PopUpHint"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+
+[node name="HintContainerRight" type="MarginContainer" parent="PopUpHint/HintContainer"]
+margin_left = 16.0
+margin_top = -40.0
+margin_right = 26.0
+margin_bottom = -16.0
+grow_vertical = 0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Panel" type="Panel" parent="PopUpHint/HintContainer/HintContainerRight"]
+margin_right = 211.0
+margin_bottom = 24.0
+
+[node name="MarginContainer" type="MarginContainer" parent="PopUpHint/HintContainer/HintContainerRight"]
+margin_right = 211.0
+margin_bottom = 24.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+
+[node name="CenterContainer" type="CenterContainer" parent="PopUpHint/HintContainer/HintContainerRight/MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 206.0
+margin_bottom = 19.0
+
+[node name="HintText" type="Label" parent="PopUpHint/HintContainer/HintContainerRight/MarginContainer/CenterContainer"]
+margin_top = 4.0
+margin_right = 201.0
+margin_bottom = 10.0
+custom_fonts/font = ExtResource( 5 )
+text = "While jumping and moving into a wall, press the jump key again to wall jump!"
+
+[node name="HintContainerLeft" type="MarginContainer" parent="PopUpHint/HintContainer"]
+margin_left = -26.0
+margin_top = -40.0
+margin_right = -16.0
+margin_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Panel" type="Panel" parent="PopUpHint/HintContainer/HintContainerLeft"]
+margin_right = 10.0
+margin_bottom = 24.0
+
+[node name="MarginContainer" type="MarginContainer" parent="PopUpHint/HintContainer/HintContainerLeft"]
+margin_right = 10.0
+margin_bottom = 24.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+
+[node name="CenterContainer" type="CenterContainer" parent="PopUpHint/HintContainer/HintContainerLeft/MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 5.0
+margin_bottom = 19.0
+
+[node name="HintText" type="Label" parent="PopUpHint/HintContainer/HintContainerLeft/MarginContainer/CenterContainer"]
+margin_top = 4.0
+margin_bottom = 10.0
+custom_fonts/font = ExtResource( 5 )
+align = 2
+
+[node name="HintArea2D" type="Area2D" parent="PopUpHint"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PopUpHint/HintArea2D"]
+position = Vector2( 26, 17 )
+shape = SubResource( 9 )
+
+[node name="WaterPit3" type="Area2D" parent="."]
+position = Vector2( 1064, 56 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
+hurtPlayer = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WaterPit3"]
+position = Vector2( 88, 4 )
+shape = SubResource( 7 )
+
+[node name="WallJump Instructions" type="Control" parent="."]
+margin_left = 605.0
+margin_top = -20.0
+margin_right = 615.0
+margin_bottom = -8.0
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_group_": true
+}
+fadelength = 0.5
+
+[node name="HintContainer" type="Control" parent="WallJump Instructions"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+
+[node name="HintContainerRight" type="MarginContainer" parent="WallJump Instructions/HintContainer"]
+margin_left = 16.0
+margin_top = -40.0
+margin_right = 26.0
+margin_bottom = -16.0
+grow_vertical = 0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Panel" type="Panel" parent="WallJump Instructions/HintContainer/HintContainerRight"]
+margin_right = 97.0
+margin_bottom = 24.0
+
+[node name="MarginContainer" type="MarginContainer" parent="WallJump Instructions/HintContainer/HintContainerRight"]
+margin_right = 97.0
+margin_bottom = 24.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+
+[node name="CenterContainer" type="CenterContainer" parent="WallJump Instructions/HintContainer/HintContainerRight/MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 92.0
+margin_bottom = 19.0
+
+[node name="HintText" type="Label" parent="WallJump Instructions/HintContainer/HintContainerRight/MarginContainer/CenterContainer"]
+margin_top = 4.0
+margin_right = 87.0
+margin_bottom = 10.0
+custom_fonts/font = ExtResource( 5 )
+text = "Some Objects Move When Ran Into"
+
+[node name="HintContainerLeft" type="MarginContainer" parent="WallJump Instructions/HintContainer"]
+margin_left = -26.0
+margin_top = -40.0
+margin_right = -16.0
+margin_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Panel" type="Panel" parent="WallJump Instructions/HintContainer/HintContainerLeft"]
+margin_right = 10.0
+margin_bottom = 24.0
+
+[node name="MarginContainer" type="MarginContainer" parent="WallJump Instructions/HintContainer/HintContainerLeft"]
+margin_right = 10.0
+margin_bottom = 24.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+
+[node name="CenterContainer" type="CenterContainer" parent="WallJump Instructions/HintContainer/HintContainerLeft/MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 5.0
+margin_bottom = 19.0
+
+[node name="HintText" type="Label" parent="WallJump Instructions/HintContainer/HintContainerLeft/MarginContainer/CenterContainer"]
+margin_top = 4.0
+margin_bottom = 10.0
+custom_fonts/font = ExtResource( 5 )
+align = 2
+
+[node name="HintArea2D" type="Area2D" parent="WallJump Instructions"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallJump Instructions/HintArea2D"]
+position = Vector2( 3, 0 )
+shape = SubResource( 4 )
+
+[node name="Ladders Intructions" type="Control" parent="."]
+margin_left = 284.0
+margin_top = -324.0
+margin_right = 294.0
+margin_bottom = -312.0
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_group_": true
+}
+fadelength = 0.5
+
+[node name="HintContainer" type="Control" parent="Ladders Intructions"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+
+[node name="HintContainerRight" type="MarginContainer" parent="Ladders Intructions/HintContainer"]
+margin_left = 16.0
+margin_top = -40.0
+margin_right = 26.0
+margin_bottom = -16.0
+grow_vertical = 0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Panel" type="Panel" parent="Ladders Intructions/HintContainer/HintContainerRight"]
+margin_right = 76.0
+margin_bottom = 25.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Ladders Intructions/HintContainer/HintContainerRight"]
+margin_right = 76.0
+margin_bottom = 25.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+
+[node name="CenterContainer" type="CenterContainer" parent="Ladders Intructions/HintContainer/HintContainerRight/MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 71.0
+margin_bottom = 20.0
+
+[node name="HintText" type="Label" parent="Ladders Intructions/HintContainer/HintContainerRight/MarginContainer/CenterContainer"]
+margin_right = 66.0
+margin_bottom = 15.0
+custom_fonts/font = ExtResource( 5 )
+text = "Climb Ladders By Running
+Into Them"
+
+[node name="HintContainerLeft" type="MarginContainer" parent="Ladders Intructions/HintContainer"]
+margin_left = -26.0
+margin_top = -40.0
+margin_right = -16.0
+margin_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Panel" type="Panel" parent="Ladders Intructions/HintContainer/HintContainerLeft"]
+margin_right = 10.0
+margin_bottom = 24.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Ladders Intructions/HintContainer/HintContainerLeft"]
+margin_right = 10.0
+margin_bottom = 24.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+
+[node name="CenterContainer" type="CenterContainer" parent="Ladders Intructions/HintContainer/HintContainerLeft/MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 5.0
+margin_bottom = 19.0
+
+[node name="HintText" type="Label" parent="Ladders Intructions/HintContainer/HintContainerLeft/MarginContainer/CenterContainer"]
+margin_top = 4.0
+margin_bottom = 10.0
+custom_fonts/font = ExtResource( 5 )
+align = 2
+
+[node name="HintArea2D" type="Area2D" parent="Ladders Intructions"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ladders Intructions/HintArea2D"]
+position = Vector2( -4, 6 )
+shape = SubResource( 5 )
+
+[node name="MovableObject2" parent="." instance=ExtResource( 6 )]
+position = Vector2( 168, -312 )
+
+[node name="Reset Inctructions" type="Control" parent="."]
+margin_left = 124.0
+margin_top = -320.0
+margin_right = 134.0
+margin_bottom = -308.0
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_group_": true
+}
+fadelength = 0.5
+
+[node name="HintContainer" type="Control" parent="Reset Inctructions"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+
+[node name="HintContainerRight" type="MarginContainer" parent="Reset Inctructions/HintContainer"]
+margin_left = 16.0
+margin_top = -40.0
+margin_right = 26.0
+margin_bottom = -16.0
+grow_vertical = 0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Panel" type="Panel" parent="Reset Inctructions/HintContainer/HintContainerRight"]
+margin_right = 68.0
+margin_bottom = 25.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Reset Inctructions/HintContainer/HintContainerRight"]
+margin_right = 68.0
+margin_bottom = 25.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+
+[node name="CenterContainer" type="CenterContainer" parent="Reset Inctructions/HintContainer/HintContainerRight/MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 63.0
+margin_bottom = 20.0
+
+[node name="HintText" type="Label" parent="Reset Inctructions/HintContainer/HintContainerRight/MarginContainer/CenterContainer"]
+margin_right = 58.0
+margin_bottom = 15.0
+custom_fonts/font = ExtResource( 5 )
+text = "Lost Box?
+Hold R to Reset Stage"
+
+[node name="HintContainerLeft" type="MarginContainer" parent="Reset Inctructions/HintContainer"]
+margin_left = -26.0
+margin_top = -40.0
+margin_right = -16.0
+margin_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Panel" type="Panel" parent="Reset Inctructions/HintContainer/HintContainerLeft"]
+margin_right = 10.0
+margin_bottom = 24.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Reset Inctructions/HintContainer/HintContainerLeft"]
+margin_right = 10.0
+margin_bottom = 24.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+
+[node name="CenterContainer" type="CenterContainer" parent="Reset Inctructions/HintContainer/HintContainerLeft/MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 5.0
+margin_bottom = 19.0
+
+[node name="HintText" type="Label" parent="Reset Inctructions/HintContainer/HintContainerLeft/MarginContainer/CenterContainer"]
+margin_top = 4.0
+margin_bottom = 10.0
+custom_fonts/font = ExtResource( 5 )
+align = 2
+
+[node name="HintArea2D" type="Area2D" parent="Reset Inctructions"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Reset Inctructions/HintArea2D"]
+position = Vector2( 8, 6 )
+shape = SubResource( 6 )
+
+[node name="Ladder Stack" type="Node" parent="."]
+
+[node name="Ladder" parent="Ladder Stack" instance=ExtResource( 7 )]
+position = Vector2( 318, -408 )
+
+[node name="Ladder2" parent="Ladder Stack" instance=ExtResource( 7 )]
+position = Vector2( 318, -424 )
+
+[node name="Ladder3" parent="Ladder Stack" instance=ExtResource( 7 )]
+position = Vector2( 318, -440 )
+
+[node name="Ladder4" parent="Ladder Stack" instance=ExtResource( 7 )]
+position = Vector2( 318, -456 )
+
+[node name="Puzzle 1" type="Node" parent="."]
+
+[node name="GroundObjs" type="Node" parent="Puzzle 1"]
+
+[node name="GroundObj" parent="Puzzle 1/GroundObjs" instance=ExtResource( 6 )]
+position = Vector2( 223, -763 )
+
+[node name="GroundObj2" parent="Puzzle 1/GroundObjs" instance=ExtResource( 6 )]
+position = Vector2( 201, -762 )
+
+[node name="GroundObj3" parent="Puzzle 1/GroundObjs" instance=ExtResource( 6 )]
+position = Vector2( 178, -762 )
+
+[node name="GroundObj4" parent="Puzzle 1/GroundObjs" instance=ExtResource( 6 )]
+position = Vector2( 154, -761 )
+
+[node name="GroundObj5" parent="Puzzle 1/GroundObjs" instance=ExtResource( 6 )]
+position = Vector2( 128, -762 )
+
+[node name="Ladder Stack 2" type="Node" parent="Puzzle 1"]
+
+[node name="Ladder" parent="Puzzle 1/Ladder Stack 2" instance=ExtResource( 7 )]
+position = Vector2( 286, -872 )
+
+[node name="Ladder2" parent="Puzzle 1/Ladder Stack 2" instance=ExtResource( 7 )]
+position = Vector2( 286, -888 )
+
+[node name="Ladder3" parent="Puzzle 1/Ladder Stack 2" instance=ExtResource( 7 )]
+position = Vector2( 286, -904 )
+
+[node name="Ladder4" parent="Puzzle 1/Ladder Stack 2" instance=ExtResource( 7 )]
+position = Vector2( 286, -920 )
+
+[node name="Ladder Stack 3" type="Node" parent="Puzzle 1"]
+
+[node name="Ladder" parent="Puzzle 1/Ladder Stack 3" instance=ExtResource( 7 )]
+position = Vector2( -162, -808 )
+
+[node name="Ladder2" parent="Puzzle 1/Ladder Stack 3" instance=ExtResource( 7 )]
+position = Vector2( -162, -824 )
+
+[node name="Ladder3" parent="Puzzle 1/Ladder Stack 3" instance=ExtResource( 7 )]
+position = Vector2( -162, -840 )
+
+[node name="GroundObj" parent="Puzzle 1" instance=ExtResource( 6 )]
+position = Vector2( 92, -1008 )
+
+[node name="GroundObj2" parent="Puzzle 1" instance=ExtResource( 6 )]
+position = Vector2( 103, -984 )
+
+[node name="GroundObj3" parent="Puzzle 1" instance=ExtResource( 6 )]
+position = Vector2( 80, -984 )
+
+[node name="GoneTooFar" type="Control" parent="Puzzle 1"]
+anchor_left = 0.217
+anchor_top = -2.578
+anchor_right = 0.784
+anchor_bottom = -2.578
+margin_left = 312.84
+margin_top = -408.94
+margin_right = 300.16
+margin_bottom = -396.94
+script = ExtResource( 4 )
+fadelength = 0.1
+
+[node name="HintContainer" type="Control" parent="Puzzle 1/GoneTooFar"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+
+[node name="HintContainerRight" type="MarginContainer" parent="Puzzle 1/GoneTooFar/HintContainer"]
+margin_left = -210.74
+margin_top = -29.0
+margin_right = -117.74
+margin_bottom = -5.0
+grow_vertical = 0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Panel" type="Panel" parent="Puzzle 1/GoneTooFar/HintContainer/HintContainerRight"]
+margin_right = 93.0
+margin_bottom = 24.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Puzzle 1/GoneTooFar/HintContainer/HintContainerRight"]
+margin_right = 93.0
+margin_bottom = 24.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+
+[node name="CenterContainer" type="CenterContainer" parent="Puzzle 1/GoneTooFar/HintContainer/HintContainerRight/MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 88.0
+margin_bottom = 19.0
+
+[node name="HintText" type="Label" parent="Puzzle 1/GoneTooFar/HintContainer/HintContainerRight/MarginContainer/CenterContainer"]
+margin_top = 4.0
+margin_right = 83.0
+margin_bottom = 10.0
+custom_fonts/font = ExtResource( 5 )
+text = "You've gone too far! Turn back!"
+
+[node name="HintContainerLeft" type="MarginContainer" parent="Puzzle 1/GoneTooFar/HintContainer"]
+visible = false
+margin_left = -26.0
+margin_top = -40.0
+margin_right = -16.0
+margin_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Panel" type="Panel" parent="Puzzle 1/GoneTooFar/HintContainer/HintContainerLeft"]
+margin_right = 10.0
+margin_bottom = 24.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Puzzle 1/GoneTooFar/HintContainer/HintContainerLeft"]
+margin_right = 10.0
+margin_bottom = 24.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+
+[node name="CenterContainer" type="CenterContainer" parent="Puzzle 1/GoneTooFar/HintContainer/HintContainerLeft/MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 5.0
+margin_bottom = 19.0
+
+[node name="HintText" type="Label" parent="Puzzle 1/GoneTooFar/HintContainer/HintContainerLeft/MarginContainer/CenterContainer"]
+margin_top = 4.0
+margin_bottom = 10.0
+custom_fonts/font = ExtResource( 5 )
+align = 2
+
+[node name="HintArea2D" type="Area2D" parent="Puzzle 1/GoneTooFar"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Puzzle 1/GoneTooFar/HintArea2D"]
+position = Vector2( 5, 6 )
+shape = SubResource( 13 )
+
+[node name="ToLevel2" type="Area2D" parent="."]
+position = Vector2( 1368, -920 )
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_group_": true
+}
+nextLevel = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ToLevel2"]
+position = Vector2( -8, -40 )
+shape = SubResource( 8 )
+
+[connection signal="body_entered" from="Movement Instructions/HintArea2D" to="Movement Instructions" method="OnHintArea2DBodyEntered"]
+[connection signal="body_exited" from="Movement Instructions/HintArea2D" to="Movement Instructions" method="OnHintArea2DBodyExited"]
+[connection signal="body_entered" from="Jump Instructions/HintArea2D" to="Jump Instructions" method="OnHintArea2DBodyEntered"]
+[connection signal="body_exited" from="Jump Instructions/HintArea2D" to="Jump Instructions" method="OnHintArea2DBodyExited"]
+[connection signal="body_entered" from="WaterPit1" to="WaterPit1" method="_on_DeathField_body_entered"]
+[connection signal="body_entered" from="Run and Jump/HintArea2D" to="Run and Jump" method="OnHintArea2DBodyEntered"]
+[connection signal="body_exited" from="Run and Jump/HintArea2D" to="Run and Jump" method="OnHintArea2DBodyExited"]
+[connection signal="body_entered" from="WaterPit2" to="WaterPit2" method="_on_DeathField_body_entered"]
+[connection signal="body_entered" from="PopUpHint/HintArea2D" to="PopUpHint" method="OnHintArea2DBodyEntered"]
+[connection signal="body_exited" from="PopUpHint/HintArea2D" to="PopUpHint" method="OnHintArea2DBodyExited"]
+[connection signal="body_entered" from="WaterPit3" to="WaterPit3" method="_on_DeathField_body_entered"]
+[connection signal="body_entered" from="WallJump Instructions/HintArea2D" to="WallJump Instructions" method="OnHintArea2DBodyEntered"]
+[connection signal="body_exited" from="WallJump Instructions/HintArea2D" to="WallJump Instructions" method="OnHintArea2DBodyExited"]
+[connection signal="body_entered" from="Ladders Intructions/HintArea2D" to="Ladders Intructions" method="OnHintArea2DBodyEntered"]
+[connection signal="body_exited" from="Ladders Intructions/HintArea2D" to="Ladders Intructions" method="OnHintArea2DBodyExited"]
+[connection signal="body_entered" from="Reset Inctructions/HintArea2D" to="Reset Inctructions" method="OnHintArea2DBodyEntered"]
+[connection signal="body_exited" from="Reset Inctructions/HintArea2D" to="Reset Inctructions" method="OnHintArea2DBodyExited"]
+[connection signal="body_entered" from="Puzzle 1/GoneTooFar/HintArea2D" to="Puzzle 1/GoneTooFar" method="OnHintArea2DBodyEntered"]
+[connection signal="body_exited" from="Puzzle 1/GoneTooFar/HintArea2D" to="Puzzle 1/GoneTooFar" method="OnHintArea2DBodyExited"]
+[connection signal="body_entered" from="ToLevel2" to="ToLevel2" method="OnTransitionFieldBodyEntered"]

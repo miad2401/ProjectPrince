@@ -1,0 +1,93 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Art/SpriteSheets/batasset-Sheet.png" type="Texture" id=1]
+[ext_resource path="res://Scripts/Bat.cs" type="Script" id=2]
+
+[sub_resource type="CapsuleShape2D" id=29]
+radius = 5.0
+height = 0.0
+
+[sub_resource type="Animation" id=3]
+resource_name = "Idle"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("EnemySprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, false ]
+}
+
+[sub_resource type="Animation" id=6]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("EnemySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"update": 0,
+"values": [  ]
+}
+
+[sub_resource type="AnimationNodeAnimation" id=26]
+animation = "Idle"
+
+[sub_resource type="AnimationNodeStateMachine" id=27]
+states/Idle/node = SubResource( 26 )
+states/Idle/position = Vector2( 272, 86 )
+start_node = "Idle"
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=28]
+
+[node name="Bat" type="KinematicBody2D" groups=["Bat", "Enemy"]]
+position = Vector2( 144, 128 )
+collision_layer = 2
+collision_mask = 32775
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
+hurtPlayer = true
+amplitude = 100
+frequency = 0.5
+hSpeed = 100
+
+[node name="EnemySprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+hframes = 8
+frame = 4
+
+[node name="EnemyCollisionBox" type="CollisionShape2D" parent="."]
+shape = SubResource( 29 )
+
+[node name="EnemyAnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Idle = SubResource( 3 )
+anims/RESET = SubResource( 6 )
+
+[node name="EnemyAnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 27 )
+anim_player = NodePath("../EnemyAnimationPlayer")
+active = true
+parameters/playback = SubResource( 28 )

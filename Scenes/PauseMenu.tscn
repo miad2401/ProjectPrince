@@ -1,0 +1,135 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/PauseMenu.cs" type="Script" id=1]
+[ext_resource path="res://Art/Fonts/Size16PBW.tres" type="DynamicFont" id=2]
+
+[node name="PauseMenu" type="Control"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = 1.0
+rect_scale = Vector2( 1.00908, 0.996325 )
+script = ExtResource( 1 )
+ResetLength = 3.0
+DeathLength = 1.0
+RespawnLength = 2.0
+TransitionLength = 0.5
+
+[node name="Background" type="ColorRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.0705882, 0.0941176, 0.192157, 0.619608 )
+
+[node name="TransitionPanel" type="Panel" parent="."]
+visible = false
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="DeathPanel" type="Panel" parent="."]
+visible = false
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="YouDied" type="Label" parent="DeathPanel"]
+anchor_left = 0.5
+anchor_top = 0.4
+anchor_right = 0.5
+anchor_bottom = 0.4
+margin_left = -22.5
+margin_top = -7.0
+margin_right = 22.5
+margin_bottom = 7.0
+custom_fonts/font = ExtResource( 2 )
+text = "YOU DIED!"
+
+[node name="RespawnButton" type="Button" parent="DeathPanel"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -27.0
+margin_top = -10.0
+margin_right = 27.0
+margin_bottom = 10.0
+custom_fonts/font = ExtResource( 2 )
+text = "RESPAWN"
+
+[node name="PauseCenterContainer" type="CenterContainer" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseCenterContainer"]
+margin_left = 210.0
+margin_top = 79.0
+margin_right = 270.0
+margin_bottom = 191.0
+
+[node name="Label" type="Label" parent="PauseCenterContainer/VBoxContainer"]
+margin_right = 60.0
+margin_bottom = 12.0
+custom_fonts/font = ExtResource( 2 )
+text = "Paused"
+align = 1
+valign = 1
+
+[node name="Control" type="Control" parent="PauseCenterContainer/VBoxContainer"]
+margin_top = 16.0
+margin_right = 60.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 0, 8 )
+
+[node name="ResumeButton" type="Button" parent="PauseCenterContainer/VBoxContainer"]
+margin_top = 28.0
+margin_right = 60.0
+margin_bottom = 46.0
+custom_fonts/font = ExtResource( 2 )
+text = "Resume"
+
+[node name="RestartButton" type="Button" parent="PauseCenterContainer/VBoxContainer"]
+margin_top = 50.0
+margin_right = 60.0
+margin_bottom = 68.0
+custom_fonts/font = ExtResource( 2 )
+text = "Restart"
+
+[node name="MenuButton" type="Button" parent="PauseCenterContainer/VBoxContainer"]
+margin_top = 72.0
+margin_right = 60.0
+margin_bottom = 90.0
+custom_fonts/font = ExtResource( 2 )
+text = "Main Menu"
+
+[node name="QuitButton" type="Button" parent="PauseCenterContainer/VBoxContainer"]
+margin_top = 94.0
+margin_right = 60.0
+margin_bottom = 112.0
+custom_fonts/font = ExtResource( 2 )
+text = "Quit"
+
+[node name="ResetProgress" type="Panel" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 16.0
+margin_top = -44.0
+margin_right = 104.0
+margin_bottom = -16.0
+
+[node name="Label" type="Label" parent="ResetProgress"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 2 )
+text = "Resetting..."
+align = 1
+valign = 1
+
+[connection signal="pressed" from="DeathPanel/RespawnButton" to="." method="_on_RespawnButton_pressed"]
+[connection signal="pressed" from="PauseCenterContainer/VBoxContainer/ResumeButton" to="." method="_on_ResumeButton_pressed"]
+[connection signal="pressed" from="PauseCenterContainer/VBoxContainer/RestartButton" to="." method="_on_RestartButton_pressed"]
+[connection signal="pressed" from="PauseCenterContainer/VBoxContainer/MenuButton" to="." method="_on_MenuButton_pressed"]
+[connection signal="pressed" from="PauseCenterContainer/VBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]

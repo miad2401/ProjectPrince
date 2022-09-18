@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Art/Tilemaps/MasterTileset.tres" type="TileSet" id=2]
+[ext_resource path="res://Scenes/EnvironmentTools/Note.tscn" type="PackedScene" id=3]
+
+[node name="Level3" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+
+[node name="Environment" type="Node2D" parent="."]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="Environment"]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Environment/ParallaxBackground"]
+
+[node name="Background" type="TileMap" parent="Environment"]
+z_index = -2
+z_as_relative = false
+tile_set = ExtResource( 2 )
+cell_size = Vector2( 16, 16 )
+collision_layer = 0
+collision_mask = 0
+format = 1
+
+[node name="Baseground" type="TileMap" parent="Environment"]
+z_as_relative = false
+tile_set = ExtResource( 2 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( 720906, 89, 327685, 720907, 89, 327685, 720908, 89, 327685, 720909, 89, 327685, 720910, 89, 327685, 720911, 89, 327685, 720912, 89, 327685, 720913, 89, 327685, 720914, 89, 327685, 720915, 89, 327685, 720916, 89, 327685, 720917, 89, 327685, 720918, 89, 327685, 720919, 89, 327685, 720920, 89, 327685, 720921, 89, 327685 )
+
+[node name="Foreground" type="TileMap" parent="Environment"]
+z_index = 2
+z_as_relative = false
+tile_set = ExtResource( 2 )
+cell_size = Vector2( 16, 16 )
+collision_layer = 0
+collision_mask = 0
+format = 1
+
+[node name="Note" parent="." instance=ExtResource( 3 )]
+margin_left = 128.0
+margin_top = -93.0
+margin_right = 128.0
+margin_bottom = -93.0
