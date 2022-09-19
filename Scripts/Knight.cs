@@ -84,14 +84,14 @@ public class Knight : BaseEnemy
 		{
 			//If not moving, switches to an idle animation
 			enemyANSMP.Travel("Idle");
+			animationTree.Set("parameters/Idle/blend_position", velocity.x);
 		}
 		else
 		{
-			//If moving, switches to an walk animation
-			enemyANSMP.Travel("Walk");
+			//If moving, switches to an run animation
+			enemyANSMP.Travel("Run");
 			//Changes direction of the animation based on the velocity
-			animationTree.Set("parameters/Idle/blend_position", velocity);
-			animationTree.Set("parameters/Walk/blend_position", velocity);
+			animationTree.Set("parameters/Run/blend_position", velocity.x);
 		}
 	}
 }

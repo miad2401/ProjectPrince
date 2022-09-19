@@ -1,7 +1,8 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Art/SpriteSheets/Idle-Sheet-Knight.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Knight.cs" type="Script" id=2]
+[ext_resource path="res://Art/SpriteSheets/KnightRun.png" type="Texture" id=3]
 
 [sub_resource type="CapsuleShape2D" id=25]
 radius = 7.0
@@ -30,10 +31,46 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.8 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ true, true ]
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("EnemySprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 4 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("EnemySprite:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("EnemySprite:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -59,68 +96,46 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.8 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ false, false ]
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
 }
-
-[sub_resource type="Animation" id=4]
-resource_name = "JumpLeft"
-length = 0.4
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("EnemySprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray(  ),
-"transitions": PoolRealArray(  ),
-"update": 1,
-"values": [  ]
+tracks/2/type = "value"
+tracks/2/path = NodePath("EnemySprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 4 ]
 }
-tracks/1/type = "value"
-tracks/1/path = NodePath("EnemySprite:flip_h")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.4 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ true, true ]
+tracks/3/type = "value"
+tracks/3/path = NodePath("EnemySprite:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 1 ) ]
 }
-
-[sub_resource type="Animation" id=5]
-resource_name = "JumpRight"
-length = 0.4
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("EnemySprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray(  ),
-"transitions": PoolRealArray(  ),
-"update": 1,
-"values": [  ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("EnemySprite:flip_h")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.4 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ false, false ]
+tracks/4/type = "value"
+tracks/4/path = NodePath("EnemySprite:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -138,9 +153,9 @@ tracks/0/keys = {
 "values": [  ]
 }
 
-[sub_resource type="Animation" id=7]
-resource_name = "WalkLeft"
-length = 0.4
+[sub_resource type="Animation" id=26]
+resource_name = "RunLeft"
+length = 0.8
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("EnemySprite:frame")
@@ -149,10 +164,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 0, 1, 2, 3 ]
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("EnemySprite:flip_h")
@@ -161,15 +176,51 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.8 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ true, true ]
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("EnemySprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 8 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("EnemySprite:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 3 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("EnemySprite:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 4, 0 ) ]
 }
 
 [sub_resource type="Animation" id=8]
-resource_name = "WalkRight"
-length = 0.4
+resource_name = "RunRight"
+length = 0.8
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("EnemySprite:frame")
@@ -178,10 +229,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 0, 1, 2, 3 ]
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("EnemySprite:flip_h")
@@ -190,10 +241,46 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.8 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ false, false ]
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("EnemySprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 8 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("EnemySprite:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 3 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("EnemySprite:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -4, 0 ) ]
 }
 
 [sub_resource type="AnimationNodeAnimation" id=9]
@@ -209,10 +296,10 @@ blend_point_1/node = SubResource( 10 )
 blend_point_1/pos = 0.9
 
 [sub_resource type="AnimationNodeAnimation" id=15]
-animation = "WalkLeft"
+animation = "RunLeft"
 
 [sub_resource type="AnimationNodeAnimation" id=16]
-animation = "WalkRight"
+animation = "RunRight"
 
 [sub_resource type="AnimationNodeBlendSpace1D" id=17]
 blend_point_0/node = SubResource( 15 )
@@ -227,9 +314,9 @@ blend_point_1/pos = 0.9
 [sub_resource type="AnimationNodeStateMachine" id=23]
 states/Idle/node = SubResource( 11 )
 states/Idle/position = Vector2( 164, 80 )
-states/Walk/node = SubResource( 17 )
-states/Walk/position = Vector2( 384, 80 )
-transitions = [ "Idle", "Walk", SubResource( 18 ), "Walk", "Idle", SubResource( 19 ) ]
+states/Run/node = SubResource( 17 )
+states/Run/position = Vector2( 385, 80 )
+transitions = [ "Idle", "Run", SubResource( 18 ), "Run", "Idle", SubResource( 19 ) ]
 start_node = "Idle"
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=24]
@@ -253,7 +340,7 @@ gravity = 10
 [node name="EnemySprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
 hframes = 4
-frame = 1
+frame = 2
 
 [node name="EnemyCollisionBox" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 3 )
@@ -262,11 +349,9 @@ shape = SubResource( 25 )
 [node name="EnemyAnimationPlayer" type="AnimationPlayer" parent="."]
 anims/IdleLeft = SubResource( 2 )
 anims/IdleRight = SubResource( 3 )
-anims/JumpLeft = SubResource( 4 )
-anims/JumpRight = SubResource( 5 )
 anims/RESET = SubResource( 6 )
-anims/WalkLeft = SubResource( 7 )
-anims/WalkRight = SubResource( 8 )
+anims/RunLeft = SubResource( 26 )
+anims/RunRight = SubResource( 8 )
 
 [node name="EnemyAnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 23 )
@@ -274,4 +359,4 @@ anim_player = NodePath("../EnemyAnimationPlayer")
 active = true
 parameters/playback = SubResource( 24 )
 parameters/Idle/blend_position = 0.997019
-parameters/Walk/blend_position = -0.00298065
+parameters/Run/blend_position = 0
