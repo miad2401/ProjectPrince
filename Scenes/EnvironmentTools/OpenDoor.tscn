@@ -1,0 +1,130 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Scripts/OpenDoor.cs" type="Script" id=1]
+[ext_resource path="res://Art/Fonts/Size8PBW.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Art/Tilemaps/FewTiles/OutDoors.png" type="Texture" id=3]
+[ext_resource path="res://Scripts/TransitionField.cs" type="Script" id=4]
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 32, 16 )
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 56, 24 )
+
+[node name="OpenDoor" type="Control"]
+margin_left = 89.0
+margin_top = 13.0
+margin_right = 99.0
+margin_bottom = 25.0
+script = ExtResource( 1 )
+fadelength = 0.5
+
+[node name="HintContainer" type="Control" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+
+[node name="HintContainerRight" type="MarginContainer" parent="HintContainer"]
+margin_left = 16.0
+margin_top = -40.0
+margin_right = 26.0
+margin_bottom = -16.0
+grow_vertical = 0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Panel" type="Panel" parent="HintContainer/HintContainerRight"]
+margin_right = 68.0
+margin_bottom = 34.0
+
+[node name="MarginContainer" type="MarginContainer" parent="HintContainer/HintContainerRight"]
+margin_right = 68.0
+margin_bottom = 34.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+
+[node name="CenterContainer" type="CenterContainer" parent="HintContainer/HintContainerRight/MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 63.0
+margin_bottom = 29.0
+
+[node name="HintText" type="Label" parent="HintContainer/HintContainerRight/MarginContainer/CenterContainer"]
+margin_right = 58.0
+margin_bottom = 24.0
+custom_fonts/font = ExtResource( 2 )
+text = "The river is too wide,
+maybe the barkeep
+can help?"
+
+[node name="HintContainerLeft" type="MarginContainer" parent="HintContainer"]
+margin_left = -26.0
+margin_top = -40.0
+margin_right = -16.0
+margin_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Panel" type="Panel" parent="HintContainer/HintContainerLeft"]
+margin_right = 10.0
+margin_bottom = 24.0
+
+[node name="MarginContainer" type="MarginContainer" parent="HintContainer/HintContainerLeft"]
+margin_right = 10.0
+margin_bottom = 24.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+
+[node name="CenterContainer" type="CenterContainer" parent="HintContainer/HintContainerLeft/MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 5.0
+margin_bottom = 19.0
+
+[node name="HintText" type="Label" parent="HintContainer/HintContainerLeft/MarginContainer/CenterContainer"]
+margin_top = 4.0
+margin_bottom = 10.0
+custom_fonts/font = ExtResource( 2 )
+align = 2
+
+[node name="HintArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HintArea2D"]
+position = Vector2( -18, 1 )
+shape = SubResource( 6 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="DoorArea" type="Area2D" parent="."]
+monitoring = false
+monitorable = false
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_group_": true
+}
+nextLevel = 3
+
+[node name="Sprite" type="Sprite" parent="DoorArea"]
+position = Vector2( -86, -7 )
+texture = ExtResource( 3 )
+hframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DoorArea"]
+shape = SubResource( 1 )
+
+[connection signal="body_entered" from="HintArea2D" to="." method="OnHintArea2DBodyEntered"]
+[connection signal="body_exited" from="HintArea2D" to="." method="OnHintArea2DBodyExited"]
+[connection signal="timeout" from="Timer" to="." method="OnTimerTimeout"]
+[connection signal="body_entered" from="DoorArea" to="DoorArea" method="OnTransitionFieldBodyEntered"]

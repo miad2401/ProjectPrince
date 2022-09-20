@@ -5,6 +5,7 @@ public class TransitionField : Area2D
 {
     //Change values in editor, not in code
     [Export] Level nextLevel;
+    [Export] int nextCheckpoint;
 
     //Signal that tells Main to change the current level to the given level
     [Signal] public delegate void TransitionAnimation(Level nLevel);
@@ -22,6 +23,7 @@ public class TransitionField : Area2D
         if (body.IsInGroup("Player"))
         {
             EmitSignal(nameof(TransitionAnimation), nextLevel);
+            Main.checkpoint = nextCheckpoint;
         }
     }
 }

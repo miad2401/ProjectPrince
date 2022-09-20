@@ -5,9 +5,9 @@ public class PopUpHint : Control
 {
 	//Change values in editor, not in code
 	//If True, displays an addiction textbox
-	[Export] bool leftText;
+	[Export] private bool leftText;
 	//Time to display Textboxes
-	[Export] float fadelength; //In Seconds
+	[Export] private float fadelength; //In Seconds
 
 	//Currently fading out/in
 	bool fadeIn = false;
@@ -55,7 +55,7 @@ public class PopUpHint : Control
 	}
 
 	//Called when body entered
-	public void OnHintArea2DBodyEntered(Node body)
+	public virtual void OnHintArea2DBodyEntered(Node body)
 	{
 		//Checks if the touched object was a player, and if so, displays the text
 		if (body.IsInGroup("Player"))

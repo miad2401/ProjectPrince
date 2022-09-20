@@ -8,6 +8,9 @@ public class DeathField : Area2D
 	[Export] bool hurtEnemy;
 	[Export] bool hurtMoveableObject;
 
+	//Prevents a bug killing the player multiple times in a row
+	protected bool killedPlayer = false;
+
 	//Signal that tells the PauseMenu if the player died
 	[Signal] public delegate void PlayerDeath();
 

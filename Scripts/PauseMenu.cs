@@ -4,8 +4,8 @@ using System;
 public class PauseMenu : Control
 {
 	//Creates a signal to connect to another script
-	[Signal] public delegate void ReloadCurrentLevel();
-	[Signal] public delegate void ChangeLevel(Level nLevel);
+	[Signal] public delegate void ReloadCurrentLevel(int checkpoint);
+	[Signal] public delegate void ChangeLevel(Level nLevel, int checkpoint);
 
 	[Export] public float ResetLength; //Time needed to reset Level
 	[Export] public float DeathLength; //Time needed to fade to black when dead
@@ -26,6 +26,7 @@ public class PauseMenu : Control
 	bool playerDied = false;
 	bool transitioning = false;
 	bool fadeIn = true;
+	float timePassed = 0;
 	//Keeps track of how long the reset button has been held down for
 	float resetHeld = 0f;
 	Level nextLevel;
@@ -57,6 +58,7 @@ public class PauseMenu : Control
 	}
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(float delta) {
+		timePassed += delta;
 		//Checks if Player can unpause game
 		if (changeable)
 		{
@@ -194,6 +196,7 @@ public class PauseMenu : Control
 
 	private void _on_RespawnButton_pressed()
 	{
+		timePassed = 0;
 		ResetVariables();
 		//Unpause the game
 		GetTree().Paused = paused;
@@ -203,11 +206,13 @@ public class PauseMenu : Control
 
 	private void PlayerDied()
 	{
-		//When player dies make the game un-changable-from-the-player, pause the game, and set playerDied to true
-		DeathPanel.Visible = true;
-		playerDied = true;
-		PauseFromOutsidePauseMenu(true);
-		playerDied = true;
+		if(timePassed > 5)
+        {
+			//When player dies make the game un-changable-from-the-player, pause the game, and set playerDied to true
+			DeathPanel.Visible = true;
+			playerDied = true;
+			PauseFromOutsidePauseMenu(true);
+		}
 	}
 
 	private void TransitionFade(Level nLevel)

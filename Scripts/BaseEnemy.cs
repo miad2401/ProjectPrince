@@ -19,7 +19,6 @@ public abstract class BaseEnemy : KinematicBody2D
 	[Export] protected bool pushable;
 	protected Vector2 velocity = new Vector2();
 	protected Vector2 floor = new Vector2(0, -1);
-
 	//Signal that tells the PauseMenu if the player died
 	[Signal] public delegate void PlayerDeath();
 

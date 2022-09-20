@@ -633,7 +633,7 @@ swingDelay = 0.55
 position = Vector2( 0, -2 )
 texture = ExtResource( 1 )
 hframes = 4
-frame = 3
+frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 1 )

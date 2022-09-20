@@ -320,7 +320,7 @@ public class Player : KinematicBody2D
 		//Moves the player according to the velocity and defines what direction to go
 		//"false, 4, 0.78598f" are default values
 		//Last argument is for infinite_inertia, We turn this off so environment can be interacted with
-		MoveAndSlide(velocity, floor, false, 4, 0.785398f, false);
+		MoveAndSlide(velocity, floor, false, 4, 1.178097f, false);
 		
 		// Update debug menu
 		updateDMenu();

@@ -1,7 +1,6 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Art/Tilemaps/MasterTileset.tres" type="TileSet" id=1]
-[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/DeathField.cs" type="Script" id=3]
 [ext_resource path="res://Scripts/EnemyBarrier.cs" type="Script" id=4]
 [ext_resource path="res://Scenes/EnvironmentTools/FakeNote.tscn" type="PackedScene" id=5]
@@ -65,9 +64,6 @@ extents = Vector2( 20, 11 )
 [node name="Level2" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-
-[node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 16, -23 )
 
 [node name="Environment" type="Node2D" parent="."]
 
@@ -155,6 +151,9 @@ cell_size = Vector2( 16, 16 )
 collision_layer = 0
 collision_mask = 0
 format = 1
+
+[node name="Checkpoint1" type="Position2D" parent="Environment"]
+position = Vector2( 0, -40 )
 
 [node name="DeathPit1" type="Area2D" parent="."]
 position = Vector2( 360, 43 )
@@ -410,6 +409,7 @@ __meta__ = {
 "_edit_group_": true
 }
 nextLevel = 2
+nextCheckpoint = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TransitionField"]
 position = Vector2( 104, 12 )
