@@ -625,7 +625,7 @@ shotDelay = 0.5
 pushStrength = 5
 wallJumpTime = 0.2
 wallJumpStrength = 15
-magicJumpPower = 300
+magicJumpPower = 240
 jumpXDeacceleration = 4.0
 swingDelay = 0.55
 
@@ -633,7 +633,6 @@ swingDelay = 0.55
 position = Vector2( 0, -2 )
 texture = ExtResource( 1 )
 hframes = 4
-frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 1 )
