@@ -45,6 +45,16 @@ public class Player : KinematicBody2D
 	[Export] int magicJumpPower;
 	[Export] float jumpXDeacceleration;
 	[Export] float swingDelay;
+	// lots of options!
+	[Export] bool magicJumpEnabled;
+	[Export] bool swordHoldEnabled;
+	[Export] bool swordSwingEnabled;
+	[Export] bool magicAttackEnabled;
+	[Export] bool wallJumpEnabled;
+	[Export] bool jumpEnabled;
+	[Export] bool moveEnabled;
+	[Export] bool wallClimbEnabled;
+	
 
 	bool currentlySwinging = false;
 	bool swordEquipped = false;
@@ -71,12 +81,26 @@ public class Player : KinematicBody2D
 	// Debug menu vars
 	Control DebugMenu;
 	Tabs PlayerMenu;
-	Label Pos, XVelocity, YVelocity, IsAttacking, IsWallJumping, IsWallClimbing, OnWall, OnFloor, OnCeiling;
+	Label Pos, XVelocity, YVelocity, IsAttacking, IsWallJumping, IsWallClimbing, OnWall, OnFloor, OnCeiling, SwordHitboxL, Swinging;
+	
+	// Sword hitbox
+	CollisionPolygon2D SwordHitbox;
+	
+	//TMP
+	Sprite SwordHitboxSprite;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready() {
 		//When the player is loaded, loads the PlayerAttack PackedScene to be used later
 		PlayerProjectilePath = GD.Load<PackedScene>("res://Scenes/PlayerAttack.tscn");
+		
+		// Sword hitbox
+		SwordHitbox = GetNode<CollisionPolygon2D>("SwordHitbox/CollisionPolygon2D");
+		SwordHitbox.Disabled = true;
+		
+		//TMP
+		SwordHitboxSprite = GetNode<Sprite>("SwordHitbox/Sprite");
+		SwordHitboxSprite.Visible = false;
 		
 		// Debug menu vars
 		DebugMenu = GetNode<Control>("DebugMenu/DebugMenu");
@@ -90,6 +114,8 @@ public class Player : KinematicBody2D
 		OnWall = PlayerMenu.GetNode<Label>("Right/IsOnWall");
 		OnFloor = PlayerMenu.GetNode<Label>("Right/IsOnFloor");
 		OnCeiling = PlayerMenu.GetNode<Label>("Right/IsOnCeiling");
+		SwordHitboxL = PlayerMenu.GetNode<Label>("Right/SwordHitboxL");
+		Swinging = PlayerMenu.GetNode<Label>("Right/Swinging");
 	}
 
 	//Can be thought as being run every frame. Delta is the amount of time it took each frame to be made (This should be constant)
@@ -154,19 +180,21 @@ public class Player : KinematicBody2D
 		}
 		
 		
-		/*** Walljumping delay check ***/
-		// Used to put a buffer between when the player jumps off a wall and when the L/R keys receive input
-		// Prevents a sort of stutter where the player will immediately turn back around from a walljump due to still having key pressed
-		// Player is currently wallJumping
-		if (wallJumping) {
-			// Increase time passed timer
-			wallJumpTimePassed += delta;
-			// If the timer has passed the amount of time a wall jump takes
-			if (wallJumpTimePassed >= wallJumpTime) {
-				// Stop walljumping
-				wallJumping = false;
-				// Reset timer
-				wallJumpTimePassed = 0f;
+		if (wallJumpEnabled) {
+			/*** Walljumping delay check ***/
+			// Used to put a buffer between when the player jumps off a wall and when the L/R keys receive input
+			// Prevents a sort of stutter where the player will immediately turn back around from a walljump due to still having key pressed
+			// Player is currently wallJumping
+			if (wallJumping) {
+				// Increase time passed timer
+				wallJumpTimePassed += delta;
+				// If the timer has passed the amount of time a wall jump takes
+				if (wallJumpTimePassed >= wallJumpTime) {
+					// Stop walljumping
+					wallJumping = false;
+					// Reset timer
+					wallJumpTimePassed = 0f;
+				}
 			}
 		}
 		
@@ -175,113 +203,125 @@ public class Player : KinematicBody2D
 			velocity.x = 0;
 		}
 
-		//Checks if the left arrowkey is pressed
-		if (Input.IsActionPressed("move_left")) {
-			running = true;
-			// If the player is moving left INTO a wall, not currently wall jumping, taps jump, 
-			// and is falling/jumping, wall jump
-			if (canWallJump && IsOnWall() && Input.IsActionJustPressed("move_jump") && velocity.y != 0.01f) {
-				// Set walljumping tag to true
-				wallJumping = true;
-				jumping = true;
-				// Flip direction
-				direction.x = -direction.x;
-				// Apply x velocity in the new direction, by the force of wallJumpStrength
-				velocity.x += direction.x * (xAcceleration*wallJumpStrength);
-				// Set y velocity to negative jumpPower, allows for chain walljumping
-				velocity.y = -jumpPower;
-			}
-			// Otherwise, if they are just moving left and NOT walljumping, move them left and such
-			// Check if not walljumping to prevent a sort of "stutter", where player will still be holding
-			// the left key after walljumping due to human reaction time, which would cancel out the wall jump
-			else if (!wallJumping){
-				//Checks if running into climbable object
-				if (canWallClimb)
-				{
-					//If so, raises player into the air and sets wallclimbing to true
-					velocity.y = -climbPower;
-					wallClimbing = true;
+		if (moveEnabled) {
+			//Checks if the left arrowkey is pressed
+			if (Input.IsActionPressed("move_left")) {
+				running = true;
+				// If the player is moving left INTO a wall, not currently wall jumping, taps jump, 
+				// and is falling/jumping, wall jump
+				if (canWallJump && IsOnWall() && Input.IsActionJustPressed("move_jump") && velocity.y != 0.01f && wallJumpEnabled) {
+					// Set walljumping tag to true
+					wallJumping = true;
+					jumping = true;
+					// Flip direction
+					direction.x = -direction.x;
+					// Apply x velocity in the new direction, by the force of wallJumpStrength
+					velocity.x += direction.x * (xAcceleration*wallJumpStrength);
+					// Set y velocity to negative jumpPower, allows for chain walljumping
+					velocity.y = -jumpPower;
+					// Reset magic jumping tag
+					magicJumping = false;
 				}
-				// Not on a climable object
-				else
-				{
-					//Decrease x velocity (go left)
-					velocity.x -= xAcceleration;
-					wallClimbing = false;
-				}
-				// Set direction to -1 (left)
-				direction.x = -1;
-			}
-		}
-		//Checks if the right arrowkey is pressed
-		else if (Input.IsActionPressed("move_right")) {
-			running = true;
-			// If the player is moving right INTO a wall, not currently wall jumping, taps jump, 
-			// and is falling/jumping, wall jump
-			if (canWallJump && IsOnWall() && Input.IsActionJustPressed("move_jump") && velocity.y != 0.01f) {
-				// Set walljumping tag to true
-				wallJumping = true;
-				jumping = true;
-				// Flip direction
-				direction.x = -direction.x;
-				// Apply x velocity in the new direction, by the force of wallJumpStrength
-				velocity.x += direction.x * (xAcceleration*wallJumpStrength);
-				// Cancel out current y velocity to allow for chain walljumps
-				velocity.y = -jumpPower;
-			}
-			// Otherwise, if they are just moving left and NOT walljumping, move them left and such
-			// Check if not walljumping to prevent a sort of "stutter", where player will still be holding
-			// the left key after walljumping due to human reaction time, which would cancel out the wall jump
-			else if (!wallJumping){
-				//Checks if running into climbable object
-				if (canWallClimb)
-				{
-					//If so, raises player into the air and sets wallclimbing to true
-					velocity.y = -climbPower;
-					wallClimbing = true;
-				}
-				// Not on climable object
-				else
-				{
-					//Decrease x velocity (go right)
-					velocity.x += xAcceleration;
-					wallClimbing = false;
-				}
-				// Set directon to 1 (right)
-				direction.x = 1;
-			}
-		}
-		//If neither left/right key has been pressed (player not being told to move), 
-		//Slows down character's x velocity
-		//This makes stopping l/r movement seem more smooth and natural
-		else {
-			// If currently still going right, apply left force until it cancels out
-			if (velocity.x > 0) {
-				// If player is currently jumping, divide the added force to slow down slower (for better realistic feel)
-				//TODO: Take into account y velocity for divide factor
-				velocity.x -= (jumping ? (xAcceleration/jumpXDeacceleration) : xAcceleration);
-				if (velocity.x <= 0) {
-					velocity.x = 0;
+				// Otherwise, if they are just moving left and NOT walljumping, move them left and such
+				// Check if not walljumping to prevent a sort of "stutter", where player will still be holding
+				// the left key after walljumping due to human reaction time, which would cancel out the wall jump
+				else if (!wallJumping){
+					//Checks if running into climbable object
+					if (canWallClimb && wallClimbEnabled)
+					{
+						//If so, raises player into the air and sets wallclimbing to true
+						velocity.y = -climbPower;
+						wallClimbing = true;
+						// Reset magic jumping tag
+						magicJumping = false;
+					}
+					// Not on a climable object
+					else
+					{
+						//Decrease x velocity (go left)
+						velocity.x -= xAcceleration;
+						wallClimbing = false;
+					}
+					// Set direction to -1 (left)
+					direction.x = -1;
 				}
 			}
-			// If currently still going left, apply right force until it cancels out
+			//Checks if the right arrowkey is pressed
+			else if (Input.IsActionPressed("move_right")) {
+				running = true;
+				// If the player is moving right INTO a wall, not currently wall jumping, taps jump, 
+				// and is falling/jumping, wall jump
+				if (canWallJump && IsOnWall() && Input.IsActionJustPressed("move_jump") && velocity.y != 0.01f && wallJumpEnabled) {
+					// Set walljumping tag to true
+					wallJumping = true;
+					jumping = true;
+					// Flip direction
+					direction.x = -direction.x;
+					// Apply x velocity in the new direction, by the force of wallJumpStrength
+					velocity.x += direction.x * (xAcceleration*wallJumpStrength);
+					// Cancel out current y velocity to allow for chain walljumps
+					velocity.y = -jumpPower;
+					// Reset magic jumping tag
+					magicJumping = false;
+				}
+				// Otherwise, if they are just moving left and NOT walljumping, move them left and such
+				// Check if not walljumping to prevent a sort of "stutter", where player will still be holding
+				// the left key after walljumping due to human reaction time, which would cancel out the wall jump
+				else if (!wallJumping){
+					//Checks if running into climbable object
+					if (canWallClimb && wallClimbEnabled)
+					{
+						//If so, raises player into the air and sets wallclimbing to true
+						velocity.y = -climbPower;
+						wallClimbing = true;
+						// Reset magic jumping tag
+						magicJumping = false;
+					}
+					// Not on climable object
+					else
+					{
+						//Decrease x velocity (go right)
+						velocity.x += xAcceleration;
+						wallClimbing = false;
+					}
+					// Set directon to 1 (right)
+					direction.x = 1;
+				}
+			}
+			//If neither left/right key has been pressed (player not being told to move), 
+			//Slows down character's x velocity
+			//This makes stopping l/r movement seem more smooth and natural
 			else {
-				// If player is currently jumping, divide the added force to slow down slower (for better realistic feel)
-				//TODO: Take into account y velocity for divide factor
-				velocity.x += (jumping ? (xAcceleration/jumpXDeacceleration) : xAcceleration);
-				if (velocity.x >= 0) {
-					velocity.x = 0;
+				// If currently still going right, apply left force until it cancels out
+				if (velocity.x > 0) {
+					// If player is currently jumping, divide the added force to slow down slower (for better realistic feel)
+					//TODO: Take into account y velocity for divide factor
+					velocity.x -= (jumping ? (xAcceleration/jumpXDeacceleration) : xAcceleration);
+					if (velocity.x <= 0) {
+						velocity.x = 0;
+					}
+				}
+				// If currently still going left, apply right force until it cancels out
+				else {
+					// If player is currently jumping, divide the added force to slow down slower (for better realistic feel)
+					//TODO: Take into account y velocity for divide factor
+					velocity.x += (jumping ? (xAcceleration/jumpXDeacceleration) : xAcceleration);
+					if (velocity.x >= 0) {
+						velocity.x = 0;
+					}
 				}
 			}
 		}
 		
-		// If player is currently jumping, and hasn't already magicJumped
-		if (jumping && !magicJumping) {
-			// Check for input
-			if (Input.IsActionPressed("move_magicJump")) {
-				// Magic jump
-				magicJumping = true;
-				velocity.y = -magicJumpPower;
+		if (magicJumpEnabled) {
+			// If player is currently jumping, and hasn't already magicJumped
+			if (jumping && !magicJumping) {
+				// Check for input
+				if (Input.IsActionPressed("move_magicJump")) {
+					// Magic jump
+					magicJumping = true;
+					velocity.y = -magicJumpPower;
+				}
 			}
 		}
 		
@@ -336,7 +376,7 @@ public class Player : KinematicBody2D
 		if (!running && velocity.y == 0.01f)
 		{
 			//If no key is being pressed, switches to an idle animation
-			if (swordEquipped)
+			if (swordEquipped && swordHoldEnabled)
 			{
 				myANSMP.Travel("IdleSword");
 				animationTree.Set("parameters/IdleSword/blend_position", direction.x);
@@ -350,7 +390,7 @@ public class Player : KinematicBody2D
 		else
 		{
 			//If a key is being pressed, switches to a run animation
-			if (swordEquipped)
+			if (swordEquipped && swordHoldEnabled)
 			{
 				//If a key is being pressed, switches to a run animation
 				myANSMP.Travel("RunSword");
@@ -369,47 +409,69 @@ public class Player : KinematicBody2D
 		//Decreases the amount of time left needed to fire a shot/swing sword
 		shotTimePassed -= delta;
 		swingTimePassed -= delta;
+		if (swingTimePassed <= 0) {
+			SwordHitbox.Disabled = true;
+		}
 		if (Input.IsActionJustPressed("weapon_cycle")) {
 			magicEquipped = !magicEquipped;
 			swordEquipped = !swordEquipped;
+			SwordHitboxSprite.Visible = (swordEquipped && swordHoldEnabled) ; //TMP
 		}
 		//Checks that the fire key (Space) is pressed and that enough time has passed to fire another shot/swing sword
-		if (Input.IsActionPressed("attack") && ((shotTimePassed <= 0 && magicEquipped) || (swingTimePassed <= 0 && swordEquipped))) {
-			
-			//Creates an instance of the PlayerAttack
-			RigidBody2D PPInstance = PlayerProjectilePath.Instance() as RigidBody2D;
+		if (Input.IsActionPressed("attack") && ((shotTimePassed <= 0 && magicEquipped && magicAttackEnabled) || (swingTimePassed <= 0 && swordEquipped && swordSwingEnabled && swordHoldEnabled))) {
 			if (magicEquipped) {
+				//Creates an instance of the PlayerAttack
+				RigidBody2D PPInstance = PlayerProjectilePath.Instance() as RigidBody2D;
 				shotTimePassed = shotDelay;
 				PPInstance.GetNode<Sprite>("AttackSprite").Visible = true;
 				currentlySwinging = false;
+				//Finds the position of the Player's ProjectilePosition node
+				//This is used to determine where to spawn the shot
+				Position2D p2D = GetNode<Position2D>("ProjectilePosition");
+				//Creates a reference to the instanced attack's CollisionPoly
+				CollisionPolygon2D pCollision = PPInstance.GetNode<CollisionPolygon2D>("CollisionPoly");
+				//Checks if the player is facing forward
+				if (direction.x >= 0) {
+					//Sets the starting position of the attack to the right of the player
+					p2D.Position = new Vector2(8,0);
+					//Sets the position of the CollisionPoly to 0, which is a right-facing collisionbox
+					pCollision.RotationDegrees = 0;
+				}
+				else {
+					//Sets the starting position of the attack to the left of the player
+					p2D.Position = new Vector2(-8, 0);
+					//Sets the position of the CollisionPoly to 0, which is a left-facing collisionbox
+					pCollision.RotationDegrees = 180;
+				}
+				//Sets the position of the instanced attack to Player's ProjectilePosition Node
+				PPInstance.Position = GetNode<Position2D>("ProjectilePosition").GlobalPosition;
+				//Adds the instanced attack to the main scene
+				GetParent().AddChild(PPInstance);
 			}
 			else {
+				// Set sword hitbox direction
+				if (direction.x >= 0) {
+					SwordHitbox.SetPosition(new Vector2(-3,0));
+					SwordHitbox.SetScale(new Vector2(1.662f, 1));
+					
+					//TMP
+					SwordHitboxSprite.SetPosition(new Vector2(21, -8.5f));
+					SwordHitboxSprite.SetScale(new Vector2(6.5f, 2.438f));
+				}
+				else {
+					SwordHitbox.SetPosition(new Vector2(3,0));
+					SwordHitbox.SetScale(new Vector2(-1.662f, 1));
+					
+					//TMP
+					SwordHitboxSprite.SetPosition(new Vector2(-21, -8.5f));
+					SwordHitboxSprite.SetScale(new Vector2(-6.5f, 2.438f));
+				}
+				// Swing sword
 				swingTimePassed = swingDelay;
-				PPInstance.GetNode<Sprite>("AttackSprite").Visible = false;
 				currentlySwinging = true;
+				SwordHitbox.Disabled = false;
 			}
-			//Finds the position of the Player's ProjectilePosition node
-			//This is used to determine where to spawn the shot
-			Position2D p2D = GetNode<Position2D>("ProjectilePosition");
-			//Creates a reference to the instanced attack's CollisionPoly
-			CollisionPolygon2D pCollision = PPInstance.GetNode<CollisionPolygon2D>("CollisionPoly");
-			//Checks if the player is facing forward
-			if (direction.x >= 0) {
-				//Sets the starting position of the attack to the right of the player
-				p2D.Position = new Vector2(8,0);
-				//Sets the position of the CollisionPoly to 0, which is a right-facing collisionbox
-				pCollision.RotationDegrees = 0;
-			}
-			else {
-				//Sets the starting position of the attack to the left of the player
-				p2D.Position = new Vector2(-8, 0);
-				//Sets the position of the CollisionPoly to 0, which is a left-facing collisionbox
-				pCollision.RotationDegrees = 180;
-			}
-			//Sets the position of the instanced attack to Player's ProjectilePosition Node
-			PPInstance.Position = GetNode<Position2D>("ProjectilePosition").GlobalPosition;
-			//Adds the instanced attack to the main scene
-			GetParent().AddChild(PPInstance);
+			
 		}
 	}
 	
@@ -425,9 +487,25 @@ public class Player : KinematicBody2D
 		OnWall.Text = "OnWall: " + IsOnWall().ToString();
 		OnFloor.Text = "OnFloor: " + IsOnFloor().ToString();
 		OnCeiling.Text = "OnCeiling: " + IsOnCeiling().ToString();
+		SwordHitboxL.Text = "SH-POS: " + "(X: " + SwordHitbox.GlobalPosition.x.ToString() + ", Y: " + SwordHitbox.GlobalPosition.y.ToString() + ")";
 		
 		if (Input.IsActionJustPressed("ui_debug")) {
 			DebugMenu.Visible = !DebugMenu.Visible;
 		}
 	}
+	
+	// Sword hitbox, disabled when not swinging
+	public void _on_SwordHitbox_body_entered(Node body) {
+		// If sword touches enemy
+		if (body.IsInGroup("Enemy")) {
+			// Delete and stop swing
+			body.QueueFree();
+			currentlySwinging = false;
+			// Reset timer
+			swingTimePassed = swingDelay;
+		}
+	}
 }
+
+
+

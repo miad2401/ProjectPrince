@@ -207,7 +207,7 @@ public class PauseMenu : Control
 	private void PlayerDied()
 	{
 		if(timePassed > 5)
-        {
+		{
 			//When player dies make the game un-changable-from-the-player, pause the game, and set playerDied to true
 			DeathPanel.Visible = true;
 			playerDied = true;

@@ -108,8 +108,6 @@ __meta__ = {
 "_edit_group_": true
 }
 magicSpeed = 3
-swordSpeed = 15
-swordRange = 50
 
 [node name="AttackSprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
