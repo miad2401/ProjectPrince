@@ -46,19 +46,19 @@ public class Player : KinematicBody2D
 	[Export] float jumpXDeacceleration;
 	[Export] float swingDelay;
 	// lots of options!
-	[Export] bool magicJumpEnabled;
-	[Export] bool swordHoldEnabled;
+	public static bool magicJumpEnabled = false;
+	public static bool swordHoldEnabled = false;
+	public static bool magicAttackEnabled = false;
 	[Export] bool swordSwingEnabled;
-	[Export] bool magicAttackEnabled;
 	[Export] bool wallJumpEnabled;
 	[Export] bool jumpEnabled;
 	[Export] bool moveEnabled;
 	[Export] bool wallClimbEnabled;
 	
 
-	bool currentlySwinging = false;
-	bool swordEquipped = false;
-	bool magicEquipped = true;
+	[Export] bool currentlySwinging = false;
+	public static bool swordEquipped = false;
+	public static bool magicEquipped = false;
 	bool running = false;
 	bool jumping = false;
 	bool magicJumping = false;
@@ -68,7 +68,7 @@ public class Player : KinematicBody2D
 	bool wallClimbing = false;
 	bool canWallClimb = false;
 	float shotTimePassed = 0f;
-	float swingTimePassed = 0f; //Between swings
+	[Export] float swingTimePassed = 0f; //Between swings
 	bool movingAnObject = false;
 	Vector2 velocity = new Vector2();
 	Vector2 direction = new Vector2();
@@ -86,9 +86,6 @@ public class Player : KinematicBody2D
 	// Sword hitbox
 	CollisionPolygon2D SwordHitbox;
 	
-	//TMP
-	Sprite SwordHitboxSprite;
-	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready() {
 		//When the player is loaded, loads the PlayerAttack PackedScene to be used later
@@ -97,10 +94,6 @@ public class Player : KinematicBody2D
 		// Sword hitbox
 		SwordHitbox = GetNode<CollisionPolygon2D>("SwordHitbox/CollisionPolygon2D");
 		SwordHitbox.Disabled = true;
-		
-		//TMP
-		SwordHitboxSprite = GetNode<Sprite>("SwordHitbox/Sprite");
-		SwordHitboxSprite.Visible = false;
 		
 		// Debug menu vars
 		DebugMenu = GetNode<Control>("DebugMenu/DebugMenu");
@@ -373,7 +366,12 @@ public class Player : KinematicBody2D
 		//Finds the AnimationNodeStateMachinePlayback resource within the animationTree and sets it to its own variable
 		//Because Godot doesn't allow arguments in the .Get() function, we also must cast it as a AnimationNodeStateMachinePlayback
 		AnimationNodeStateMachinePlayback myANSMP = animationTree.Get("parameters/playback") as AnimationNodeStateMachinePlayback;
-		if (!running && velocity.y == 0.01f)
+        if (currentlySwinging)
+        {
+			myANSMP.Travel("SwingSword");
+			animationTree.Set("parameters/SwingSword/blend_position", direction.x);
+		}
+		else if (!running && velocity.y == 0.01f)
 		{
 			//If no key is being pressed, switches to an idle animation
 			if (swordEquipped && swordHoldEnabled)
@@ -408,17 +406,18 @@ public class Player : KinematicBody2D
 	public void Attack(float delta) {
 		//Decreases the amount of time left needed to fire a shot/swing sword
 		shotTimePassed -= delta;
-		swingTimePassed -= delta;
+		/*swingTimePassed -= delta;
 		if (swingTimePassed <= 0) {
 			SwordHitbox.Disabled = true;
-		}
-		if (Input.IsActionJustPressed("weapon_cycle")) {
+		}*/
+		if (Input.IsActionJustPressed("weapon_cycle") && swordHoldEnabled && magicAttackEnabled) {
 			magicEquipped = !magicEquipped;
 			swordEquipped = !swordEquipped;
-			SwordHitboxSprite.Visible = (swordEquipped && swordHoldEnabled) ; //TMP
 		}
 		//Checks that the fire key (Space) is pressed and that enough time has passed to fire another shot/swing sword
-		if (Input.IsActionPressed("attack") && ((shotTimePassed <= 0 && magicEquipped && magicAttackEnabled) || (swingTimePassed <= 0 && swordEquipped && swordSwingEnabled && swordHoldEnabled))) {
+		//if (Input.IsActionPressed("attack") && ((shotTimePassed <= 0 && magicEquipped && magicAttackEnabled) || (swingTimePassed <= 0 && swordEquipped && swordSwingEnabled && swordHoldEnabled))) {
+		if (Input.IsActionPressed("attack") && ((shotTimePassed <= 0 && magicEquipped && magicAttackEnabled) || (swordEquipped && swordSwingEnabled && swordHoldEnabled && !currentlySwinging)))
+		{
 			if (magicEquipped) {
 				//Creates an instance of the PlayerAttack
 				RigidBody2D PPInstance = PlayerProjectilePath.Instance() as RigidBody2D;
@@ -453,21 +452,13 @@ public class Player : KinematicBody2D
 				if (direction.x >= 0) {
 					SwordHitbox.SetPosition(new Vector2(-3,0));
 					SwordHitbox.SetScale(new Vector2(1.662f, 1));
-					
-					//TMP
-					SwordHitboxSprite.SetPosition(new Vector2(21, -8.5f));
-					SwordHitboxSprite.SetScale(new Vector2(6.5f, 2.438f));
 				}
 				else {
 					SwordHitbox.SetPosition(new Vector2(3,0));
 					SwordHitbox.SetScale(new Vector2(-1.662f, 1));
-					
-					//TMP
-					SwordHitboxSprite.SetPosition(new Vector2(-21, -8.5f));
-					SwordHitboxSprite.SetScale(new Vector2(-6.5f, 2.438f));
 				}
 				// Swing sword
-				swingTimePassed = swingDelay;
+				//swingTimePassed = swingDelay;
 				currentlySwinging = true;
 				SwordHitbox.Disabled = false;
 			}
@@ -498,11 +489,9 @@ public class Player : KinematicBody2D
 	public void _on_SwordHitbox_body_entered(Node body) {
 		// If sword touches enemy
 		if (body.IsInGroup("Enemy")) {
-			// Delete and stop swing
 			body.QueueFree();
-			currentlySwinging = false;
 			// Reset timer
-			swingTimePassed = swingDelay;
+			//swingTimePassed = swingDelay;
 		}
 	}
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://Art/SpriteSheets/Idle-Sheet-Servant.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Player.cs" type="Script" id=2]
@@ -6,7 +6,7 @@
 [ext_resource path="res://Art/SpriteSheets/ServantRunSword.png" type="Texture" id=4]
 [ext_resource path="res://Art/SpriteSheets/ServantRun.png" type="Texture" id=5]
 [ext_resource path="res://Art/SpriteSheets/Idle-Sheet-Servant-Sword.png" type="Texture" id=6]
-[ext_resource path="res://Art/Placeholder Art/Ladder.png" type="Texture" id=7]
+[ext_resource path="res://Art/SpriteSheets/Attack-Sheet-Servant.png" type="Texture" id=7]
 
 [sub_resource type="CapsuleShape2D" id=30]
 radius = 7.0
@@ -532,6 +532,184 @@ tracks/4/keys = {
 "values": [ Vector2( -4, -2 ) ]
 }
 
+[sub_resource type="Animation" id=47]
+resource_name = "SwingSwordLeft"
+length = 0.9
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 8 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sprite:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 7 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Sprite:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -4, -2 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath(".:currentlySwinging")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0.8 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("SwordHitbox/CollisionPolygon2D:disabled")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 0.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 2,
+"values": [ false, true ]
+}
+
+[sub_resource type="Animation" id=48]
+resource_name = "SwingSwordRight"
+length = 0.9
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 8 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sprite:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 7 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Sprite:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -4, -2 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath(".:currentlySwinging")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0.8 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("SwordHitbox/CollisionPolygon2D:disabled")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 0.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 2,
+"values": [ false, true ]
+}
+
 [sub_resource type="AnimationNodeAnimation" id=22]
 animation = "IdleLeft"
 
@@ -580,6 +758,18 @@ blend_point_0/pos = -1.0
 blend_point_1/node = SubResource( 46 )
 blend_point_1/pos = 1.0
 
+[sub_resource type="AnimationNodeAnimation" id=49]
+animation = "SwingSwordLeft"
+
+[sub_resource type="AnimationNodeAnimation" id=50]
+animation = "SwingSwordRight"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id=51]
+blend_point_0/node = SubResource( 49 )
+blend_point_0/pos = -0.9
+blend_point_1/node = SubResource( 50 )
+blend_point_1/pos = 0.9
+
 [sub_resource type="AnimationNodeStateMachineTransition" id=28]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=29]
@@ -596,6 +786,14 @@ blend_point_1/pos = 1.0
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=40]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id=52]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=53]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=54]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=55]
+
 [sub_resource type="AnimationNodeStateMachine" id=16]
 states/Idle/node = SubResource( 24 )
 states/Idle/position = Vector2( 268, 83 )
@@ -605,7 +803,9 @@ states/Run/node = SubResource( 27 )
 states/Run/position = Vector2( 440, 83 )
 states/RunSword/node = SubResource( 34 )
 states/RunSword/position = Vector2( 447, 161 )
-transitions = [ "Idle", "Run", SubResource( 28 ), "Run", "Idle", SubResource( 29 ), "IdleSword", "RunSword", SubResource( 35 ), "RunSword", "IdleSword", SubResource( 36 ), "IdleSword", "Idle", SubResource( 37 ), "Idle", "IdleSword", SubResource( 38 ), "Run", "RunSword", SubResource( 39 ), "RunSword", "Run", SubResource( 40 ) ]
+states/SwingSword/node = SubResource( 51 )
+states/SwingSword/position = Vector2( 361, 237 )
+transitions = [ "Idle", "Run", SubResource( 28 ), "Run", "Idle", SubResource( 29 ), "IdleSword", "RunSword", SubResource( 35 ), "RunSword", "IdleSword", SubResource( 36 ), "IdleSword", "Idle", SubResource( 37 ), "Idle", "IdleSword", SubResource( 38 ), "Run", "RunSword", SubResource( 39 ), "RunSword", "Run", SubResource( 40 ), "IdleSword", "SwingSword", SubResource( 52 ), "SwingSword", "IdleSword", SubResource( 53 ), "SwingSword", "RunSword", SubResource( 54 ), "RunSword", "SwingSword", SubResource( 55 ) ]
 start_node = "Idle"
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=17]
@@ -629,20 +829,17 @@ wallJumpStrength = 15
 magicJumpPower = 240
 jumpXDeacceleration = 4.0
 swingDelay = 0.3
-magicJumpEnabled = true
-swordHoldEnabled = true
 swordSwingEnabled = true
-magicAttackEnabled = true
 wallJumpEnabled = true
 jumpEnabled = true
 moveEnabled = true
 wallClimbEnabled = true
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 0, -2 )
-texture = ExtResource( 1 )
-hframes = 4
-frame = 2
+position = Vector2( -4, -2 )
+texture = ExtResource( 7 )
+hframes = 8
+frame = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 1 )
@@ -657,6 +854,8 @@ anims/RunLeft = SubResource( 7 )
 anims/RunLeftSword = SubResource( 31 )
 anims/RunRight = SubResource( 8 )
 anims/RunRightSword = SubResource( 32 )
+anims/SwingSwordLeft = SubResource( 47 )
+anims/SwingSwordRight = SubResource( 48 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 16 )
@@ -667,6 +866,7 @@ parameters/Idle/blend_position = 1.35171
 parameters/IdleSword/blend_position = 0
 parameters/Run/blend_position = 1.44262
 parameters/RunSword/blend_position = 0.0
+parameters/SwingSword/blend_position = 1.00597
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 0, 1 )
@@ -694,11 +894,7 @@ can_sleep = false
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SwordHitbox"]
 position = Vector2( -3, 0 )
 scale = Vector2( 1.662, 1 )
-polygon = PoolVector2Array( 5.3602, -27, 22, -28, 23, 10, 10, 12, 6.89168, -14 )
-
-[node name="Sprite" type="Sprite" parent="SwordHitbox"]
-position = Vector2( 21, -8.5 )
-scale = Vector2( 6.5, 2.4375 )
-texture = ExtResource( 7 )
+polygon = PoolVector2Array( 5.41516, -27, 22, -28, 23, 10, 10, 12, 6.89168, -14 )
+disabled = true
 
 [connection signal="body_entered" from="SwordHitbox" to="." method="_on_SwordHitbox_body_entered"]

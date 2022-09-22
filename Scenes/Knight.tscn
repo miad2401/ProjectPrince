@@ -340,7 +340,6 @@ gravity = 10
 [node name="EnemySprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
 hframes = 4
-frame = 1
 
 [node name="EnemyCollisionBox" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 3 )

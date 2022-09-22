@@ -14,7 +14,7 @@ public class Main : Control
 	public Control CurrentLevelNode;
 
 	public PackedScene playerPackedScene;
-	public KinematicBody2D Player;
+	public KinematicBody2D ThePlayer;
 	public static int checkpoint = 1;
 
 	// Called when the node enters the scene tree for the first time.
@@ -37,34 +37,68 @@ public class Main : Control
 		levelDictionary.Add(Level.BossLevel, BossLevel);
 
 		playerPackedScene = GD.Load<PackedScene>("res://Scenes/Player.tscn");
-		Player = playerPackedScene.Instance() as KinematicBody2D;
+		ThePlayer = playerPackedScene.Instance() as KinematicBody2D;
 
 		//Sets the Curr. PackedScene to the Level
 		CurrentLevelPackedScene = levelDictionary[startingLevel];
 		//Sets the Curr. Node to an instance of the Curr. PackedScene
 		CurrentLevelNode = CurrentLevelPackedScene.Instance() as Control;
 
-		Player.Position = CurrentLevelNode.GetNode<Position2D>("Environment/Checkpoint" + checkpoint).Position;
+		ThePlayer.Position = CurrentLevelNode.GetNode<Position2D>("Environment/Checkpoint" + checkpoint).Position;
 
+		//Allows us to test different levels with the abilities the player would have
+        switch (startingLevel)
+        {
+			case Level.Level1:
+				break;
+			case Level.Level2:
+				break;
+			case Level.Level3:
+				Player.swordHoldEnabled = true;
+				Player.swordEquipped = true;
+				break;
+			case Level.Level3Indoors:
+				Player.swordHoldEnabled = true;
+				Player.magicAttackEnabled = true;
+				Player.swordEquipped = true;
+				Player.magicEquipped = false;
+				break;
+			case Level.Level4:
+				Player.swordHoldEnabled = true;
+				Player.magicAttackEnabled = true;
+				Player.swordEquipped = true;
+				Player.magicEquipped = false;
+				break;
+			case Level.BossLevel:
+				Player.swordHoldEnabled = true;
+				Player.magicAttackEnabled = true;
+				Player.magicJumpEnabled = true;
+				Player.swordEquipped = true;
+				Player.magicEquipped = false;
+				break;
+			default:
+				break;
+		}
+		
 		//Adds the Level to the Scene (Starts the Level)
 		AddChild(CurrentLevelNode);
-		CurrentLevelNode.AddChild(Player);
+		CurrentLevelNode.AddChild(ThePlayer);
 	}
 
 	//Received from PauseMenu when reload has been selected
 	public void ReloadCurrentLevel()
 	{
 		//Deletes the current Level when it is safe to do so
-		CurrentLevelNode.RemoveChild(Player);
+		CurrentLevelNode.RemoveChild(ThePlayer);
 		CurrentLevelNode.QueueFree();
 		//Creates a new (clean) instance of the current level
 		CurrentLevelNode = CurrentLevelPackedScene.Instance() as Control;
 
-		Player.Position = CurrentLevelNode.GetNode<Position2D>("Environment/Checkpoint" + checkpoint).Position;
+		ThePlayer.Position = CurrentLevelNode.GetNode<Position2D>("Environment/Checkpoint" + checkpoint).Position;
 
 		//Adds the clean Level to the scene (Starts the level again)
 		AddChild(CurrentLevelNode);
-		CurrentLevelNode.AddChild(Player);
+		CurrentLevelNode.AddChild(ThePlayer);
 	}
 
 	//Received from TransitionField when it is time to switch to the next level
@@ -72,16 +106,16 @@ public class Main : Control
 	{
 		//Adds the specified Level to the curr. packedScene
 		CurrentLevelPackedScene = levelDictionary[nextLevel];
-		CurrentLevelNode.RemoveChild(Player);
+		CurrentLevelNode.RemoveChild(ThePlayer);
 		//Deletes the current Level when it is safe to do so
 		CurrentLevelNode.QueueFree();
 		//Creates an instance of the next level
 		CurrentLevelNode = CurrentLevelPackedScene.Instance() as Control;
 
-		Player.Position = CurrentLevelNode.GetNode<Position2D>("Environment/Checkpoint" + checkpoint).Position;
+		ThePlayer.Position = CurrentLevelNode.GetNode<Position2D>("Environment/Checkpoint" + checkpoint).Position;
 
 		AddChild(CurrentLevelNode);
-		CurrentLevelNode.AddChild(Player);
+		CurrentLevelNode.AddChild(ThePlayer);
 		//Adds the next Level to the scene (Starts the next level)
 		//CallDeferred so that we don't accidently try to add a child on physics frame
 		//This adds the CurrentLevelNode as a child when it is safe to do so

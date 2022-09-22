@@ -1,5 +1,53 @@
-[gd_scene format=2]
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Art/Tilemaps/MasterTileset.tres" type="TileSet" id=1]
+[ext_resource path="res://Scenes/EnvironmentTools/AcquireAbility.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Knight.tscn" type="PackedScene" id=3]
 
 [node name="BossLevel" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+
+[node name="Environment" type="Node2D" parent="."]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="Environment"]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Environment/ParallaxBackground"]
+
+[node name="Background" type="TileMap" parent="Environment"]
+z_index = -2
+z_as_relative = false
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 16, 16 )
+collision_layer = 0
+collision_mask = 0
+format = 1
+
+[node name="Baseground" type="TileMap" parent="Environment"]
+z_as_relative = false
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( 393214, 16, 262159, 393215, 16, 262159, 327680, 16, 262159, 327681, 16, 262159, 393218, 16, 262159, 393219, 16, 262159, 393220, 16, 262159, 393221, 16, 262159, 393222, 16, 262159, 393223, 16, 262159, 393224, 16, 262159, 393225, 16, 262159, 393230, 16, 262159, 458761, 16, 262159, 458762, 16, 262159, 458763, 16, 262159, 458764, 16, 262159, 458765, 16, 262159, 458766, 16, 262159 )
+
+[node name="Foreground" type="TileMap" parent="Environment"]
+z_index = 2
+z_as_relative = false
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 16, 16 )
+collision_layer = 0
+collision_mask = 0
+format = 1
+tile_data = PoolIntArray( 65542, 16, 262159, 65543, 16, 262159, 65544, 16, 262159, 65546, 16, 262159, 131077, 16, 262159, 131078, 16, 262159, 131079, 16, 262159, 131080, 16, 262159, 131081, 16, 262159, 131082, 16, 262159 )
+
+[node name="Checkpoint1" type="Position2D" parent="Environment"]
+position = Vector2( 62, 39 )
+
+[node name="Knight" parent="." instance=ExtResource( 3 )]
+position = Vector2( 201, 84 )
+
+[node name="AcquireAbility" parent="." instance=ExtResource( 2 )]
+margin_left = 103.0
+margin_top = 80.0
+margin_right = 127.0
+margin_bottom = 106.0
