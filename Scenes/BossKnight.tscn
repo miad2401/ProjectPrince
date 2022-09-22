@@ -1,8 +1,8 @@
 [gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Art/SpriteSheets/Idle-Sheet-Knight.png" type="Texture" id=1]
-[ext_resource path="res://Scripts/Knight.cs" type="Script" id=2]
-[ext_resource path="res://Art/SpriteSheets/KnightRun.png" type="Texture" id=3]
+[ext_resource path="res://Art/SpriteSheets/KnightRun.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/BossKnight.cs" type="Script" id=3]
 
 [sub_resource type="CapsuleShape2D" id=25]
 radius = 7.0
@@ -203,7 +203,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ ExtResource( 3 ) ]
+"values": [ ExtResource( 2 ) ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("EnemySprite:position")
@@ -268,7 +268,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ ExtResource( 3 ) ]
+"values": [ ExtResource( 2 ) ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("EnemySprite:position")
@@ -325,22 +325,14 @@ start_node = "Idle"
 position = Vector2( 0, -24 )
 collision_layer = 10
 collision_mask = 32797
-script = ExtResource( 2 )
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_group_": true
 }
-hurtPlayer = true
-direction = 3
-pushStrength = 25
-pushable = true
-hSpeed = 50
-maxVSpeed = 500
-gravity = 10
 
 [node name="EnemySprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
 hframes = 4
-frame = 3
 
 [node name="EnemyCollisionBox" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 3 )

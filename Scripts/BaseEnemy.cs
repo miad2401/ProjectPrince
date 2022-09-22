@@ -41,7 +41,7 @@ public abstract class BaseEnemy : KinematicBody2D
 
 	public abstract void MoveEnemy(float delta);
 
-	public void CheckForCollision()
+	public virtual void CheckForCollision()
 	{
 		//Interaction with movable Objects and Players
 		//Gets the number of "Slides" and checks each one
@@ -82,5 +82,14 @@ public abstract class BaseEnemy : KinematicBody2D
 	public void SetHurtPlayer(bool hp)
     {
 		hurtPlayer = hp;
+    }
+	public void SetDirection(Direction d)
+    {
+		direction = d;
+    }
+
+	public Direction GetDirection()
+    {
+		return direction;
     }
 }

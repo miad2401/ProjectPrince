@@ -1,9 +1,13 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Art/Tilemaps/MasterTileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Art/Placeholder Art/Sprites/08-Box/Idle.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/EnvironmentTools/DeathField.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/EnvironmentTools/EnemySpawner.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/EnvironmentTools/EnemyBarrier.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Art/SpriteSheets/Idle-Sheet-Rival.png" type="Texture" id=6]
+[ext_resource path="res://Art/Tilemaps/FewTiles/DungeonWall.png" type="Texture" id=7]
+[ext_resource path="res://Scripts/Rival.cs" type="Script" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 21, 20 )
@@ -13,6 +17,228 @@ extents = Vector2( 432, 4 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 480, 4 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 0.5, 8 )
+
+[sub_resource type="Animation" id=8]
+resource_name = "EnteredBossBattle"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("EntryDoor/DoorSprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("EntryDoor/DoorCollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath("Rival/EnvironmentDetectors/PlayerEnteredBoss")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "RESET"
+
+[sub_resource type="CapsuleShape2D" id=10]
+radius = 7.0
+height = 28.0
+
+[sub_resource type="Animation" id=11]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("RivalSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=12]
+resource_name = "RivalIdleLeft"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("RivalSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0, 1, 2, 3 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("RivalSprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 6 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("RivalSprite:flip_h")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("RivalSprite:hframes")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 4 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("RivalSprite:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=13]
+resource_name = "RivalIdleRight"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("RivalSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0, 1, 2, 3 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("RivalSprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 6 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("RivalSprite:flip_h")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("RivalSprite:hframes")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 4 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("RivalSprite:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="AnimationNodeAnimation" id=5]
+animation = "RivalIdleLeft"
+
+[sub_resource type="AnimationNodeAnimation" id=6]
+animation = "RivalIdleRight"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id=7]
+blend_point_0/node = SubResource( 5 )
+blend_point_0/pos = -0.9
+blend_point_1/node = SubResource( 6 )
+blend_point_1/pos = 0.9
+
+[sub_resource type="AnimationNodeStateMachine" id=14]
+states/Idle/node = SubResource( 7 )
+states/Idle/position = Vector2( 321, 88 )
+start_node = "Idle"
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=15]
+
+[sub_resource type="RectangleShape2D" id=16]
+extents = Vector2( 16, 56 )
+
+[sub_resource type="RectangleShape2D" id=17]
+extents = Vector2( 8, 56 )
 
 [node name="BossLevel" type="Control"]
 anchor_right = 1.0
@@ -50,7 +276,7 @@ collision_mask = 0
 format = 1
 
 [node name="Checkpoint1" type="Position2D" parent="Environment"]
-position = Vector2( 1352, 272 )
+position = Vector2( 338, 86 )
 
 [node name="RivalPosition1" type="Position2D" parent="Environment"]
 position = Vector2( 968, 120 )
@@ -112,24 +338,209 @@ hurtPlayer = true
 position = Vector2( 8, 4 )
 shape = SubResource( 3 )
 
-[node name="BatSpawnerLeft" parent="." instance=ExtResource( 4 )]
+[node name="SpawnerHolder" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="BatSpawnerLeft" parent="SpawnerHolder" instance=ExtResource( 4 )]
 margin_left = 520.0
 margin_top = 392.0
 margin_right = 560.0
 margin_bottom = 432.0
 timeToSpawn = 1.0
+maxEnemiesSpawned = 5
 vSpeed = -10
 
-[node name="BatSpawnerLeft2" parent="." instance=ExtResource( 4 )]
+[node name="BatSpawnerRight" parent="SpawnerHolder" instance=ExtResource( 4 )]
 margin_left = 1432.0
 margin_top = 392.0
 margin_right = 1472.0
 margin_bottom = 432.0
 timeToSpawn = 1.0
+maxEnemiesSpawned = 20
 iHSpeed = -600
 vSpeed = -10
 
+[node name="KnightSpawnerLeft" parent="SpawnerHolder" instance=ExtResource( 4 )]
+margin_left = 512.0
+margin_top = -168.0
+margin_right = 552.0
+margin_bottom = -128.0
+EnemyType = 1
+timeToSpawn = 2.0
+maxEnemiesSpawned = 20
+hSpeed = 100
+maxVSpeed = 500
+gravity = 10
+direction = 3
+
+[node name="KnightSpawnerLeft2" parent="SpawnerHolder" instance=ExtResource( 4 )]
+margin_left = 1440.0
+margin_top = -168.0
+margin_right = 1480.0
+margin_bottom = -128.0
+EnemyType = 1
+timeToSpawn = 2.0
+maxEnemiesSpawned = 20
+hSpeed = 100
+maxVSpeed = 500
+gravity = 10
+direction = 2
+
+[node name="EnemyBarriers" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 738, -17 )
+
+[node name="EnemyBarrier" parent="EnemyBarriers" instance=ExtResource( 5 )]
+position = Vector2( 728, -72 )
+detectKnight = true
+
+[node name="CollisionShape2D" parent="EnemyBarriers/EnemyBarrier" index="0"]
+position = Vector2( 7.5, 0 )
+shape = SubResource( 4 )
+
+[node name="EnemyBarrier2" parent="EnemyBarriers" instance=ExtResource( 5 )]
+position = Vector2( 728, 72 )
+detectKnight = true
+
+[node name="CollisionShape2D" parent="EnemyBarriers/EnemyBarrier2" index="0"]
+position = Vector2( 7.5, 0 )
+shape = SubResource( 4 )
+
+[node name="EnemyBarrier3" parent="EnemyBarriers" instance=ExtResource( 5 )]
+position = Vector2( 536, 136 )
+detectKnight = true
+
+[node name="CollisionShape2D" parent="EnemyBarriers/EnemyBarrier3" index="0"]
+position = Vector2( 7.5, -0.5 )
+shape = SubResource( 4 )
+
+[node name="EnemyBarrier4" parent="EnemyBarriers" instance=ExtResource( 5 )]
+position = Vector2( 728, 216 )
+detectKnight = true
+
+[node name="CollisionShape2D" parent="EnemyBarriers/EnemyBarrier4" index="0"]
+position = Vector2( 7.5, -0.5 )
+shape = SubResource( 4 )
+
+[node name="EnemyBarrier5" parent="EnemyBarriers" instance=ExtResource( 5 )]
+position = Vector2( 1193, -72 )
+detectKnight = true
+
+[node name="CollisionShape2D" parent="EnemyBarriers/EnemyBarrier5" index="0"]
+position = Vector2( 7.5, -0.5 )
+shape = SubResource( 4 )
+
+[node name="EnemyBarrier6" parent="EnemyBarriers" instance=ExtResource( 5 )]
+position = Vector2( 1193, 72 )
+detectKnight = true
+
+[node name="CollisionShape2D" parent="EnemyBarriers/EnemyBarrier6" index="0"]
+position = Vector2( 7.5, -0.5 )
+shape = SubResource( 4 )
+
+[node name="EnemyBarrier7" parent="EnemyBarriers" instance=ExtResource( 5 )]
+position = Vector2( 1401, 136 )
+detectKnight = true
+
+[node name="CollisionShape2D" parent="EnemyBarriers/EnemyBarrier7" index="0"]
+position = Vector2( 7.5, -0.5 )
+shape = SubResource( 4 )
+
+[node name="EnemyBarrier8" parent="EnemyBarriers" instance=ExtResource( 5 )]
+position = Vector2( 1193, 216 )
+detectKnight = true
+
+[node name="CollisionShape2D" parent="EnemyBarriers/EnemyBarrier8" index="0"]
+position = Vector2( 7.5, -0.5 )
+shape = SubResource( 4 )
+
+[node name="BossBattlePlayer" type="AnimationPlayer" parent="."]
+autoplay = "RESET"
+anims/EnteredBossBattle = SubResource( 8 )
+anims/RESET = SubResource( 9 )
+
+[node name="Rival" type="KinematicBody2D" parent="."]
+position = Vector2( 968, 120 )
+collision_layer = 17
+collision_mask = 17
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_group_": true
+}
+hurtPlayer = true
+direction = 2
+hSpeed = 200
+
+[node name="RivalSprite" type="Sprite" parent="Rival"]
+texture = ExtResource( 6 )
+hframes = 4
+
+[node name="RivalCollisionShape2D" type="CollisionShape2D" parent="Rival"]
+position = Vector2( 0, 3 )
+shape = SubResource( 10 )
+
+[node name="RivalAnimationPlayer" type="AnimationPlayer" parent="Rival"]
+anims/RESET = SubResource( 11 )
+anims/RivalIdleLeft = SubResource( 12 )
+anims/RivalIdleRight = SubResource( 13 )
+
+[node name="RivalAnimationTree" type="AnimationTree" parent="Rival"]
+tree_root = SubResource( 14 )
+anim_player = NodePath("../RivalAnimationPlayer")
+active = true
+parameters/playback = SubResource( 15 )
+parameters/Idle/blend_position = 1.0
+
+[node name="EnvironmentDetectors" type="Control" parent="Rival"]
+margin_left = -338.0
+margin_top = 14.0
+margin_right = -298.0
+margin_bottom = 54.0
+
+[node name="PlayerEnteredBoss" type="Area2D" parent="Rival/EnvironmentDetectors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rival/EnvironmentDetectors/PlayerEnteredBoss"]
+position = Vector2( -6, -46 )
+shape = SubResource( 16 )
+
+[node name="EntryDoor" type="StaticBody2D" parent="."]
+position = Vector2( 536, 88 )
+
+[node name="DoorSprite" type="Sprite" parent="EntryDoor"]
+visible = false
+scale = Vector2( 1, 7 )
+texture = ExtResource( 7 )
+
+[node name="DoorCollisionShape2D" type="CollisionShape2D" parent="EntryDoor"]
+shape = SubResource( 17 )
+disabled = true
+
+[node name="ExitDoor" type="Area2D" parent="."]
+position = Vector2( 1416, 88 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="DoorSprite" type="Sprite" parent="ExitDoor"]
+scale = Vector2( 1, 7 )
+texture = ExtResource( 7 )
+
+[node name="DoorCollisionShape2D" type="CollisionShape2D" parent="ExitDoor"]
+shape = SubResource( 17 )
+
+[connection signal="body_entered" from="Rival/EnvironmentDetectors/PlayerEnteredBoss" to="Rival" method="OnPlayerEnteredBossBattle"]
+
 [editable path="DeathField"]
 [editable path="DeathField2"]
-[editable path="BatSpawnerLeft"]
-[editable path="BatSpawnerLeft2"]
+[editable path="SpawnerHolder/BatSpawnerLeft"]
+[editable path="SpawnerHolder/BatSpawnerRight"]
+[editable path="EnemyBarriers/EnemyBarrier"]
+[editable path="EnemyBarriers/EnemyBarrier2"]
+[editable path="EnemyBarriers/EnemyBarrier3"]
+[editable path="EnemyBarriers/EnemyBarrier4"]
+[editable path="EnemyBarriers/EnemyBarrier5"]
+[editable path="EnemyBarriers/EnemyBarrier6"]
+[editable path="EnemyBarriers/EnemyBarrier7"]
+[editable path="EnemyBarriers/EnemyBarrier8"]

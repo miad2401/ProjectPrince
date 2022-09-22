@@ -13,6 +13,8 @@ public class Knight : BaseEnemy
 	[Export] private int maxVSpeed;
 	[Export] private int gravity;
 
+	AnimationTree animationTree;
+	AnimationNodeStateMachinePlayback enemyANSMP;
 	/*
      * Inherited Fields
      * bool hurtPlayer - If true, kills player when touched
@@ -21,7 +23,28 @@ public class Knight : BaseEnemy
      * Vector2 floor - Shows where the floor is, used for MoveAndSlide()
      */
 
-	public override void MoveEnemy(float delta)
+	public override void _Ready()
+    {
+        base._Ready();
+
+		//Finds the child AnimationTree node and sets a references to it to a AnimationTree variable
+		animationTree = GetNode<AnimationTree>("EnemyAnimationTree");
+		//Finds the AnimationNodeStateMachinePlayback resource within the animationTree and sets it to its own variable
+		//Because Godot doesn't allow arguments in the .Get() function, we also must cast it as a AnimationNodeStateMachinePlayback
+		enemyANSMP = animationTree.Get("parameters/playback") as AnimationNodeStateMachinePlayback;
+
+		if (GetDirection() == Direction.Left)
+        {
+			animationTree.Set("parameters/Idle/blend_position", -1);
+		}
+        else
+        {
+			animationTree.Set("parameters/Idle/blend_position", 1);
+		}
+
+    }
+
+    public override void MoveEnemy(float delta)
     {
 		CheckForCollision();
 
@@ -75,12 +98,7 @@ public class Knight : BaseEnemy
 
     public override void AnimateEnemy()
     {
-		//Finds the child AnimationTree node and sets a references to it to a AnimationTree variable
-		AnimationTree animationTree = GetNode<AnimationTree>("EnemyAnimationTree");
-		//Finds the AnimationNodeStateMachinePlayback resource within the animationTree and sets it to its own variable
-		//Because Godot doesn't allow arguments in the .Get() function, we also must cast it as a AnimationNodeStateMachinePlayback
-		AnimationNodeStateMachinePlayback enemyANSMP = animationTree.Get("parameters/playback") as AnimationNodeStateMachinePlayback;
-		if (velocity == Vector2.Zero)
+        if (velocity.x == 0 && !IsOnWall())
 		{
 			//If not moving, switches to an idle animation
 			enemyANSMP.Travel("Idle");
@@ -94,4 +112,18 @@ public class Knight : BaseEnemy
 			animationTree.Set("parameters/Run/blend_position", velocity.x);
 		}
 	}
+
+	//Setters
+	public void SetHSpeed(int hs)
+    {
+		hSpeed = hs;
+    }
+	public void SetMaxVSpeed(int mvs)
+    {
+		maxVSpeed = mvs;
+    }
+	public void SetGravity(int g)
+    {
+		gravity = g;
+    }
 }

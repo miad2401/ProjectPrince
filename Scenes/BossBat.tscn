@@ -64,7 +64,7 @@ start_node = "Idle"
 [node name="BossBat" type="KinematicBody2D" groups=["Bat", "Enemy"]]
 position = Vector2( 144, 128 )
 collision_layer = 2
-collision_mask = 32775
+collision_mask = 32773
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
@@ -73,7 +73,7 @@ __meta__ = {
 [node name="EnemySprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
 hframes = 8
-frame = 3
+frame = 2
 
 [node name="EnemyCollisionBox" type="CollisionShape2D" parent="."]
 shape = SubResource( 29 )
