@@ -839,7 +839,7 @@ wallClimbEnabled = true
 position = Vector2( -4, -2 )
 texture = ExtResource( 7 )
 hframes = 8
-frame = 7
+frame = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 1 )
@@ -895,6 +895,5 @@ can_sleep = false
 position = Vector2( -3, 0 )
 scale = Vector2( 1.662, 1 )
 polygon = PoolVector2Array( 5.41516, -27, 22, -28, 23, 10, 10, 12, 6.89168, -14 )
-disabled = true
 
 [connection signal="body_entered" from="SwordHitbox" to="." method="_on_SwordHitbox_body_entered"]

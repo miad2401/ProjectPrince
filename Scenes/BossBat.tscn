@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Art/SpriteSheets/batasset-Sheet03.png" type="Texture" id=1]
-[ext_resource path="res://Scripts/Bat.cs" type="Script" id=2]
+[ext_resource path="res://Scripts/BossBat.cs" type="Script" id=2]
 
 [sub_resource type="CapsuleShape2D" id=29]
 radius = 5.0
@@ -61,7 +61,7 @@ start_node = "Idle"
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=28]
 
-[node name="Bat" type="KinematicBody2D" groups=["Bat", "Enemy"]]
+[node name="BossBat" type="KinematicBody2D" groups=["Bat", "Enemy"]]
 position = Vector2( 144, 128 )
 collision_layer = 2
 collision_mask = 32775
@@ -69,16 +69,11 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
 }
-hurtPlayer = true
-direction = 3
-amplitude = 100
-frequency = 0.5
-hSpeed = 100
 
 [node name="EnemySprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
 hframes = 8
-frame = 1
+frame = 3
 
 [node name="EnemyCollisionBox" type="CollisionShape2D" parent="."]
 shape = SubResource( 29 )

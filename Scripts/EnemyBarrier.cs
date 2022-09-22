@@ -7,6 +7,7 @@ public class EnemyBarrier : StaticBody2D
 	[Export] bool detectBat;
 	[Export] bool detectKnight;
 	[Export] bool detectRival;
+	[Export] bool detectPlayer;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -21,6 +22,7 @@ public class EnemyBarrier : StaticBody2D
 		//Layer 3 is Bats
 		//Layer 4 is Knights
 		//Layer 5 is Rival
+		//Layer 16 is Player
 		if (detectBat)
 		{
 			CollisionLayer += (uint)Math.Pow(2, 2);
@@ -32,6 +34,10 @@ public class EnemyBarrier : StaticBody2D
 		if (detectRival)
 		{
 			CollisionLayer += (uint)Math.Pow(2, 4);
+		}
+		if (detectPlayer)
+		{
+			CollisionLayer += (uint)Math.Pow(2, 15);
 		}
 	}
 }

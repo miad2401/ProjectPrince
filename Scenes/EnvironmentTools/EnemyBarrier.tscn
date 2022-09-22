@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Scripts/EnemyBarrier.cs" type="Script" id=1]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 9, 9 )
 
 [node name="EnemyBarrier" type="StaticBody2D"]
@@ -12,4 +12,4 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
+shape = SubResource( 2 )

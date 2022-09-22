@@ -78,4 +78,9 @@ public abstract class BaseEnemy : KinematicBody2D
 	}
 
 	public abstract void AnimateEnemy();
+
+	public void SetHurtPlayer(bool hp)
+    {
+		hurtPlayer = hp;
+    }
 }
