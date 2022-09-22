@@ -202,7 +202,7 @@ public class Player : KinematicBody2D
 				running = true;
 				// If the player is moving left INTO a wall, not currently wall jumping, taps jump, 
 				// and is falling/jumping, wall jump
-				if (canWallJump && IsOnWall() && Input.IsActionJustPressed("move_jump") && velocity.y != 0.01f && wallJumpEnabled) {
+				if (canWallJump && Input.IsActionJustPressed("move_jump") && velocity.y != 0.01f && wallJumpEnabled && (IsOnWall() ||wallClimbing)) {
 					// Set walljumping tag to true
 					wallJumping = true;
 					jumping = true;
@@ -244,7 +244,7 @@ public class Player : KinematicBody2D
 				running = true;
 				// If the player is moving right INTO a wall, not currently wall jumping, taps jump, 
 				// and is falling/jumping, wall jump
-				if (canWallJump && IsOnWall() && Input.IsActionJustPressed("move_jump") && velocity.y != 0.01f && wallJumpEnabled) {
+				if (canWallJump && Input.IsActionJustPressed("move_jump") && velocity.y != 0.01f && wallJumpEnabled && (IsOnWall() || wallClimbing)) {
 					// Set walljumping tag to true
 					wallJumping = true;
 					jumping = true;
@@ -366,8 +366,8 @@ public class Player : KinematicBody2D
 		//Finds the AnimationNodeStateMachinePlayback resource within the animationTree and sets it to its own variable
 		//Because Godot doesn't allow arguments in the .Get() function, we also must cast it as a AnimationNodeStateMachinePlayback
 		AnimationNodeStateMachinePlayback myANSMP = animationTree.Get("parameters/playback") as AnimationNodeStateMachinePlayback;
-        if (currentlySwinging)
-        {
+		if (currentlySwinging)
+		{
 			myANSMP.Travel("SwingSword");
 			animationTree.Set("parameters/SwingSword/blend_position", direction.x);
 		}

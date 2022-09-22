@@ -47,8 +47,8 @@ public class Main : Control
 		ThePlayer.Position = CurrentLevelNode.GetNode<Position2D>("Environment/Checkpoint" + checkpoint).Position;
 
 		//Allows us to test different levels with the abilities the player would have
-        switch (startingLevel)
-        {
+		switch (startingLevel)
+		{
 			case Level.Level1:
 				break;
 			case Level.Level2:
