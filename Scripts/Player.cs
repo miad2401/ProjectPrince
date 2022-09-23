@@ -500,9 +500,9 @@ public class Player : KinematicBody2D
 	}
 
 	public void MoveCamera(Vector2 newGlobalPosition)
-    {
+	{
 		GetNode<Camera2D>("Camera2D").GlobalPosition = newGlobalPosition;
-    }
+	}
 }
 
 
