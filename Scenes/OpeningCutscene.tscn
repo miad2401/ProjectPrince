@@ -1,0 +1,60 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Art/Fonts/Size8PBW.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Scenes/OpeningCutscene.cs" type="Script" id=2]
+
+[sub_resource type="Theme" id=1]
+default_font = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0, 0, 0, 1 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="OpeningCutscene" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+spaceTextDelay = 4.0
+spaceTextBlinkSpeed = 0.75
+scrollSpeedScale = 0.18
+shakeTotalTime = 1.6
+shakeBetweenTime = 0.065
+
+[node name="Background" type="ColorRect" parent="."]
+margin_right = 480.0
+margin_bottom = 270.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="CutscenePanel" type="Panel" parent="."]
+margin_left = 112.0
+margin_top = 72.0
+margin_right = 367.0
+margin_bottom = 188.0
+size_flags_horizontal = 0
+theme = SubResource( 1 )
+custom_styles/panel = SubResource( 2 )
+
+[node name="CutsceneText" type="Label" parent="CutscenePanel"]
+margin_left = 6.0
+margin_top = 6.0
+margin_right = 249.0
+margin_bottom = 110.0
+align = 1
+valign = 1
+autowrap = true
+percent_visible = 0.0
+max_lines_visible = 5
+
+[node name="PressSpaceText" type="Label" parent="CutscenePanel"]
+margin_left = 64.0
+margin_top = -16.0
+margin_right = 189.0
+margin_bottom = -2.0
+text = "Press Space to continue"

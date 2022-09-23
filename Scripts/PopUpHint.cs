@@ -23,33 +23,33 @@ public class PopUpHint : Control
 		HintContainer = GetNode<Control>("HintContainer");
 		//If leftText is enabled, displays it, otherwise hides it
 		if (leftText)
-        {
+		{
 			GetNode<MarginContainer>("HintContainer/HintContainerLeft").Visible = true;
 		}
-        else
-        {
+		else
+		{
 			GetNode<MarginContainer>("HintContainer/HintContainerLeft").Visible = false;
 		}
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(float delta)
-    {
+	{
 		//Checks if the hint is visible and that it isn't already fully visible
-        if (fadeIn && fadeProgress < fadelength)
-        {
+		if (fadeIn && fadeProgress < fadelength)
+		{
 			fadeProgress += delta;
-        }
+		}
 		//Checks if the hint isn't visible and that it isn't already fully invisible
-        else if(!fadeIn && fadeProgress > 0)
-        {
+		else if(!fadeIn && fadeProgress > 0)
+		{
 			fadeProgress -= delta;
-        }
+		}
 		//If neither of these, returns so that we don't modulate no change.
-        else
-        {
+		else
+		{
 			return;
-        }
+		}
 		//Changes the fade on the HintContainer
 		HintContainer.Modulate = new Color(1, 1, 1, fadeProgress * (1 / fadelength));
 	}
@@ -66,7 +66,7 @@ public class PopUpHint : Control
 
 	//Called when body exited
 	public void OnHintArea2DBodyExited(Node body)
-    {
+	{
 		//Checks if the touched object was a player, and if so, Hides the text
 		if (body.IsInGroup("Player"))
 		{

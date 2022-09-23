@@ -10,15 +10,15 @@ public class Rival : BaseEnemy
 	AnimationPlayer BossBattleAnimationPlayer;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
-    {
-        base._Ready();
+	{
+		base._Ready();
 		BossBattleAnimationPlayer = GetNode<AnimationPlayer>("../BossBattlePlayer");
 	}
 
-    public override void _PhysicsProcess(float delta)
-    {
-        base._PhysicsProcess(delta);
-    }
+	public override void _PhysicsProcess(float delta)
+	{
+		base._PhysicsProcess(delta);
+	}
 
 	public override void MoveEnemy(float delta)
 	{
@@ -49,9 +49,9 @@ public class Rival : BaseEnemy
 	}
 
 	public void OnPlayerEnteredBossBattle(Node body)
-    {
-        if (body.IsInGroup("Player"))
-        {
+	{
+		if (body.IsInGroup("Player"))
+		{
 			BossBattleAnimationPlayer.Play("EnteredBossBattle");
 			/*
 			GetNode<Area2D>("EnvironmentDetectors/PlayerEnteredBoss").QueueFree();
@@ -63,5 +63,5 @@ public class Rival : BaseEnemy
 			//Story Stuff
 			*/
 		}
-    }
+	}
 }
