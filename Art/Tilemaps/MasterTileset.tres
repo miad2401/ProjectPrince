@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=1965 format=2]
+[gd_resource type="TileSet" load_steps=1966 format=2]
 
 [ext_resource path="res://Art/Tilemaps/ManyTiles/props1.png" type="Texture" id=1]
 [ext_resource path="res://Art/Tilemaps/FewTiles/WaterTile.png" type="Texture" id=2]
@@ -2933,6 +2933,9 @@ points = PoolVector2Array( 0, 4, 16, 4, 16, 16, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=1083]
 points = PoolVector2Array( 0, 4, 16, 4, 16, 16, 0, 16 )
+
+[sub_resource type="ConvexPolygonShape2D" id=2120]
+points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
 
 [sub_resource type="ConvexPolygonShape2D" id=1084]
 points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
@@ -11722,9 +11725,16 @@ points = PoolVector2Array( 4, 16, 0, 12, 0, 4, 0, 0, 16, 16 )
 40/navigation_offset = Vector2( 0, 0 )
 40/shape_offset = Vector2( 0, 0 )
 40/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+40/shape = SubResource( 2120 )
 40/shape_one_way = false
-40/shape_one_way_margin = 0.0
-40/shapes = [  ]
+40/shape_one_way_margin = 1.0
+40/shapes = [ {
+"autotile_coord": Vector2( 17, 20 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 2120 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
 40/z_index = 0
 41/name = "Dungeon Tile 3"
 41/texture = ExtResource( 6 )
