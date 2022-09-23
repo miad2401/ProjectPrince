@@ -493,6 +493,15 @@ public class Player : KinematicBody2D
 			// Reset timer
 			//swingTimePassed = swingDelay;
 		}
+		else if (body.IsInGroup("Rival"))
+		{
+			(body as Rival).GotHit();
+		}
+	}
+
+	public void MoveCamera(Vector2 newGlobalPosition)
+	{
+		GetNode<Camera2D>("Camera2D").GlobalPosition = newGlobalPosition;
 	}
 }
 
