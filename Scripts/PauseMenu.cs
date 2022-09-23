@@ -225,7 +225,7 @@ public class PauseMenu : Control
 		transitioning = true;
 	}
 
-	private void PauseFromOutsidePauseMenu(bool outPause)
+	public void PauseFromOutsidePauseMenu(bool outPause)
 	{
 		paused = outPause;
 		changeable = !outPause;

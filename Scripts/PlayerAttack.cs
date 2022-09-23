@@ -38,6 +38,10 @@ public class PlayerAttack : RigidBody2D
 		{
 			body.QueueFree();
 		}
+		else if (body.IsInGroup("Rival"))
+		{
+			(body as Rival).GotHit();
+		}
 		//Deletes itself
 		QueueFree();
 	}

@@ -79,10 +79,11 @@ public class Main : Control
 			default:
 				break;
 		}
-		
+
 		//Adds the Level to the Scene (Starts the Level)
-		AddChild(CurrentLevelNode);
 		CurrentLevelNode.AddChild(ThePlayer);
+		AddChild(CurrentLevelNode);
+		//CurrentLevelNode.AddChild(ThePlayer);
 	}
 
 	//Received from PauseMenu when reload has been selected
@@ -97,8 +98,8 @@ public class Main : Control
 		ThePlayer.Position = CurrentLevelNode.GetNode<Position2D>("Environment/Checkpoint" + checkpoint).Position;
 
 		//Adds the clean Level to the scene (Starts the level again)
-		AddChild(CurrentLevelNode);
 		CurrentLevelNode.AddChild(ThePlayer);
+		AddChild(CurrentLevelNode);
 	}
 
 	//Received from TransitionField when it is time to switch to the next level
@@ -114,12 +115,7 @@ public class Main : Control
 
 		ThePlayer.Position = CurrentLevelNode.GetNode<Position2D>("Environment/Checkpoint" + checkpoint).Position;
 
-		AddChild(CurrentLevelNode);
 		CurrentLevelNode.AddChild(ThePlayer);
-		//Adds the next Level to the scene (Starts the next level)
-		//CallDeferred so that we don't accidently try to add a child on physics frame
-		//This adds the CurrentLevelNode as a child when it is safe to do so
-		//CallDeferred("add_child", CurrentLevelNode);
-		//CurrentLevelNode.CallDeferred("add_child", Player);
+		AddChild(CurrentLevelNode);
 	}
 }
