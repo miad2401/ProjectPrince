@@ -52,6 +52,10 @@ public class DialogueBox : Control
 	
 	// TODO SHAKE LINES
 	
+	[Export] float[] scrollSpeedScales;
+	[Export] int[] shakeStrengthScales;
+	[Export] float[] shakeBetweenTimes;
+	[Export] float[] shakeTotalTimes;
 	
 	
 	Container Left, Middle, Right;
