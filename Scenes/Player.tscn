@@ -836,10 +836,10 @@ moveEnabled = true
 wallClimbEnabled = true
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( -4, -2 )
-texture = ExtResource( 7 )
-hframes = 8
-frame = 4
+position = Vector2( 0, -2 )
+texture = ExtResource( 1 )
+hframes = 4
+frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 1 )
@@ -869,6 +869,7 @@ parameters/RunSword/blend_position = 0.0
 parameters/SwingSword/blend_position = 1.00597
 
 [node name="Camera2D" type="Camera2D" parent="."]
+pause_mode = 2
 position = Vector2( 0, 1 )
 current = true
 drag_margin_h_enabled = true
@@ -882,8 +883,8 @@ position = Vector2( 8, 0 )
 [node name="DebugMenu" parent="." instance=ExtResource( 3 )]
 
 [node name="SwordHitbox" type="RigidBody2D" parent="."]
-collision_layer = 4
-collision_mask = 2
+collision_layer = 20
+collision_mask = 18
 mode = 3
 mass = 0.00102041
 gravity_scale = 0.0

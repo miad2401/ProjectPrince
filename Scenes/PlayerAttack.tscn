@@ -98,7 +98,7 @@ start_node = "Moving"
 [node name="PlayerAttack" type="RigidBody2D"]
 position = Vector2( 240, 136 )
 collision_layer = 4
-collision_mask = 3
+collision_mask = 19
 mass = 0.00102041
 gravity_scale = 0.0
 contacts_reported = 1
