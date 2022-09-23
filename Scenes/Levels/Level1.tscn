@@ -140,6 +140,7 @@ position = Vector2( -16, -24 )
 
 [node name="DialogueBox" parent="." instance=ExtResource( 3 )]
 startDialogue = true
+scrollSpeedScale = 0.4
 textList = PoolStringArray( "Silas: They\'re heading for the garden entrance! I have to hurry!" )
 leftPortraits = PoolStringArray( "Silas" )
 rightPortraits = PoolStringArray( "" )

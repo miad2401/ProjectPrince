@@ -3,9 +3,9 @@ using System;
 
 public class Menu : Control
 {	
-	private void _on_StartButton_pressed() {
-	// start game
-		//GetTree().ChangeScene("res://Scenes/OpeningCutscene.tscn");
+	private void _on_StartButton_pressed()
+	{
+		// GetTree().ChangeScene("res://scenes/OpeningCutscene.tscn");
 		GetTree().ChangeScene("res://Scenes/Main.tscn");
 	}
 	
@@ -22,6 +22,9 @@ public class Menu : Control
 	
 	*/
 }
+
+
+
 
 
 
