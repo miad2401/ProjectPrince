@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Documents\\GitHub\\ProjectPrince\\Project Prince.csproj": {}
+    "C:\\Users\\Robert\\Documents\\GitHub\\ProjectPrince\\Project Prince.csproj": {}
   },
   "projects": {
-    "D:\\Documents\\GitHub\\ProjectPrince\\Project Prince.csproj": {
+    "C:\\Users\\Robert\\Documents\\GitHub\\ProjectPrince\\Project Prince.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Documents\\GitHub\\ProjectPrince\\Project Prince.csproj",
+        "projectUniqueName": "C:\\Users\\Robert\\Documents\\GitHub\\ProjectPrince\\Project Prince.csproj",
         "projectName": "Project Prince",
-        "projectPath": "D:\\Documents\\GitHub\\ProjectPrince\\Project Prince.csproj",
-        "packagesPath": "C:\\Users\\Thingys\\.nuget\\packages\\",
-        "outputPath": "D:\\Documents\\GitHub\\ProjectPrince\\.mono\\temp\\obj\\",
+        "projectPath": "C:\\Users\\Robert\\Documents\\GitHub\\ProjectPrince\\Project Prince.csproj",
+        "packagesPath": "C:\\Users\\Robert\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Robert\\Documents\\GitHub\\ProjectPrince\\.mono\\temp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Thingys\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Robert\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net472"
@@ -45,7 +45,7 @@
               "autoReferenced": true
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }

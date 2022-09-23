@@ -17,6 +17,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
 startDialogue = false
+scrollSpeedScale = 0.4
 textList = PoolStringArray(  )
 
 [node name="DBL" type="CanvasLayer" parent="."]
