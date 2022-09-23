@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Art/Fonts/Size8PBW.tres" type="DynamicFont" id=1]
-[ext_resource path="res://Scenes/OpeningCutscene.cs" type="Script" id=2]
+[ext_resource path="res://Scripts/OpeningCutscene.cs" type="Script" id=2]
+[ext_resource path="res://Art/Fonts/Size16PBW.tres" type="DynamicFont" id=3]
 
 [sub_resource type="Theme" id=1]
 default_font = ExtResource( 1 )
@@ -16,6 +17,12 @@ corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
+
+[sub_resource type="Theme" id=3]
+default_font = ExtResource( 3 )
+
+[sub_resource type="Theme" id=4]
+default_font = ExtResource( 3 )
 
 [node name="OpeningCutscene" type="Control"]
 anchor_right = 1.0
@@ -46,6 +53,9 @@ margin_left = 6.0
 margin_top = 6.0
 margin_right = 249.0
 margin_bottom = 110.0
+theme = SubResource( 3 )
+text = "
+"
 align = 1
 valign = 1
 autowrap = true
@@ -57,4 +67,5 @@ margin_left = 64.0
 margin_top = -16.0
 margin_right = 189.0
 margin_bottom = -2.0
+theme = SubResource( 4 )
 text = "Press Space to continue"

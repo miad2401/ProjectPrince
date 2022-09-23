@@ -42,7 +42,7 @@ public class OpeningCutscene : Control
 		"Daniel: \"Really?\"",
 		"Silas: \"Yes, really. Now!\"",
 		"Silas: \"MOVE!\"",
-		"Daniel: \"YESIR!\"",
+		"Daniel: \"YESSIR!\"",
 		"l   The two enter the garden.   l",
 		"l   They walk along a path, each side lined with flowers of all different colors and types,   l",
 		"l  some even out of season yet still flourishing.  l",
@@ -67,7 +67,7 @@ public class OpeningCutscene : Control
 		"Daniel: \"What the,,!\"",
 		"l   A large group of knights clamor in.   l",
 		"???: \"There\'s the Prince! Grab him!\"",
-		"l   Daniel is grabbed. He attempts to reach out to Silas, but he is carried away.   l",
+		"l   Daniel is grabbed. He attempts to reach out \nto Silas, but he is carried away.   l",
 		"Silas: \"Damn it! Those Gloomwood scoundrels! I have to get him back.\"",
 	};
 	
@@ -145,7 +145,7 @@ public class OpeningCutscene : Control
 				}
 				// Slow text afterwards
 				else if (currentText == 7) {
-					scrollSpeedScale /=1.85f;
+					scrollSpeedScale /= 1.85f;
 				}
 				// Bring text back to normal speed
 				else if (currentText == 8) {
@@ -158,7 +158,7 @@ public class OpeningCutscene : Control
 					shakeTotalTime *= 3;
 				}
 				else if (currentText == 41) {
-					shakeTotalTime /= 3;
+					shakeTotalTime /=3;
 				}
 				// Make text visible
 				CutsceneText.Visible = true;

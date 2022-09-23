@@ -6,7 +6,6 @@ public class Menu : Control
 	private void _on_StartButton_pressed() {
 	// start game
 		GetTree().ChangeScene("res://Scenes/OpeningCutscene.tscn");
-		//GetTree().ChangeScene("res://Scenes/Main.tscn");
 	}
 	
 	private void _on_QuitButton_pressed() {
