@@ -24,9 +24,9 @@ public class OpeningCutscene : Control
 	// Array of dialogue lines
 	String[] textList = new String[46]{
 		"???: ZZzzzzZZZZZ....",
-		"???: \"Your Majesty, wake up...\"",
+		"???: \"Your Highness, wake up...\"",
 		"???: ZZzzzzZZZZZ....",
-		"???: \"Your Majesty...\"",
+		"???: \"Your Highness...\"",
 		"???: ZZZZZZzzzzzZZZZ.....",
 		"???: \"GET UP!!!\"",
 		"Daniel: \"AHHHHhhhhh!!!-\"",
@@ -50,7 +50,7 @@ public class OpeningCutscene : Control
 		"Silas: \"This was the third time this week, and it's only Wednesday.\"",
 		"Silas: \"This is why I keep telling you to stop reading so late into the night.\"",
 		"Daniel: \"Aw, but I couldn\'t! Madam Anatasia was just about to declare her intention to divorce Duke Grayson for the spectacular Marquis Hannah...\"",
-		"Silas: \"Fascinating. You\'ll just have to tell me all about it later, Your Majesty. Now, if we could...\"",
+		"Silas: \"Fascinating. You\'ll just have to tell me all about it later, Your Highness. Now, if we could...\"",
 		"Daniel: \"You could always join me, you know?\"",
 		"Silas: \"...don\'t even suggest such a preposterous thing...\"",
 		"Daniel: \"Oh, don\'t be like that. A romantic book deserves a...\"",
