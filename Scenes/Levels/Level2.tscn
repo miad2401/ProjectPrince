@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://Art/Tilemaps/MasterTileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Scenes/EnvironmentTools/AcquireAbility.tscn" type="PackedScene" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://Art/Parallax/CAVE_background2.png" type="Texture" id=11]
 [ext_resource path="res://Art/Parallax/CAVE_background3.png" type="Texture" id=12]
 [ext_resource path="res://Art/Parallax/CAVE_background4a.png" type="Texture" id=13]
+[ext_resource path="res://Scenes/EnvironmentTools/Note.tscn" type="PackedScene" id=14]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 24, 4 )
@@ -325,8 +326,26 @@ __meta__ = {
 }
 numOfBats = 40
 
+[node name="Greeting" parent="FakeNote/Note/NoteBackground" index="0"]
+text = "Dear"
+
+[node name="Recipient" parent="FakeNote/Note/NoteBackground" index="1"]
+text = "Solas,"
+
+[node name="NoteContents" parent="FakeNote/Note/NoteBackground" index="2"]
+text = "My captuors are planning to take me to Lake Missury. I require your assistance. Hurry, now."
+
+[node name="Desires" parent="FakeNote/Note/NoteBackground" index="3"]
+text = ""
+
+[node name="PartingMessage" parent="FakeNote/Note/NoteBackground" index="4"]
+text = "Prince"
+
 [node name="Area2D" parent="FakeNote" index="1"]
 position = Vector2( 288, 254 )
+
+[node name="CollisionShape2D" parent="FakeNote/Area2D" index="0"]
+position = Vector2( -1, -21 )
 
 [node name="TopLeftBoundary" parent="FakeNote" index="2"]
 position = Vector2( 48, 93 )
@@ -465,6 +484,21 @@ z_index = 3
 [node name="Particles2D" parent="AcquireAbility" index="3"]
 z_index = 3
 
+[node name="Note" parent="." instance=ExtResource( 14 )]
+margin_left = -133.0
+margin_top = -270.0
+margin_right = -133.0
+margin_bottom = -270.0
+
+[node name="NoteContents" parent="Note/Note/NoteBackground" index="2"]
+text = "Greetings! As I would have it my captures seem to not be too keen to keep their jobs as they are fairly inattentive to me. Why haven’t I run, you might be wondering? Well…Have you seen my heels? Running, with these heels? Absolutely not. Yes, yes, I know, “Why don’t you wear something more practical?” And the answer to that is they are very [fashionable]. Nonetheless, I will be sure to find something better upon my return."
+
+[node name="Desires" parent="Note/Note/NoteBackground" index="3"]
+text = "Hope to see you soon,"
+
+[node name="CollisionShape2D" parent="Note/Area2D" index="0"]
+position = Vector2( -1, -21 )
+
 [connection signal="body_entered" from="DeathPit1" to="DeathPit1" method="_on_DeathField_body_entered"]
 [connection signal="body_entered" from="DeathPit2" to="DeathPit2" method="_on_DeathField_body_entered"]
 [connection signal="body_entered" from="DeathPit3" to="DeathPit3" method="_on_DeathField_body_entered"]
@@ -481,3 +515,4 @@ z_index = 3
 [editable path="FakeNote"]
 [editable path="PopUpHint"]
 [editable path="AcquireAbility"]
+[editable path="Note"]

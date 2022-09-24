@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Art/Tilemaps/MasterTileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Scripts/DeathField.cs" type="Script" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Art/Parallax/FOREST_bakcground_day1.png" type="Texture" id=9]
 [ext_resource path="res://Art/Parallax/FOREST_bakcground_day3.png" type="Texture" id=10]
 [ext_resource path="res://Art/Parallax/FOREST_bakcground_day2.png" type="Texture" id=11]
+[ext_resource path="res://Scenes/EnvironmentTools/Note.tscn" type="PackedScene" id=12]
 
 [sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 36, 11 )
@@ -139,6 +140,10 @@ __meta__ = {
 position = Vector2( -16, -24 )
 
 [node name="DialogueBox" parent="." instance=ExtResource( 3 )]
+margin_left = -12.0
+margin_top = -29.0
+margin_right = -12.0
+margin_bottom = -29.0
 startDialogue = true
 textList = PoolStringArray( "Silas: They\'re heading for the garden entrance! I have to hurry!", "fjfff" )
 leftPortraits = PoolStringArray( "Silas", "hidden" )
@@ -1020,6 +1025,17 @@ nextCheckpoint = 1
 position = Vector2( -8, -40 )
 shape = SubResource( 8 )
 
+[node name="Note" parent="." instance=ExtResource( 12 )]
+
+[node name="Greeting" parent="Note/Note/NoteBackground" index="0"]
+text = "To my lovely"
+
+[node name="Area2D" parent="Note" index="1"]
+position = Vector2( 7, -16 )
+
+[node name="CollisionShape2D" parent="Note/Area2D" index="0"]
+position = Vector2( -1, -22.5 )
+
 [connection signal="body_entered" from="Movement Instructions/HintArea2D" to="Movement Instructions" method="OnHintArea2DBodyEntered"]
 [connection signal="body_exited" from="Movement Instructions/HintArea2D" to="Movement Instructions" method="OnHintArea2DBodyExited"]
 [connection signal="body_entered" from="Jump Instructions/HintArea2D" to="Jump Instructions" method="OnHintArea2DBodyEntered"]
@@ -1040,3 +1056,5 @@ shape = SubResource( 8 )
 [connection signal="body_entered" from="Puzzle 1/GoneTooFar/HintArea2D" to="Puzzle 1/GoneTooFar" method="OnHintArea2DBodyEntered"]
 [connection signal="body_exited" from="Puzzle 1/GoneTooFar/HintArea2D" to="Puzzle 1/GoneTooFar" method="OnHintArea2DBodyExited"]
 [connection signal="body_entered" from="ToLevel2" to="ToLevel2" method="OnTransitionFieldBodyEntered"]
+
+[editable path="Note"]

@@ -95,7 +95,10 @@ margin_bottom = 154.0
 text = "To my heroic"
 
 [node name="NoteContents" parent="Library/Note/Note/NoteBackground" index="2"]
-text = "Are you enjoying your journey? I'll have you know that I am miserable :))). The Town my captors "
+text = "If you’re reading this letter that means my miserable journey is close to it’s end, huzzah! While I will admit I had some fun at the beginning, these jesters masking as knights have made the experience just truly dreadful. They’re planning to take me to their “prince” at his residence, so time is of the essence. Quickly, my heart, return to me."
+
+[node name="Desires" parent="Library/Note/Note/NoteBackground" index="3"]
+text = "Please hurry,"
 
 [node name="CollisionShape2D" parent="Library/Note/Area2D" index="0"]
 position = Vector2( -1, -8 )
