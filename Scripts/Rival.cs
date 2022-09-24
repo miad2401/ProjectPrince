@@ -183,17 +183,23 @@ public class Rival : BaseEnemy
 	}
 
 	public void DialougeBoxClosed()
-	{
+    {
 		if(lastDialouge == 0)
-		{
+        {
 			BossBattleAnimationPlayer.Play("EnteredBossBattle2");
 			lastDialouge = 1;
 		}
-		else
-		{
+        else if(lastDialouge == 1)
+        {
 			BossBattleAnimationPlayer.Play("RivalLoses2");
+			lastDialouge = 2;
 		}
-	}
+        else
+        {
+			BossBattleAnimationPlayer.Play("RivalLoses3");
+		}
+
+    }
 
 	public void GotHit()
 	{
@@ -212,21 +218,21 @@ public class Rival : BaseEnemy
 	}
 
 	public void FadeToEnd()
-	{
+    {
 		thePauseMenu.TransitionPanel.Visible = true;
 		thePauseMenu.transitioning = true;
 		thePauseMenu.endScreen = true;
 		thePauseMenu.TransitionPanel.GetNode<Label>("WinLabel").Visible = true;
-	}
+    }
 
 	public void FadeToCredits()
-	{
+    {
 		thePauseMenu.GetNode<TextureRect>("Credits").Visible = true;
 		thePauseMenu.transitioning = true;
-	}
+    }
 
 	public void ExitGame()
-	{
+    {
 		GetTree().Quit();
 	}
 }
