@@ -52,10 +52,27 @@ public class DialogueBox : Control
 	
 	// TODO SHAKE LINES
 	
+	
 	[Export] float[] scrollSpeedScales;
-	[Export] int[] shakeStrengthScales;
-	[Export] float[] shakeBetweenTimes;
-	[Export] float[] shakeTotalTimes;
+	[Export] int[] lineShakes;
+	
+	
+	// Total amount of time a shake takes
+	[Export] float shakeTotalTime;
+	// Amount of time between each shake movement
+	[Export] float shakeBetweenTime;
+	// How much each shake moves the text
+	[Export] int currentShakeStrength = 3;
+	// Stores how many shake movements there are
+	int shakeMovements = 10;
+	// Keeps track of how long the text has shaken
+	float shakeTotalTimer = 0;
+	// Keeps track of how long the current movement has happened
+	float shakeBetweenTimer = 0f;
+	// Tracks current movement
+	int currentShakeMovement = 1;
+	// Flag that tracks if currently shaking
+	bool shaking = false;
 	
 	
 	Container Left, Middle, Right;
@@ -115,6 +132,10 @@ public class DialogueBox : Control
 		}
 		Text.Text = textList[currentText];
 		chatterLimit = textList[currentText].Length;
+		TextPosition = Text.GetPosition();
+		
+		shaking = lineShakes[currentText] > 0;
+		
 		
 		// Load portraits
 		Silas = ResourceLoader.Load("res://Art/Portraits/silas.png") as Texture;
@@ -176,11 +197,11 @@ public class DialogueBox : Control
 				// If not at end of dialogue
 				if (currentText != (textList.Length-1)) {
 					// Stop any possible shakes
-					//stopShake();
+					stopShake();
 					// Hide text
 					Text.Visible = false;
 					// Reset text position
-					//CutsceneText.SetPosition(TextPosition);
+					Text.SetPosition(TextPosition);
 					// Advance text var
 					currentText++;
 					// Reset space prompt timer
@@ -194,27 +215,6 @@ public class DialogueBox : Control
 					chatterLimit = textList[currentText].Length;
 					// Ready text
 					Text.Text = textList[currentText];
-					// Shake for wakeup convo
-					/*if (currentText == 5 || currentText == 6) {
-						shaking = true;
-					}*
-					// Slow text afterwards
-					else if (currentText == 7) {
-						scrollSpeedScale /= 1.85f;
-					}
-					// Bring text back to normal speed
-					else if (currentText == 8) {
-						scrollSpeedScale *= 1.85f;
-					}
-					// Shake longer but less violently when knighs come
-					else if (currentText == 40 || currentText == 42) {
-						shaking = true;
-						currentShakeStrength = 4;
-						shakeTotalTime *= 3;
-					}
-					else if (currentText == 41) {
-						shakeTotalTime /=3;
-					}*/
 					// Make text visible
 					Text.Visible = true;
 				}
@@ -222,6 +222,7 @@ public class DialogueBox : Control
 				else {
 					EmitSignal(nameof(PauseForDialogue), false);
 					DBL.Visible = false;
+					EndDialogue();
 				}
 				// check for portrait, if so load
 				if (leftPortraits[currentText] != "" && leftPortraits[currentText] != "hidden") {
@@ -249,6 +250,7 @@ public class DialogueBox : Control
 			else if (Input.IsActionPressed("pause")) {
 				EmitSignal(nameof(PauseForDialogue), false);
 				DBL.Visible = false;
+				EndDialogue();
 			}
 			// Process
 			else {
@@ -269,29 +271,29 @@ public class DialogueBox : Control
 			}
 			
 			// Scroll text
-			scrollSpeedSum += (delta*scrollSpeedScale);
+			scrollSpeedSum += (delta*(scrollSpeedScales[currentText] > 0 ? scrollSpeedScales[currentText] : scrollSpeedScale));
 			if (scrollSpeedSum > delta) {
 				scrollSpeedSum = 0;
 				showChatter();
 			}
 			
-			/*// Shake text if applicable
+			// Shake text if applicable
 			if (shaking) {
 				shakeTotalTimer += delta;
 				if (shakeTotalTimer < shakeTotalTime) {
 					shakeBetweenTimer += delta;
 					if (shakeBetweenTimer > shakeBetweenTime) {
 						if (currentShakeMovement == 1 || currentShakeMovement == 5 || currentShakeMovement == 8){
-							CutsceneText.SetPosition(new Vector2(CutsceneText.GetPosition().x+currentShakeStrength,CutsceneText.GetPosition().y));
+							Text.SetPosition(new Vector2(Text.GetPosition().x+currentShakeStrength,Text.GetPosition().y));
 						}
 						else if (currentShakeMovement == 2 || currentShakeMovement == 4){
-							CutsceneText.SetPosition(new Vector2(CutsceneText.GetPosition().x,CutsceneText.GetPosition().y+currentShakeStrength));
+							Text.SetPosition(new Vector2(Text.GetPosition().x,Text.GetPosition().y+currentShakeStrength));
 						}
 						else if (currentShakeMovement == 3 || currentShakeMovement == 6 || currentShakeMovement == 10) {
-							CutsceneText.SetPosition(new Vector2(CutsceneText.GetPosition().x-currentShakeStrength,CutsceneText.GetPosition().y));
+							Text.SetPosition(new Vector2(Text.GetPosition().x-currentShakeStrength,Text.GetPosition().y));
 						}
 						else {
-							CutsceneText.SetPosition(new Vector2(CutsceneText.GetPosition().x,CutsceneText.GetPosition().y-currentShakeStrength));
+							Text.SetPosition(new Vector2(Text.GetPosition().x,Text.GetPosition().y-currentShakeStrength));
 						}
 						currentShakeMovement++;
 						if (currentShakeMovement > 10) {
@@ -301,29 +303,28 @@ public class DialogueBox : Control
 					}
 				}
 				else {
-					//stopShake();
+					stopShake();
 				}
-			}*/
+			}
 		}
 	}
 	
 	// Scroll function
-	public void showChatter() {
+	private void showChatter() {
 		if (drawTextSpeed < chatterLimit) {
 			drawTextSpeed++;
 			Text.VisibleCharacters = drawTextSpeed;
 		}
 	}
-
-	//Called when the area is entered
-	public void OnNoteBodyEntered(Node body)
-	{
-		//Checks if the touched object was a player
-		if (body.IsInGroup("Player"))
-		{
-			//Send a Signal to PauseMenu to pause the game
-			EmitSignal(nameof(PauseForDialogue), true);
-			this.Visible = true;
-		}
+	
+	private void stopShake() {
+		shakeTotalTimer = 0;
+		shakeBetweenTimer = 0;
+		currentShakeMovement = 1;
+		shaking = false;
+	}
+	
+	public bool EndDialogue() {
+		return true;
 	}
 }

@@ -34,15 +34,6 @@ C:/Users/Robert/Desktop/ProjectPrinceFix/.mono/temp/obj/Debug/Project Prince.Ass
 C:/Users/Robert/Desktop/ProjectPrinceFix/.mono/temp/obj/Debug/Project Prince.csproj.CoreCompileInputs.cache
 C:/Users/Robert/Desktop/ProjectPrinceFix/.mono/temp/obj/Debug/Project Prince.dll
 C:/Users/Robert/Desktop/ProjectPrinceFix/.mono/temp/obj/Debug/Project Prince.pdb
-D:/Documents/GitHub/ProjectPrince/.mono/temp/bin/Debug/Project Prince.dll
-D:/Documents/GitHub/ProjectPrince/.mono/temp/bin/Debug/Project Prince.pdb
-D:/Documents/GitHub/ProjectPrince/.mono/temp/obj/Debug/Project Prince.csproj.AssemblyReference.cache
-D:/Documents/GitHub/ProjectPrince/.mono/temp/obj/Debug/Project Prince.GeneratedMSBuildEditorConfig.editorconfig
-D:/Documents/GitHub/ProjectPrince/.mono/temp/obj/Debug/Project Prince.AssemblyInfoInputs.cache
-D:/Documents/GitHub/ProjectPrince/.mono/temp/obj/Debug/Project Prince.AssemblyInfo.cs
-D:/Documents/GitHub/ProjectPrince/.mono/temp/obj/Debug/Project Prince.csproj.CoreCompileInputs.cache
-D:/Documents/GitHub/ProjectPrince/.mono/temp/obj/Debug/Project Prince.dll
-D:/Documents/GitHub/ProjectPrince/.mono/temp/obj/Debug/Project Prince.pdb
 D:/Work/Game Making/Project Prince/ProjectPrince/.mono/temp/bin/Debug/Project Prince.dll
 D:/Work/Game Making/Project Prince/ProjectPrince/.mono/temp/bin/Debug/Project Prince.pdb
 D:/Work/Game Making/Project Prince/ProjectPrince/.mono/temp/obj/Debug/Project Prince.csproj.AssemblyReference.cache
@@ -69,3 +60,12 @@ C:\Users\Robert\Documents\GitHub\ProjectPrince\.mono\temp\obj\Debug\Project Prin
 C:\Users\Robert\Documents\GitHub\ProjectPrince\.mono\temp\obj\Debug\Project Prince.csproj.CoreCompileInputs.cache
 C:\Users\Robert\Documents\GitHub\ProjectPrince\.mono\temp\obj\Debug\Project Prince.dll
 C:\Users\Robert\Documents\GitHub\ProjectPrince\.mono\temp\obj\Debug\Project Prince.pdb
+D:\Documents\GitHub\ProjectPrince\.mono\temp\bin\Debug\Project Prince.dll
+D:\Documents\GitHub\ProjectPrince\.mono\temp\bin\Debug\Project Prince.pdb
+D:\Documents\GitHub\ProjectPrince\.mono\temp\obj\Debug\Project Prince.csproj.AssemblyReference.cache
+D:\Documents\GitHub\ProjectPrince\.mono\temp\obj\Debug\Project Prince.GeneratedMSBuildEditorConfig.editorconfig
+D:\Documents\GitHub\ProjectPrince\.mono\temp\obj\Debug\Project Prince.AssemblyInfoInputs.cache
+D:\Documents\GitHub\ProjectPrince\.mono\temp\obj\Debug\Project Prince.AssemblyInfo.cs
+D:\Documents\GitHub\ProjectPrince\.mono\temp\obj\Debug\Project Prince.csproj.CoreCompileInputs.cache
+D:\Documents\GitHub\ProjectPrince\.mono\temp\obj\Debug\Project Prince.dll
+D:\Documents\GitHub\ProjectPrince\.mono\temp\obj\Debug\Project Prince.pdb

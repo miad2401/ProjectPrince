@@ -145,9 +145,11 @@ margin_top = -29.0
 margin_right = -12.0
 margin_bottom = -29.0
 startDialogue = true
-textList = PoolStringArray( "Silas: They\'re heading for the garden entrance! I have to hurry!", "fjfff" )
-leftPortraits = PoolStringArray( "Silas", "hidden" )
-rightPortraits = PoolStringArray( "Malcolm", "" )
+textList = PoolStringArray( "Silas: They\'re heading for the garden entrance! I have to hurry!" )
+leftPortraits = PoolStringArray( "Silas" )
+rightPortraits = PoolStringArray( "" )
+scrollSpeedScales = PoolRealArray( 0 )
+lineShakes = PoolIntArray( 0 )
 
 [node name="Movement Instructions" type="Control" parent="."]
 margin_left = -8.0
