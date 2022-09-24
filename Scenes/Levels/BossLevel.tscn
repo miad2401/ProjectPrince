@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://Scenes/BossLevelDecor.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Art/Placeholder Art/Sprites/08-Box/Idle.png" type="Texture" id=2]
@@ -9,6 +9,10 @@
 [ext_resource path="res://Art/Tilemaps/FewTiles/DungeonWall.png" type="Texture" id=7]
 [ext_resource path="res://Art/SpriteSheets/Walk-Sheet-Princess.png" type="Texture" id=8]
 [ext_resource path="res://Scenes/EnvironmentTools/DialogueBox.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Art/Portraits/daniel.png" type="Texture" id=10]
+[ext_resource path="res://Art/Portraits/silas.png" type="Texture" id=11]
+[ext_resource path="res://Art/Fonts/Size16PBW.tres" type="DynamicFont" id=12]
+[ext_resource path="res://Scripts/DialogueBox.cs" type="Script" id=13]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 21, 20 )
@@ -509,6 +513,9 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
+[sub_resource type="Theme" id=26]
+default_font = ExtResource( 12 )
+
 [node name="BossLevel" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -760,12 +767,174 @@ lineShakes = PoolIntArray( 0, 0, 0, 0, 0, 0, 0, 0, 1, 0 )
 [node name="DBL" parent="DialogueBox" index="0"]
 visible = false
 
-[node name="Maisie" parent="." instance=ExtResource( 9 )]
+[node name="Maisie" type="Control" parent="."]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 13 )
+startDialogue = false
+scrollSpeedScale = 0.4
 textList = PoolStringArray( "Maisie: \"I\'m very sorry if my brother has caused you any trouble, Your Highness.\"", "Daniel: \"Uhhh...thanks, I\'m fine now. What\'s going on here\?\"", "Maisie: “The head knight just informed me that a group of knights were taken away by my brother for my sake.”", "l   Malcolm is disgruntled.   l", "Malcolm: “I told him not to say anything!”", "Maisie: “Well I’m glad he did because you could’ve really hurt someone!”", "Malcolm: “But what about your marriage to him\?”", "Maisie: ”I wasn’t gonna marry him buffoon!! Father and mother only suggested it.”", "Malcolm: “Oh.., I just assumed. I was just looking out for you.”", "Maisie: “I know you were, but you have to be more informed before you capture another kingdom\'s prince. Understood\?”", "Malcolm: “Yes Maisie.”", "Maisie: “Alright, go wash up, Mother and Father want to see you.”", "Malcolm: “Not again…”", "l   Malcolm grumbles as he heads inside the castle   l", "Maisie: “Again, I’m very sorry for any trouble my brother has caused.”", "Daniel: “It’s okay, no harm done.”", "l   Silas pouts.   l", "Silas: “That’s absolutely not true.”", "Daniel: “… well, either way, you didn’t do anything wrong, so you don’t need to apologize!”", "Silas: “That’s correct, we’ll get an apology out of your brother later.”", "Daniel: “You handled the situation wonderfully, by the way!”", "Daniel: “Anyone would think you were the oldest!”", "Maisie: ” …”", "Maisie: “…thank you…”", "l   Maisie runs off in the same direction as her brother.   l", "l   Silas, Daniel, and the Gloomwood knights stare at each other in silence.   l", "Knights: “…”", "Daniel: “… um”", "Silas: “Hey, morons, this is the part where you escort Maisie and Malcolm back home safely.”", "Knights: ” …”", "Knights: “OH, YES, RIGHT! MEN, LET’S MOVE.”", "l   The knights leave in a hurry.   l", "l   Silas sighs.   l", "Silas: “I don’t usually wish job insecurity on anyone, but oh my lord.”", "l   Daniel starts laughing.   l", "Daniel: “Those knights seem like the type to need protecting, not Malcolm and Maisie.”", "l   Silas starts laughing.   l", "Silas: “Right, those bumbling blue buffoons can barely be called knights.”", "Silas: “I’d consider them to be more luggage than knight.”", "Daniel: “That’s too meeean.”", "l   Silas and Daniel laugh.   l", "Daniel: “Well, that was … fun, wasn’t it\?”", "Silas: “....”", "Daniel: “Something wrong\?”", "Silas: “My Daniel, Daniel, love, salt of the earth, as much as I am incapable of showing it, I was extremely worried.”", "Daniel: “You were\?”", "Silas: “Yes, I was.”", "Silas: “Despite how incompentant those knights are in general, it still was a terrifying sight to see you being taken by them.”", "Silas: “I was barely holding myself together, I was…I-”", "Daniel: “I-uhh…”", "Daniel: “I’m sorry for my crude and joking remarks, that was insensitive of me.”", "Silas: “No-stop, you don’t have to apologize, it’s not-”", "l   Daniel hugs Silas.   l", "Daniel: “It’s alright, I’m alright, okay\?”", "l   Silas hugs Daniel back.   l", "l   After a brief moment, the both of them pull away.   l", "Silas: “In the future, don’t go running off without me.”", "Daniel: “Oh course, I can’t imagine a future adventure with you not by my side.”", "Silas: “God, you-”", "Daniel: “And the next time I get kidnapped, I’ll make sure to drag you with me!”", "l   Silas pouts.   l", "Silas: “Don’t even suggest that, you’re on your own next time.”", "l   Daniel laughs.   l", "l   Silas sighs.   l", "Silas: “I’m going to have to report everything that happened today to your mother, what a pain.”", "Daniel: “Are you really thinking about work right now\?”", "Silas: “Of course! There’s the lacking security in the garden, new relations with Gloomwood, this kidnapping event as a whole-”", "Daniel: “Come on now, there will be time later to think about those things. There is something more important right now to worry about.”", "Silas: “Like what\?”", "Daniel: “You’ve saved your sweet dashing Daniel from being kidnapped, the air is peaceful and there’s a nice, beautiful, frankly ~romantic~ sunset right now.”", "Silas: “…”", "Silas: “I’m taking away all those books, you maniac”", "Daniel: “Hmm, is that a no\?”", "Silas: “That’s not what I said, was it\?”", "Daniel: “You’re right, as you always are.”" )
 leftPortraits = PoolStringArray( "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "", "Silas", "", "", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas" )
 rightPortraits = PoolStringArray( "Maisie", "Maisie", "Maisie", "Malcolm", "Malcolm", "Malcolm", "Malcolm", "Malcolm", "Malcolm", "Malcolm", "Malcolm", "Malcolm", "Malcolm", "Malcolm", "Malcolm", "Maisie", "", "", "Maisie", "Maisie", "Maisie", "Maisie", "Maisie", "Maisie", "Maisie", "", "", "", "", "", "", "", "", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "", "Daniel", "", "", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel" )
 scrollSpeedScales = PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.15, 0.15, 0, 0, 0.15, 0.15, 0, 0.15, 0.6, 0, 0.15, 0.15, 0, 0, 0, 0, 0, 0, 0, 0.15, 0.15, 0.15, 0, 0, 0.15, 0, 0.15, 0.15, 0, 0.15, 0.15, 0.15, 0.15, 0.15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.15, 0, 0, 0.15, 0, 0, 0, 0 )
 lineShakes = PoolIntArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 )
+shakeTotalTime = 4.0
+shakeBetweenTime = 0.065
+
+[node name="DBL" type="CanvasLayer" parent="Maisie"]
+layer = 11
+visible = false
+
+[node name="Middle" type="Container" parent="Maisie/DBL"]
+margin_top = 155.0
+margin_right = 480.0
+margin_bottom = 270.0
+
+[node name="Background" type="ColorRect" parent="Maisie/DBL/Middle"]
+margin_left = 117.0
+margin_top = 5.0
+margin_right = 364.0
+margin_bottom = 110.0
+color = Color( 0.145098, 0.141176, 0.141176, 0.917647 )
+
+[node name="Border" type="ReferenceRect" parent="Maisie/DBL/Middle"]
+margin_left = 117.0
+margin_top = 4.0
+margin_right = 363.0
+margin_bottom = 111.0
+border_color = Color( 0, 0, 0, 1 )
+border_width = 3.0
+editor_only = false
+
+[node name="Left" type="Container" parent="Maisie/DBL"]
+margin_left = 1.0
+margin_top = 156.0
+margin_right = 116.0
+margin_bottom = 269.0
+
+[node name="Background" type="ColorRect" parent="Maisie/DBL/Left"]
+margin_left = 3.0
+margin_top = 4.0
+margin_right = 114.0
+margin_bottom = 110.0
+color = Color( 0.145098, 0.141176, 0.141176, 0.917647 )
+
+[node name="Portrait" type="AspectRatioContainer" parent="Maisie/DBL/Left"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 112.0
+margin_bottom = 108.0
+stretch_mode = 0
+
+[node name="Sprite" type="Sprite" parent="Maisie/DBL/Left/Portrait"]
+position = Vector2( 54, 48 )
+scale = Vector2( 0.125, 0.125 )
+texture = ExtResource( 11 )
+
+[node name="LeftBar" type="ReferenceRect" parent="Maisie/DBL/Left"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 10.0
+margin_bottom = 109.0
+border_color = Color( 0, 0, 0, 1 )
+border_width = 5.0
+editor_only = false
+
+[node name="RightBar" type="ReferenceRect" parent="Maisie/DBL/Left"]
+margin_left = 109.0
+margin_top = 5.0
+margin_right = 114.0
+margin_bottom = 109.0
+border_color = Color( 0, 0, 0, 1 )
+border_width = 5.0
+editor_only = false
+
+[node name="Border" type="ReferenceRect" parent="Maisie/DBL/Left"]
+margin_left = 3.0
+margin_top = 3.0
+margin_right = 114.0
+margin_bottom = 110.0
+border_color = Color( 0, 0, 0, 1 )
+border_width = 3.0
+editor_only = false
+
+[node name="Right" type="Container" parent="Maisie/DBL"]
+margin_left = 364.0
+margin_top = 155.0
+margin_right = 480.0
+margin_bottom = 270.0
+
+[node name="Background" type="ColorRect" parent="Maisie/DBL/Right"]
+margin_left = 2.0
+margin_top = 3.0
+margin_right = 112.0
+margin_bottom = 111.0
+color = Color( 0.145098, 0.141176, 0.141176, 0.917647 )
+
+[node name="Portrait" type="AspectRatioContainer" parent="Maisie/DBL/Right"]
+margin_left = 3.0
+margin_top = 6.0
+margin_right = 109.0
+margin_bottom = 109.0
+stretch_mode = 0
+
+[node name="Sprite" type="Sprite" parent="Maisie/DBL/Right/Portrait"]
+position = Vector2( 54, 48 )
+scale = Vector2( 0.125, 0.125 )
+texture = ExtResource( 10 )
+
+[node name="LeftBar" type="ReferenceRect" parent="Maisie/DBL/Right"]
+margin_left = 2.0
+margin_top = 6.0
+margin_right = 7.0
+margin_bottom = 110.0
+border_color = Color( 0, 0, 0, 1 )
+border_width = 5.0
+editor_only = false
+
+[node name="RightBar" type="ReferenceRect" parent="Maisie/DBL/Right"]
+margin_left = 107.0
+margin_top = 5.0
+margin_right = 110.0
+margin_bottom = 109.0
+border_color = Color( 0, 0, 0, 1 )
+border_width = 5.0
+editor_only = false
+
+[node name="Border" type="ReferenceRect" parent="Maisie/DBL/Right"]
+margin_left = 1.0
+margin_top = 4.0
+margin_right = 112.0
+margin_bottom = 111.0
+border_color = Color( 0, 0, 0, 1 )
+border_width = 3.0
+editor_only = false
+
+[node name="Text" type="Label" parent="Maisie/DBL"]
+margin_left = 127.0
+margin_top = 164.0
+margin_right = 354.0
+margin_bottom = 260.0
+theme = SubResource( 26 )
+text = "t"
+align = 1
+valign = 1
+autowrap = true
+percent_visible = 0.0
+max_lines_visible = 5
+
+[node name="SpaceText" type="Label" parent="Maisie/DBL"]
+margin_left = 161.0
+margin_top = 139.0
+margin_right = 320.0
+margin_bottom = 161.0
+theme = SubResource( 26 )
+text = "Press Space to continue"
+align = 1
+valign = 1
+autowrap = true
+max_lines_visible = 5
 
 [editable path="Environment"]
 [editable path="DeathField"]
