@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "/Y2UPoccyrykv0SvTz4OyWQx4RUsZn7KufZqK74q/dZ5TB2Z2imWPZp04CPaNwIZg+S8Ok8GbFrpOobfZKQEEg==",
+  "dgSpecHash": "Gz9eNhpmj9JEzIpGcxjO3v7MTwI58p/a2FpfZ45YtFVWgOH/lzyKz2A0b1SUAOeAokvxefwFq0BRhpdkILB3Cw==",
   "success": true,
-  "projectFilePath": "/Users/mohammadhassannagda/Documents/GitHub/ProjectPrince/Project Prince.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "D:\\Documents\\GitHub\\ProjectPrince\\Project Prince.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Thingys\\.nuget\\packages\\microsoft.netframework.referenceassemblies\\1.0.2\\microsoft.netframework.referenceassemblies.1.0.2.nupkg.sha512",
+    "C:\\Users\\Thingys\\.nuget\\packages\\microsoft.netframework.referenceassemblies.net472\\1.0.2\\microsoft.netframework.referenceassemblies.net472.1.0.2.nupkg.sha512"
+  ],
   "logs": []
 }

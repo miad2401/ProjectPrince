@@ -7,7 +7,6 @@ extents = Vector2( 2, 8 )
 
 [node name="Ladder" type="StaticBody2D" groups=["WallClimbable"]]
 light_mask = 524289
-z_index = -1
 
 [node name="LadderSprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
