@@ -69,3 +69,12 @@ D:\Documents\Programming Stuff\Godot\Godot_v3.5-stable_mono_win64\Projects\Proje
 D:\Documents\Programming Stuff\Godot\Godot_v3.5-stable_mono_win64\Projects\ProjectPrince\ProjectPrince\.mono\temp\obj\Debug\Project Prince.csproj.CoreCompileInputs.cache
 D:\Documents\Programming Stuff\Godot\Godot_v3.5-stable_mono_win64\Projects\ProjectPrince\ProjectPrince\.mono\temp\obj\Debug\Project Prince.dll
 D:\Documents\Programming Stuff\Godot\Godot_v3.5-stable_mono_win64\Projects\ProjectPrince\ProjectPrince\.mono\temp\obj\Debug\Project Prince.pdb
+E:\Work\Game making\ProjectPrince\.mono\temp\bin\Debug\Project Prince.dll
+E:\Work\Game making\ProjectPrince\.mono\temp\bin\Debug\Project Prince.pdb
+E:\Work\Game making\ProjectPrince\.mono\temp\obj\Debug\Project Prince.csproj.AssemblyReference.cache
+E:\Work\Game making\ProjectPrince\.mono\temp\obj\Debug\Project Prince.GeneratedMSBuildEditorConfig.editorconfig
+E:\Work\Game making\ProjectPrince\.mono\temp\obj\Debug\Project Prince.AssemblyInfoInputs.cache
+E:\Work\Game making\ProjectPrince\.mono\temp\obj\Debug\Project Prince.AssemblyInfo.cs
+E:\Work\Game making\ProjectPrince\.mono\temp\obj\Debug\Project Prince.csproj.CoreCompileInputs.cache
+E:\Work\Game making\ProjectPrince\.mono\temp\obj\Debug\Project Prince.dll
+E:\Work\Game making\ProjectPrince\.mono\temp\obj\Debug\Project Prince.pdb
