@@ -1,9 +1,14 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
+[ext_resource path="res://Art/Fonts/Size8PBW.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Art/Tilemaps/MasterTileset.tres" type="TileSet" id=2]
 [ext_resource path="res://Scripts/TransitionField.cs" type="Script" id=3]
 [ext_resource path="res://Scenes/EnvironmentTools/EnemyBarrier.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Knight.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scripts/PopUpHint.cs" type="Script" id=6]
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 9, 11 )
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 0.5, 8 )
@@ -61,6 +66,103 @@ tile_data = PoolIntArray( 262143, 98, 18, 196744, 98, 18, 327679, 98, 18, 262280
 [node name="Checkpoint1" type="Position2D" parent="Environment"]
 position = Vector2( 112, 136 )
 
+[node name="PopUpHint" type="Control" parent="."]
+margin_left = 194.0
+margin_top = 143.0
+margin_right = 204.0
+margin_bottom = 155.0
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_group_": true
+}
+leftText = true
+fadelength = 0.5
+
+[node name="HintContainer" type="Control" parent="PopUpHint"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+
+[node name="HintContainerRight" type="MarginContainer" parent="PopUpHint/HintContainer"]
+margin_left = 16.0
+margin_top = -40.0
+margin_right = 26.0
+margin_bottom = -16.0
+grow_vertical = 0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Panel" type="Panel" parent="PopUpHint/HintContainer/HintContainerRight"]
+margin_right = 83.0
+margin_bottom = 24.0
+
+[node name="MarginContainer" type="MarginContainer" parent="PopUpHint/HintContainer/HintContainerRight"]
+margin_right = 83.0
+margin_bottom = 24.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+
+[node name="CenterContainer" type="CenterContainer" parent="PopUpHint/HintContainer/HintContainerRight/MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 78.0
+margin_bottom = 19.0
+
+[node name="HintText" type="Label" parent="PopUpHint/HintContainer/HintContainerRight/MarginContainer/CenterContainer"]
+margin_top = 4.0
+margin_right = 73.0
+margin_bottom = 10.0
+custom_fonts/font = ExtResource( 1 )
+text = "Drink and cast responsibly!"
+
+[node name="HintContainerLeft" type="MarginContainer" parent="PopUpHint/HintContainer"]
+margin_left = -26.0
+margin_top = -40.0
+margin_right = -16.0
+margin_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Panel" type="Panel" parent="PopUpHint/HintContainer/HintContainerLeft"]
+margin_right = 95.0
+margin_bottom = 24.0
+
+[node name="MarginContainer" type="MarginContainer" parent="PopUpHint/HintContainer/HintContainerLeft"]
+margin_right = 95.0
+margin_bottom = 24.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+
+[node name="CenterContainer" type="CenterContainer" parent="PopUpHint/HintContainer/HintContainerLeft/MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 90.0
+margin_bottom = 19.0
+
+[node name="HintText" type="Label" parent="PopUpHint/HintContainer/HintContainerLeft/MarginContainer/CenterContainer"]
+margin_top = 4.0
+margin_right = 85.0
+margin_bottom = 10.0
+custom_fonts/font = ExtResource( 1 )
+text = "No magic allowed inside taverns!"
+align = 2
+
+[node name="HintArea2D" type="Area2D" parent="PopUpHint"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PopUpHint/HintArea2D"]
+position = Vector2( 5, 6 )
+shape = SubResource( 5 )
+
 [node name="Knights" type="Control" parent="."]
 margin_left = 1194.0
 margin_top = 352.0
@@ -68,34 +170,27 @@ margin_right = 1234.0
 margin_bottom = 392.0
 
 [node name="Knight" parent="Knights" instance=ExtResource( 5 )]
-hSpeed = 150
 
 [node name="Knight2" parent="Knights" instance=ExtResource( 5 )]
 position = Vector2( 98, -24 )
 direction = 2
-hSpeed = 150
 
 [node name="Knight3" parent="Knights" instance=ExtResource( 5 )]
 position = Vector2( 186, -24 )
-hSpeed = 150
 
 [node name="Knight4" parent="Knights" instance=ExtResource( 5 )]
-position = Vector2( 270, -24 )
-hSpeed = 150
+position = Vector2( 353, -45 )
+direction = 2
+hSpeed = 15
 
 [node name="Knight5" parent="Knights" instance=ExtResource( 5 )]
-position = Vector2( 346, -24 )
-direction = 2
-hSpeed = 150
+position = Vector2( 534, -25 )
 
 [node name="Knight6" parent="Knights" instance=ExtResource( 5 )]
-position = Vector2( 419, -24 )
-direction = 2
-hSpeed = 150
+position = Vector2( 510, -25 )
 
 [node name="Knight7" parent="Knights" instance=ExtResource( 5 )]
 position = Vector2( 483, -24 )
-hSpeed = 150
 
 [node name="KBarrier1" parent="." instance=ExtResource( 4 )]
 position = Vector2( 1689, 344 )
@@ -118,6 +213,8 @@ nextCheckpoint = 2
 position = Vector2( -34.5, 0 )
 shape = SubResource( 2 )
 
+[connection signal="body_entered" from="PopUpHint/HintArea2D" to="PopUpHint" method="OnHintArea2DBodyEntered"]
+[connection signal="body_exited" from="PopUpHint/HintArea2D" to="PopUpHint" method="OnHintArea2DBodyExited"]
 [connection signal="body_entered" from="TransitionField" to="TransitionField" method="OnTransitionFieldBodyEntered"]
 
 [editable path="KBarrier1"]

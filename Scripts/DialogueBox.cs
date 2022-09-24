@@ -217,6 +217,7 @@ public class DialogueBox : Control
 					Text.Text = textList[currentText];
 					// Make text visible
 					Text.Visible = true;
+					shaking = lineShakes[currentText] > 0;
 				}
 				// End of dialogue, play game
 				else {
@@ -239,12 +240,40 @@ public class DialogueBox : Control
 					else {
 						LeftPortrait.Texture = Maisie;
 					}
+					Left.Visible = true;
+					LeftPortrait.Visible = true;
 				}
 				else if (leftPortraits[currentText] == "hidden"){
+					Left.Visible = true;
 					LeftPortrait.Visible = false;
 				}
 				else {
 					Left.Visible = false;
+				}
+				
+				// Right portraits
+				if (rightPortraits[currentText] != "" && rightPortraits[currentText] != "hidden") {
+					if (rightPortraits[currentText] == "Silas"){
+						RightPortrait.Texture = Silas;
+					}
+					else if (rightPortraits[currentText] == "Daniel") {
+						RightPortrait.Texture = Daniel;
+					}
+					else if (rightPortraits[currentText] == "Malcolm") {
+						RightPortrait.Texture = Malcolm;
+					}
+					else {
+						RightPortrait.Texture = Maisie;
+					}
+					Right.Visible = true;
+					RightPortrait.Visible = true;
+				}
+				else if (rightPortraits[currentText] == "hidden"){
+					Right.Visible = true;
+					RightPortrait.Visible = false;
+				}
+				else {
+					Right.Visible = false;
 				}
 			}
 			// If esc is pressed, close dialogue
@@ -328,11 +357,11 @@ public class DialogueBox : Control
 	public void EndDialogue() {
 		DBL.Visible = false;
 		if (!startDialogue)
-        {
+		{
 			GetNode<Rival>("../Rival").DialougeBoxClosed();
-        }
-        else
-        {
+		}
+		else
+		{
 			EmitSignal(nameof(PauseForDialogue), false);
 		}
 	}

@@ -59,7 +59,7 @@ public class Main : Control
 				break;
 			case Level.Level3Indoors:
 				Player.swordHoldEnabled = true;
-				Player.magicAttackEnabled = true;
+				Player.magicAttackEnabled = false;
 				Player.swordEquipped = true;
 				Player.magicEquipped = false;
 				break;

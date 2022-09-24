@@ -122,14 +122,14 @@ public class PauseMenu : Control
 				{
 					fadeIn = false;
 					if (!endScreen)
-                    {
+					{
 						ChangeNextLevel();
 						GetTree().Paused = false;
 					}
-                    else
-                    {
+					else
+					{
 						transitioning = false;
-                    }
+					}
 				}
 			}
 			else
@@ -137,13 +137,13 @@ public class PauseMenu : Control
 				TransitionPanel.Modulate = new Color(1, 1, 1, 2 - transitionProgress * (1 / TransitionLength));
 				if (2 - transitionProgress * (1 / TransitionLength) < 0)
 				{
-                    if (!endScreen)
-                    {
+					if (!endScreen)
+					{
 						fadeIn = true;
 						ResetVariables();
 					}
-                    else
-                    {
+					else
+					{
 						transitioning = false;
 					}
 				}
