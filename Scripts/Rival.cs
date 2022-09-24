@@ -37,12 +37,17 @@ public class Rival : BaseEnemy
 	float cameraXMovementProgress;
 	float cameraYMovementProgress;
 	float cameraMoveProgress;
+	int lastDialouge;
+
+	PauseMenu thePauseMenu;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		base._Ready();
 		thePlayer = GetNode<Player>("../Player");
 		BossBattleAnimationPlayer = GetNode<AnimationPlayer>("../BossBattlePlayer");
+		BossBattleAnimationPlayer.Play("RESET");
+		thePauseMenu = GetNode<PauseMenu>("../../GUI/PauseMenu");
 		rivalAnimationTree = GetNode<AnimationTree>("RivalAnimationTree");
 		rivalANSMP = rivalAnimationTree.Get("parameters/playback") as AnimationNodeStateMachinePlayback;
 		nextRivalLocation = GlobalPosition;
@@ -177,6 +182,19 @@ public class Rival : BaseEnemy
 		GetNode<PauseMenu>("../../GUI/PauseMenu").PauseFromOutsidePauseMenu(pause);
 	}
 
+	public void DialougeBoxClosed()
+    {
+		if(lastDialouge == 0)
+        {
+			BossBattleAnimationPlayer.Play("EnteredBossBattle2");
+			lastDialouge = 1;
+		}
+        else
+        {
+			BossBattleAnimationPlayer.Play("RivalLoses2");
+		}
+    }
+
 	public void GotHit()
 	{
 		timesHit++;
@@ -191,5 +209,24 @@ public class Rival : BaseEnemy
 		{
 			BossBattleAnimationPlayer.Play("RivalLoses");
 		}
+	}
+
+	public void FadeToEnd()
+    {
+		thePauseMenu.TransitionPanel.Visible = true;
+		thePauseMenu.transitioning = true;
+		thePauseMenu.endScreen = true;
+		thePauseMenu.TransitionPanel.GetNode<Label>("WinLabel").Visible = true;
+    }
+
+	public void FadeToCredits()
+    {
+		thePauseMenu.GetNode<TextureRect>("Credits").Visible = true;
+		thePauseMenu.transitioning = true;
+    }
+
+	public void ExitGame()
+    {
+		GetTree().Quit();
 	}
 }

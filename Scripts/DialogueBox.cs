@@ -220,8 +220,9 @@ public class DialogueBox : Control
 				}
 				// End of dialogue, play game
 				else {
-					EmitSignal(nameof(PauseForDialogue), false);
-					DBL.Visible = false;
+					//EndDialogue();
+					//EmitSignal(nameof(PauseForDialogue), false);
+					//DBL.Visible = false;
 					EndDialogue();
 				}
 				// check for portrait, if so load
@@ -248,8 +249,8 @@ public class DialogueBox : Control
 			}
 			// If esc is pressed, close dialogue
 			else if (Input.IsActionPressed("pause")) {
-				EmitSignal(nameof(PauseForDialogue), false);
-				DBL.Visible = false;
+				//EmitSignal(nameof(PauseForDialogue), false);
+				//DBL.Visible = false;
 				EndDialogue();
 			}
 			// Process
@@ -324,7 +325,15 @@ public class DialogueBox : Control
 		shaking = false;
 	}
 	
-	public bool EndDialogue() {
-		return true;
+	public void EndDialogue() {
+		DBL.Visible = false;
+		if (!startDialogue)
+        {
+			GetNode<Rival>("../Rival").DialougeBoxClosed();
+        }
+        else
+        {
+			EmitSignal(nameof(PauseForDialogue), false);
+		}
 	}
 }

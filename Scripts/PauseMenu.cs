@@ -23,18 +23,19 @@ public class PauseMenu : Control
 	float transitionProgress = 0;
 	float respawnProgress = 0;
 	//Keeps track on if the player died
-	bool playerDied = false;
-	bool transitioning = false;
-	bool fadeIn = true;
+	public bool playerDied = false;
+	public bool transitioning = false;
+	public bool fadeIn = true;
 	float timePassed = 0;
 	//Keeps track of how long the reset button has been held down for
 	float resetHeld = 0f;
 	Level nextLevel;
+	public bool endScreen;
 
 	Panel ResetProgress;
 	CenterContainer PauseCenterContainer;
-	Panel DeathPanel;
-	Panel TransitionPanel;
+	public Panel DeathPanel;
+	public Panel TransitionPanel;
 	Button RespawnButton;
 	Button RestartButton;
 	public override void _Ready()
@@ -120,8 +121,15 @@ public class PauseMenu : Control
 				if((transitionProgress * (1 / TransitionLength)) > 1)
 				{
 					fadeIn = false;
-					ChangeNextLevel();
-					GetTree().Paused = false;
+					if (!endScreen)
+                    {
+						ChangeNextLevel();
+						GetTree().Paused = false;
+					}
+                    else
+                    {
+						transitioning = false;
+                    }
 				}
 			}
 			else
@@ -129,8 +137,15 @@ public class PauseMenu : Control
 				TransitionPanel.Modulate = new Color(1, 1, 1, 2 - transitionProgress * (1 / TransitionLength));
 				if (2 - transitionProgress * (1 / TransitionLength) < 0)
 				{
-					fadeIn = true;
-					ResetVariables();
+                    if (!endScreen)
+                    {
+						fadeIn = true;
+						ResetVariables();
+					}
+                    else
+                    {
+						transitioning = false;
+					}
 				}
 			}
 		}
@@ -204,7 +219,7 @@ public class PauseMenu : Control
 		EmitSignal(nameof(ReloadCurrentLevel));
 	}
 
-	private void PlayerDied()
+	public void PlayerDied()
 	{
 		if(timePassed > 0.5)
 		{

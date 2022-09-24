@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scripts/PauseMenu.cs" type="Script" id=1]
 [ext_resource path="res://Art/Fonts/Size16PBW.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Art/MenuArt/credits.png" type="Texture" id=3]
 
 [node name="PauseMenu" type="Control"]
 pause_mode = 2
@@ -21,11 +22,31 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.0705882, 0.0941176, 0.192157, 0.619608 )
 
+[node name="Credits" type="TextureRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 3 )
+
 [node name="TransitionPanel" type="Panel" parent="."]
 visible = false
 modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_bottom = 3.0
+
+[node name="WinLabel" type="Label" parent="TransitionPanel"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -7.0
+margin_right = 20.0
+margin_bottom = 7.0
+custom_fonts/font = ExtResource( 2 )
+text = "You Win!"
 
 [node name="DeathPanel" type="Panel" parent="."]
 visible = false
