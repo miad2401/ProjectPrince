@@ -5,7 +5,7 @@ public class Menu : Control
 {	
 	public void _on_StartButton_pressed()
 	{
-		GetTree().ChangeScene("res://scenes/OpeningCutscene.tscn");
+		GetTree().ChangeScene("res://Scenes/OpeningCutscene.tscn");
 		//GetTree().ChangeScene("res://Scenes/Main.tscn");
 	}
 	

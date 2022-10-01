@@ -8,24 +8,19 @@
     ".NETFramework,Version=v4.7.2": []
   },
   "packageFolders": {
-    "C:\\Users\\Ninja\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\De'shon Mcneil\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Documents\\Programming Stuff\\Godot\\Godot_v3.5-stable_mono_win64\\Projects\\ProjectPrince\\ProjectPrince\\Project Prince.csproj",
+      "projectUniqueName": "E:\\Work\\Game making\\ProjectPrince\\Project Prince.csproj",
       "projectName": "Project Prince",
-      "projectPath": "D:\\Documents\\Programming Stuff\\Godot\\Godot_v3.5-stable_mono_win64\\Projects\\ProjectPrince\\ProjectPrince\\Project Prince.csproj",
-      "packagesPath": "C:\\Users\\Ninja\\.nuget\\packages\\",
-      "outputPath": "D:\\Documents\\Programming Stuff\\Godot\\Godot_v3.5-stable_mono_win64\\Projects\\ProjectPrince\\ProjectPrince\\.mono\\temp\\obj\\",
+      "projectPath": "E:\\Work\\Game making\\ProjectPrince\\Project Prince.csproj",
+      "packagesPath": "C:\\Users\\De'shon Mcneil\\.nuget\\packages\\",
+      "outputPath": "E:\\Work\\Game making\\ProjectPrince\\.mono\\temp\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Ninja\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\De'shon Mcneil\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -50,7 +45,7 @@
     "frameworks": {
       "net472": {
         "targetAlias": "net472",
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   }
