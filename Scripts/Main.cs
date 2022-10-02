@@ -27,6 +27,7 @@ public class Main : Control
 		PackedScene Level3Indoors = GD.Load<PackedScene>("res://Scenes/Levels/Level3Indoors.tscn");
 		PackedScene Level4 = GD.Load<PackedScene>("res://Scenes/Levels/Level4.tscn");
 		PackedScene BossLevel = GD.Load<PackedScene>("res://Scenes/Levels/BossLevel.tscn");
+		PackedScene TestWorld = GD.Load<PackedScene>("res://Scenes/Levels/TestWorld.tscn");
 
 		//Adds the levels to the dictionary
 		levelDictionary.Add(Level.Level1, Level1);
@@ -35,6 +36,7 @@ public class Main : Control
 		levelDictionary.Add(Level.Level3Indoors, Level3Indoors);
 		levelDictionary.Add(Level.Level4, Level4);
 		levelDictionary.Add(Level.BossLevel, BossLevel);
+		levelDictionary.Add(Level.TestWorld, TestWorld);
 
 		playerPackedScene = GD.Load<PackedScene>("res://Scenes/Player.tscn");
 		ThePlayer = playerPackedScene.Instance() as KinematicBody2D;
@@ -47,6 +49,7 @@ public class Main : Control
 		ThePlayer.Position = CurrentLevelNode.GetNode<Position2D>("Environment/Checkpoint" + checkpoint).Position;
 
 		//Allows us to test different levels with the abilities the player would have
+		/*
 		switch (startingLevel)
 		{
 			case Level.Level1:
@@ -76,10 +79,12 @@ public class Main : Control
 				Player.swordEquipped = true;
 				Player.magicEquipped = false;
 				break;
+			case Level.TestWorld:
+				break;
 			default:
 				break;
 		}
-
+		*/
 		//Adds the Level to the Scene (Starts the Level)
 		CurrentLevelNode.AddChild(ThePlayer);
 		AddChild(CurrentLevelNode);

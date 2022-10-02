@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=2]
+[gd_scene load_steps=50 format=2]
 
 [ext_resource path="res://Art/SpriteSheets/Idle-Sheet-Servant.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Player.cs" type="Script" id=2]
@@ -810,8 +810,14 @@ start_node = "Idle"
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=17]
 
+[sub_resource type="RectangleShape2D" id=56]
+extents = Vector2( 1, 8 )
+
+[sub_resource type="RectangleShape2D" id=57]
+extents = Vector2( 7, 0.5 )
+
 [node name="Player" type="KinematicBody2D" groups=["Player"]]
-position = Vector2( 256, 128 )
+position = Vector2( 256, 130 )
 collision_layer = 32768
 collision_mask = 32769
 collision/safe_margin = 0.001
@@ -820,26 +826,16 @@ xAcceleration = 10
 maxHSpeed = 150
 maxVSpeed = 500
 jumpPower = 240
-climbPower = 100
 gravity = 10
-shotDelay = 0.5
-pushStrength = 5
-wallJumpTime = 0.2
-wallJumpStrength = 15
-magicJumpPower = 240
-jumpXDeacceleration = 4.0
-swingDelay = 0.3
-swordSwingEnabled = true
-wallJumpEnabled = true
-jumpEnabled = true
-moveEnabled = true
-wallClimbEnabled = true
+wallJumpStrength = 30
+wallFallingSpeed = 75
+numExtraJumpFrames = 10
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0, -2 )
 texture = ExtResource( 1 )
 hframes = 4
-frame = 1
+frame = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 1 )
@@ -862,7 +858,7 @@ tree_root = SubResource( 16 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/playback = SubResource( 17 )
-parameters/Idle/blend_position = 1.35171
+parameters/Idle/blend_position = 1.0
 parameters/IdleSword/blend_position = 0
 parameters/Run/blend_position = 1.44262
 parameters/RunSword/blend_position = 0.0
@@ -893,8 +889,103 @@ contact_monitor = true
 can_sleep = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SwordHitbox"]
+visible = false
 position = Vector2( -3, 0 )
 scale = Vector2( 1.662, 1 )
 polygon = PoolVector2Array( 5.41516, -27, 22, -28, 23, 10, 10, 12, 6.89168, -14 )
 
+[node name="WalljumpDetectors" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="RightBlocks" type="Control" parent="WalljumpDetectors"]
+margin_top = -2.0
+margin_right = 7.0
+margin_bottom = 5.0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="TopBlock" type="Area2D" parent="WalljumpDetectors/RightBlocks" groups=["WallDetector"]]
+position = Vector2( 9, -16 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WalljumpDetectors/RightBlocks/TopBlock"]
+shape = SubResource( 56 )
+
+[node name="MiddleBlock" type="Area2D" parent="WalljumpDetectors/RightBlocks" groups=["WallDetector"]]
+position = Vector2( 9, 0 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WalljumpDetectors/RightBlocks/MiddleBlock"]
+shape = SubResource( 56 )
+
+[node name="BottomBlock" type="Area2D" parent="WalljumpDetectors/RightBlocks" groups=["WallDetector"]]
+position = Vector2( 9, 16 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WalljumpDetectors/RightBlocks/BottomBlock"]
+shape = SubResource( 56 )
+
+[node name="LeftBlocks" type="Control" parent="WalljumpDetectors"]
+margin_top = -2.0
+margin_right = 6.0
+margin_bottom = 3.0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="TopBlock" type="Area2D" parent="WalljumpDetectors/LeftBlocks" groups=["WallDetector"]]
+position = Vector2( -9, -16 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WalljumpDetectors/LeftBlocks/TopBlock"]
+shape = SubResource( 56 )
+
+[node name="MiddleBlock" type="Area2D" parent="WalljumpDetectors/LeftBlocks" groups=["WallDetector"]]
+position = Vector2( -9, 0 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WalljumpDetectors/LeftBlocks/MiddleBlock"]
+shape = SubResource( 56 )
+
+[node name="BottomBlock" type="Area2D" parent="WalljumpDetectors/LeftBlocks" groups=["WallDetector"]]
+position = Vector2( -9, 16 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WalljumpDetectors/LeftBlocks/BottomBlock"]
+shape = SubResource( 56 )
+
+[node name="FloorDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorDetector"]
+position = Vector2( 0, 22.5 )
+shape = SubResource( 57 )
+
 [connection signal="body_entered" from="SwordHitbox" to="." method="_on_SwordHitbox_body_entered"]
+[connection signal="body_entered" from="WalljumpDetectors/RightBlocks/TopBlock" to="." method="OnWalljumpBodyTouched" binds= [ true, true ]]
+[connection signal="body_exited" from="WalljumpDetectors/RightBlocks/TopBlock" to="." method="OnWalljumpBodyTouched" binds= [ false, true ]]
+[connection signal="body_entered" from="WalljumpDetectors/RightBlocks/MiddleBlock" to="." method="OnWalljumpBodyTouched" binds= [ true, true ]]
+[connection signal="body_exited" from="WalljumpDetectors/RightBlocks/MiddleBlock" to="." method="OnWalljumpBodyTouched" binds= [ false, true ]]
+[connection signal="body_entered" from="WalljumpDetectors/RightBlocks/BottomBlock" to="." method="OnWalljumpBodyTouched" binds= [ true, true ]]
+[connection signal="body_exited" from="WalljumpDetectors/RightBlocks/BottomBlock" to="." method="OnWalljumpBodyTouched" binds= [ false, true ]]
+[connection signal="body_entered" from="WalljumpDetectors/LeftBlocks/TopBlock" to="." method="OnWalljumpBodyTouched" binds= [ true, false ]]
+[connection signal="body_exited" from="WalljumpDetectors/LeftBlocks/TopBlock" to="." method="OnWalljumpBodyTouched" binds= [ false, false ]]
+[connection signal="body_entered" from="WalljumpDetectors/LeftBlocks/MiddleBlock" to="." method="OnWalljumpBodyTouched" binds= [ true, false ]]
+[connection signal="body_exited" from="WalljumpDetectors/LeftBlocks/MiddleBlock" to="." method="OnWalljumpBodyTouched" binds= [ false, false ]]
+[connection signal="body_entered" from="WalljumpDetectors/LeftBlocks/BottomBlock" to="." method="OnWalljumpBodyTouched" binds= [ true, false ]]
+[connection signal="body_exited" from="WalljumpDetectors/LeftBlocks/BottomBlock" to="." method="OnWalljumpBodyTouched" binds= [ false, false ]]
+[connection signal="body_entered" from="FloorDetector" to="." method="OnFloorDetectorBodyTouched" binds= [ true ]]
+[connection signal="body_exited" from="FloorDetector" to="." method="OnFloorDetectorBodyTouched" binds= [ false ]]

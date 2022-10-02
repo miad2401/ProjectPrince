@@ -47,6 +47,7 @@ public class AcquireAbility : Control
     public void OnPickupAreaEntered(Node body)
     {
         GetNode<AnimationPlayer>("AnimationPlayer").CurrentAnimation = newAbility.ToString() + "Acquired";
+        /*
         switch (newAbility)
         {
             case Ability.Sword:
@@ -66,5 +67,6 @@ public class AcquireAbility : Control
                 GD.Print("AcquireAbility failed to Equip");
                 break;
         }
+        */
     }
 }
