@@ -20,3 +20,12 @@ public enum Direction
 	Left,
 	Right
 }
+
+public enum Ability
+{
+	Sword,
+	Potion,
+	Book,
+	NoAbilities,
+	EveryAbility
+}

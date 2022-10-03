@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=2]
+[gd_scene load_steps=54 format=2]
 
 [ext_resource path="res://Art/SpriteSheets/Idle-Sheet-Servant.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Player.cs" type="Script" id=2]
@@ -608,18 +608,6 @@ tracks/5/keys = {
 "update": 1,
 "values": [ false ]
 }
-tracks/6/type = "value"
-tracks/6/path = NodePath("SwordHitbox/CollisionPolygon2D:disabled")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
-"times": PoolRealArray( 0, 0.8 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 2,
-"values": [ false, true ]
-}
 
 [sub_resource type="Animation" id=48]
 resource_name = "SwingSwordRight"
@@ -696,18 +684,6 @@ tracks/5/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ false ]
-}
-tracks/6/type = "value"
-tracks/6/path = NodePath("SwordHitbox/CollisionPolygon2D:disabled")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
-"times": PoolRealArray( 0, 0.8 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 2,
-"values": [ false, true ]
 }
 
 [sub_resource type="AnimationNodeAnimation" id=22]
@@ -810,8 +786,20 @@ start_node = "Idle"
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=17]
 
+[sub_resource type="RectangleShape2D" id=58]
+extents = Vector2( 0.5, 9 )
+
 [sub_resource type="RectangleShape2D" id=56]
-extents = Vector2( 1, 8 )
+extents = Vector2( 0.5, 16 )
+
+[sub_resource type="RectangleShape2D" id=59]
+extents = Vector2( 0.5, 12 )
+
+[sub_resource type="RectangleShape2D" id=60]
+extents = Vector2( 0.5, 9 )
+
+[sub_resource type="RectangleShape2D" id=61]
+extents = Vector2( 0.5, 12 )
 
 [sub_resource type="RectangleShape2D" id=57]
 extents = Vector2( 7, 0.5 )
@@ -830,6 +818,8 @@ gravity = 10
 wallJumpStrength = 30
 wallFallingSpeed = 75
 numExtraJumpFrames = 10
+pushStrength = 5
+climbSpeed = 100
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0, -2 )
@@ -873,65 +863,56 @@ drag_margin_v_enabled = true
 drag_margin_left = 0.1
 drag_margin_right = 0.1
 
-[node name="ProjectilePosition" type="Position2D" parent="."]
+[node name="RProjectilePosition" type="Position2D" parent="."]
 position = Vector2( 8, 0 )
 
+[node name="LProjectilePosition" type="Position2D" parent="."]
+position = Vector2( -8, 0 )
+
 [node name="DebugMenu" parent="." instance=ExtResource( 3 )]
-
-[node name="SwordHitbox" type="RigidBody2D" parent="."]
-collision_layer = 20
-collision_mask = 18
-mode = 3
-mass = 0.00102041
-gravity_scale = 0.0
-contacts_reported = 10
-contact_monitor = true
-can_sleep = false
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SwordHitbox"]
-visible = false
-position = Vector2( -3, 0 )
-scale = Vector2( 1.662, 1 )
-polygon = PoolVector2Array( 5.41516, -27, 22, -28, 23, 10, 10, 12, 6.89168, -14 )
 
 [node name="WalljumpDetectors" type="Control" parent="."]
 margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="RightBlocks" type="Control" parent="WalljumpDetectors"]
+margin_left = -1.0
 margin_top = -2.0
-margin_right = 7.0
+margin_right = 6.0
 margin_bottom = 5.0
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="TopBlock" type="Area2D" parent="WalljumpDetectors/RightBlocks" groups=["WallDetector"]]
 position = Vector2( 9, -16 )
+collision_layer = 0
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WalljumpDetectors/RightBlocks/TopBlock"]
-shape = SubResource( 56 )
+position = Vector2( -0.5, 7 )
+shape = SubResource( 58 )
 
 [node name="MiddleBlock" type="Area2D" parent="WalljumpDetectors/RightBlocks" groups=["WallDetector"]]
 position = Vector2( 9, 0 )
+collision_layer = 0
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WalljumpDetectors/RightBlocks/MiddleBlock"]
+position = Vector2( -0.5, 0 )
 shape = SubResource( 56 )
 
 [node name="BottomBlock" type="Area2D" parent="WalljumpDetectors/RightBlocks" groups=["WallDetector"]]
 position = Vector2( 9, 16 )
+collision_layer = 0
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WalljumpDetectors/RightBlocks/BottomBlock"]
-shape = SubResource( 56 )
+position = Vector2( -0.5, -4 )
+shape = SubResource( 59 )
 
 [node name="LeftBlocks" type="Control" parent="WalljumpDetectors"]
 margin_top = -2.0
@@ -943,38 +924,44 @@ __meta__ = {
 
 [node name="TopBlock" type="Area2D" parent="WalljumpDetectors/LeftBlocks" groups=["WallDetector"]]
 position = Vector2( -9, -16 )
+collision_layer = 0
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WalljumpDetectors/LeftBlocks/TopBlock"]
-shape = SubResource( 56 )
+position = Vector2( 1.5, 7 )
+shape = SubResource( 60 )
 
 [node name="MiddleBlock" type="Area2D" parent="WalljumpDetectors/LeftBlocks" groups=["WallDetector"]]
 position = Vector2( -9, 0 )
+collision_layer = 0
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WalljumpDetectors/LeftBlocks/MiddleBlock"]
+position = Vector2( 1.5, 0 )
 shape = SubResource( 56 )
 
 [node name="BottomBlock" type="Area2D" parent="WalljumpDetectors/LeftBlocks" groups=["WallDetector"]]
 position = Vector2( -9, 16 )
+collision_layer = 0
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WalljumpDetectors/LeftBlocks/BottomBlock"]
-shape = SubResource( 56 )
+position = Vector2( 1.5, -4 )
+shape = SubResource( 61 )
 
 [node name="FloorDetector" type="Area2D" parent="."]
+collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FloorDetector"]
 position = Vector2( 0, 22.5 )
 shape = SubResource( 57 )
 
-[connection signal="body_entered" from="SwordHitbox" to="." method="_on_SwordHitbox_body_entered"]
 [connection signal="body_entered" from="WalljumpDetectors/RightBlocks/TopBlock" to="." method="OnWalljumpBodyTouched" binds= [ true, true ]]
 [connection signal="body_exited" from="WalljumpDetectors/RightBlocks/TopBlock" to="." method="OnWalljumpBodyTouched" binds= [ false, true ]]
 [connection signal="body_entered" from="WalljumpDetectors/RightBlocks/MiddleBlock" to="." method="OnWalljumpBodyTouched" binds= [ true, true ]]
