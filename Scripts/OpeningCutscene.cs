@@ -118,12 +118,12 @@ public class OpeningCutscene : Control
 		TextPosition = CutsceneText.GetPosition();
 		//Play music
 		music = GD.Load<AudioStream>("res://Sounds/Music/OpeningDialogueLoop.mp3");
-		Connect(nameof(playMusic), GetNode("/root/Main"), "changeMusic");
+		Connect(nameof(playMusic), GetNode(".."), "changeMusic");
 	}
 
   // Called every frame. 'delta' is the elapsed time since the previous frame.
   	public override void _Process(float delta) {
-		AudioStreamPlayer player = GetNode<AudioStreamPlayer>("/root/Main/Music");
+		AudioStreamPlayer player = GetNode<AudioStreamPlayer>("/Main/Music");
 		
 		if (!player.Playing){
 			EmitSignal(nameof(playMusic), music);
