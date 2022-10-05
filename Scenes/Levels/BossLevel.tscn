@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://Scenes/BossLevelDecor.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Art/Placeholder Art/Sprites/08-Box/Idle.png" type="Texture" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://Art/Portraits/silas.png" type="Texture" id=11]
 [ext_resource path="res://Art/Fonts/Size16PBW.tres" type="DynamicFont" id=12]
 [ext_resource path="res://Scripts/DialogueBox.cs" type="Script" id=13]
+[ext_resource path="res://Scripts/BossLevel.cs" type="Script" id=14]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 21, 20 )
@@ -579,6 +580,7 @@ default_font = ExtResource( 12 )
 [node name="BossLevel" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 14 )
 
 [node name="Environment" parent="." instance=ExtResource( 1 )]
 

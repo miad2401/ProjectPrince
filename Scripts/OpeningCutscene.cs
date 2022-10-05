@@ -101,11 +101,6 @@ public class OpeningCutscene : Control
 	// Flag that tracks if currently shaking
 	bool shaking = false;
 	
-	//Signal to changeMusic
-	[Signal] public delegate void playMusic(AudioStream music);
-	//Holder for music 
-	AudioStream music;
-	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{	
@@ -116,19 +111,10 @@ public class OpeningCutscene : Control
 		chatterLimit = textList[currentText].Length;
 		CutsceneText.Text = textList[currentText];
 		TextPosition = CutsceneText.GetPosition();
-		//Play music
-		music = GD.Load<AudioStream>("res://Sounds/Music/OpeningDialogueLoop.mp3");
-		Connect(nameof(playMusic), GetNode(".."), "changeMusic");
 	}
 
   // Called every frame. 'delta' is the elapsed time since the previous frame.
   	public override void _Process(float delta) {
-		AudioStreamPlayer player = GetNode<AudioStreamPlayer>("/Main/Music");
-		
-		if (!player.Playing){
-			EmitSignal(nameof(playMusic), music);
-		}
-		
 		if (Input.IsActionJustPressed("attack")) {
 			// If not at end of dialogue
 			if (currentText != 45) {

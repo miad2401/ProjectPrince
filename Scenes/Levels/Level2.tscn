@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://Art/Tilemaps/MasterTileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Scenes/EnvironmentTools/AcquireAbility.tscn" type="PackedScene" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://Art/Parallax/CAVE_background3.png" type="Texture" id=12]
 [ext_resource path="res://Art/Parallax/CAVE_background4a.png" type="Texture" id=13]
 [ext_resource path="res://Scenes/EnvironmentTools/Note.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Scripts/Level2.cs" type="Script" id=15]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 24, 4 )
@@ -66,6 +67,7 @@ extents = Vector2( 20, 11 )
 [node name="Level2" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 15 )
 
 [node name="Environment" type="Node2D" parent="."]
 

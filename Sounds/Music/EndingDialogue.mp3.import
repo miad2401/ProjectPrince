@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/EndingDialogue.mp3-f4f5bb0978cf2eaa368ecefa40f935e3.mp3str"
+
+[deps]
+
+source_file="res://Sounds/Music/EndingDialogue.mp3"
+dest_files=[ "res://.import/EndingDialogue.mp3-f4f5bb0978cf2eaa368ecefa40f935e3.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

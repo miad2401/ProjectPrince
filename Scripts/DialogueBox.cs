@@ -110,6 +110,10 @@ public class DialogueBox : Control
 	bool shaking = false;*/
 	
 	int currentText = 0;
+	
+	//Signal and music holder
+	[Signal] public delegate void playMusic(AudioStream music);
+	[Export] AudioStream music;
 
 	
 	// Called when the node enters the scene tree for the first time.
@@ -188,10 +192,20 @@ public class DialogueBox : Control
 		else {
 			Right.Visible = false;
 		}
+		
+		//Load music
+		Connect(nameof(playMusic), GetNode(".."), "changeMusic");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(float delta) {
+		
+		//Play music
+		AudioStreamPlayer player = GetNode<AudioStreamPlayer>("../Music");
+		if (!player.Playing)
+		{
+			EmitSignal(nameof(playMusic), music);
+		}
 		if (DBL.Visible) {
 			if (Input.IsActionJustPressed("attack")) {
 				// If not at end of dialogue

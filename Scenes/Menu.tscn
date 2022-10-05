@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/Menu.cs" type="Script" id=1]
 [ext_resource path="res://Art/Fonts/Size16PBW.tres" type="DynamicFont" id=2]
 [ext_resource path="res://Art/MenuArt/splashscreen.png" type="Texture" id=3]
+[ext_resource path="res://Sounds/Music/TitleTest.mp3" type="AudioStream" id=4]
 
 [node name="Menu" type="Control"]
 anchor_left = 0.5
@@ -45,6 +46,10 @@ margin_right = 183.0
 margin_bottom = 40.0
 custom_fonts/font = ExtResource( 2 )
 text = "Exit"
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+autoplay = true
 
 [connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_StartButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]
