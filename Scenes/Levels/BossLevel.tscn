@@ -643,6 +643,9 @@ timeToSpawn = 1.0
 maxEnemiesSpawned = 5
 vSpeed = -10
 
+[node name="SpawnLocation" parent="SpawnerHolder/BatSpawnerLeft" index="0"]
+position = Vector2( -102, -5 )
+
 [node name="BatSpawnerRight" parent="SpawnerHolder" instance=ExtResource( 4 )]
 margin_left = 1432.0
 margin_top = 392.0
@@ -654,10 +657,10 @@ iHSpeed = -600
 vSpeed = -10
 
 [node name="KnightSpawnerLeft" parent="SpawnerHolder" instance=ExtResource( 4 )]
-margin_left = 512.0
-margin_top = -168.0
-margin_right = 552.0
-margin_bottom = -128.0
+margin_left = 559.0
+margin_top = 354.0
+margin_right = 599.0
+margin_bottom = 394.0
 EnemyType = 1
 timeToSpawn = 2.0
 maxEnemiesSpawned = 20

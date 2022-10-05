@@ -7,6 +7,9 @@ public class Main : Control
 	//startingLevel determines what level to start the game at
 	[Export] Level startingLevel;
 
+	//startingCheckpoint determines what checkpoint within the level to start the game at
+	[Export] int startingCheckpoint = 1;
+
 	IDictionary<Level, PackedScene> levelDictionary = new Dictionary<Level, PackedScene>();
 	//Stores the current level's Packscene
 	public PackedScene CurrentLevelPackedScene;
@@ -43,6 +46,8 @@ public class Main : Control
 		CurrentLevelPackedScene = levelDictionary[startingLevel];
 		//Sets the Curr. Node to an instance of the Curr. PackedScene
 		CurrentLevelNode = CurrentLevelPackedScene.Instance() as Control;
+		//Sets the Curr. checkpoint to starting Checkpoint
+		checkpoint = startingCheckpoint;
 
 		ThePlayer.Position = CurrentLevelNode.GetNode<Position2D>("Environment/Checkpoint" + checkpoint).Position;
 

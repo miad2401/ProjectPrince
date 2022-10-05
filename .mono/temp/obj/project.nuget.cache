@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "djtoi+nOv0kLTYhPXauF0IOdo0bTf6RZQRisYKgwaImptGHtROiYi8A96gNFkKvwcaFyjfm4ZfXdaWZ9kzDL3g==",
+  "dgSpecHash": "O+jC9ScKAY9owliWpNyQDxMtAe/EUkeZkA5F3Ys+moYPcdyGmzSUP1TN2PRDOhIrIM3YFtDlFqqxGaGNkxo9Hw==",
   "success": true,
-  "projectFilePath": "E:\\Work\\Game making\\ProjectPrince\\Project Prince.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\ayira\\Documents\\GitHub\\ProjectPrince\\Project Prince.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ayira\\.nuget\\packages\\microsoft.netframework.referenceassemblies\\1.0.2\\microsoft.netframework.referenceassemblies.1.0.2.nupkg.sha512",
+    "C:\\Users\\ayira\\.nuget\\packages\\microsoft.netframework.referenceassemblies.net472\\1.0.2\\microsoft.netframework.referenceassemblies.net472.1.0.2.nupkg.sha512"
+  ],
   "logs": []
 }

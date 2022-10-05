@@ -130,6 +130,10 @@ weapon_cycle={
  ]
 }
 
+[mono]
+
+project/assembly_name="Project Prince"
+
 [physics]
 
 common/enable_pause_aware_picking=true
