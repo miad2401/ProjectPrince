@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.IO;
 
 public class DialogueBox : Control
 {
@@ -41,10 +42,12 @@ public class DialogueBox : Control
 	// Used to track when to show "press space to continue" prompt
 	float currentTextTime = 0;
 	float spaceTextTime = 0;
-	
-	
+
+
+	//File containing dialogue
+	[Export] string textFilename;
 	// Array of text lines
-	[Export] String[] textList;
+	String[] textList;
 	// Array of who appears on left portrait
 	[Export] String[] leftPortraits;
 	// Array of who appears on right portrait
@@ -119,6 +122,7 @@ public class DialogueBox : Control
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		getTextFromFile(textFilename);
 		this.Visible = startDialogue;
 		Left = GetNode<Container>("DBL/Left");
 		Right = GetNode<Container>("DBL/Right");
@@ -194,14 +198,14 @@ public class DialogueBox : Control
 		}
 		
 		//Load music
-		Connect(nameof(playMusic), GetNode(".."), "changeMusic");
+		Connect(nameof(playMusic), GetNode("../../"), "changeMusic");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(float delta) {
 		
 		//Play music
-		AudioStreamPlayer player = GetNode<AudioStreamPlayer>("../Music");
+		AudioStreamPlayer player = GetNode<AudioStreamPlayer>("../../Music");
 		if (!player.Playing)
 		{
 			EmitSignal(nameof(playMusic), music);
@@ -377,6 +381,16 @@ public class DialogueBox : Control
 		else
 		{
 			EmitSignal(nameof(PauseForDialogue), false);
+		}
+	}
+	
+	public void getTextFromFile(string filename){
+		var rawFile = System.IO.File.ReadAllLines(filename);
+
+		foreach (var line in rawFile)
+		{
+			var data = line.Split("/n");
+			textList = data;
 		}
 	}
 }

@@ -31,7 +31,7 @@ anchor_bottom = 1.0
 script = ExtResource( 2 )
 spaceTextDelay = 4.0
 spaceTextBlinkSpeed = 0.75
-scrollSpeedScale = 0.18
+scrollSpeedScale = 0.4
 shakeTotalTime = 1.6
 shakeBetweenTime = 0.065
 
