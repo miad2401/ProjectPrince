@@ -78,3 +78,12 @@ E:\Work\Game making\ProjectPrince\.mono\temp\obj\Debug\Project Prince.AssemblyIn
 E:\Work\Game making\ProjectPrince\.mono\temp\obj\Debug\Project Prince.csproj.CoreCompileInputs.cache
 E:\Work\Game making\ProjectPrince\.mono\temp\obj\Debug\Project Prince.dll
 E:\Work\Game making\ProjectPrince\.mono\temp\obj\Debug\Project Prince.pdb
+C:\Users\ayira\Documents\GitHub\ProjectPrince\.mono\temp\obj\Debug\Project Prince.csproj.AssemblyReference.cache
+C:\Users\ayira\Documents\GitHub\ProjectPrince\.mono\temp\obj\Debug\Project Prince.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ayira\Documents\GitHub\ProjectPrince\.mono\temp\obj\Debug\Project Prince.AssemblyInfoInputs.cache
+C:\Users\ayira\Documents\GitHub\ProjectPrince\.mono\temp\obj\Debug\Project Prince.AssemblyInfo.cs
+C:\Users\ayira\Documents\GitHub\ProjectPrince\.mono\temp\obj\Debug\Project Prince.csproj.CoreCompileInputs.cache
+C:\Users\ayira\Documents\GitHub\ProjectPrince\.mono\temp\obj\Debug\Project Prince.dll
+C:\Users\ayira\Documents\GitHub\ProjectPrince\.mono\temp\obj\Debug\Project Prince.pdb
+C:\Users\ayira\Documents\GitHub\ProjectPrince\.mono\temp\bin\Debug\Project Prince.dll
+C:\Users\ayira\Documents\GitHub\ProjectPrince\.mono\temp\bin\Debug\Project Prince.pdb

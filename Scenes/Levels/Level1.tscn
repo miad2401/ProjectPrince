@@ -14,6 +14,7 @@
 [ext_resource path="res://Scenes/EnvironmentTools/Note.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Scripts/Level1.cs" type="Script" id=13]
 [ext_resource path="res://Sounds/Music/OpeningDialogueLoop.mp3" type="AudioStream" id=14]
+[ext_resource path="res://Scenes/EnvironmentTools/CheckpointField.tscn" type="PackedScene" id=13]
 
 [sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 36, 11 )
@@ -143,6 +144,11 @@ __meta__ = {
 position = Vector2( -16, -24 )
 
 [node name="OpeningDialogue" parent="." instance=ExtResource( 3 )]
+[node name="Checkpoint2" type="Position2D" parent="Environment"]
+position = Vector2( 660, -554 )
+
+[node name="Checkpoint3" type="Position2D" parent="Environment"]
+position = Vector2( -111, -777 )
 margin_left = -12.0
 margin_top = -29.0
 margin_right = -12.0
@@ -1043,6 +1049,16 @@ position = Vector2( 7, -16 )
 
 [node name="CollisionShape2D" parent="Note/Area2D" index="0"]
 position = Vector2( -1, -22.5 )
+
+[node name="SetCheckpoint2" parent="." instance=ExtResource( 13 )]
+position = Vector2( 613, -550 )
+scale = Vector2( 0.211757, 0.919909 )
+nextCheckpoint = 2
+
+[node name="SetCheckpoint3" parent="." instance=ExtResource( 13 )]
+position = Vector2( -162, -776 )
+scale = Vector2( 0.211757, 0.919909 )
+nextCheckpoint = 3
 
 [connection signal="body_entered" from="Movement Instructions/HintArea2D" to="Movement Instructions" method="OnHintArea2DBodyEntered"]
 [connection signal="body_exited" from="Movement Instructions/HintArea2D" to="Movement Instructions" method="OnHintArea2DBodyExited"]
