@@ -5,20 +5,16 @@ public class PlayerAttack : RigidBody2D
 {
 	// magicSpeed - Speed at which a magic bolt moves
 	[Export] int magicSpeed;
-	
+
+	private Direction attackDirection;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		// Store sprite in var
-		Sprite attackSprite = GetNode<Sprite>("AttackSprite");
-		//Uses its CollisionPolygon to determine what direction it should be headed
-		// change sprite orientation based on player dir
-		if (GetNode<CollisionPolygon2D>("CollisionPoly").RotationDegrees != 0) {
-			//If facing left, changes the speed of the projectile so it will move left
+		// change sprite orientation based on player direction
+		if(attackDirection == Direction.Left)
+        {
+			GetNode<AnimationTree>("AnimationTree").Set("parameters/Moving/blend_position", -1);
 			magicSpeed *= -1;
-			if (attackSprite.Visible) {
-				attackSprite.Scale = new Vector2(-1,1);
-			}
 		}
 	}
 
@@ -45,4 +41,9 @@ public class PlayerAttack : RigidBody2D
 		//Deletes itself
 		QueueFree();
 	}
+
+	public void SetDirection(Direction attackDirection)
+    {
+		this.attackDirection = attackDirection;
+    }
 }

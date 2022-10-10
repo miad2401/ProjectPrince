@@ -211,7 +211,7 @@ public class DialogueBox : Control
 			EmitSignal(nameof(playMusic), music);
 		}
 		if (DBL.Visible) {
-			if (Input.IsActionJustPressed("attack")) {
+			if (Input.IsActionJustPressed("attack_sword")) {
 				// If not at end of dialogue
 				if (currentText != (textList.Length-1)) {
 					// Stop any possible shakes

@@ -16,7 +16,16 @@ public class CheckpointField : Area2D
             }
 
             if(activatesMagicJump){
-                Player.magicJumpEnabled = true;
+                Player thePlayer;
+                if (GetParent().Name.Contains("Level"))
+                {
+                    thePlayer = GetNode<Player>("../Player");
+                }
+                else
+                {
+                    thePlayer = GetNode<Player>("../../Player");
+                }
+                thePlayer.SetPlayerAbility(true,false, 2);
             }
         }
     }
