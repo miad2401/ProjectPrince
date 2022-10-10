@@ -35,7 +35,15 @@ public class AcquireAbility : Control
     public void OnPickupAreaEntered(Node body)
     {
         GetNode<AnimationPlayer>("AnimationPlayer").CurrentAnimation = newAbility.ToString() + "Acquired";
-        Player thePlayer = GetNode<Player>("../Player");
+        Player thePlayer;
+        if (GetParent().Name.Contains("Level"))
+        {
+            thePlayer = GetNode<Player>("../Player");
+        }
+        else
+        {
+            thePlayer = GetNode<Player>("../../Player");
+        }
         switch (newAbility)
         {
             case Ability.Sword:

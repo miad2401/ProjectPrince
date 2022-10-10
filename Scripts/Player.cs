@@ -21,16 +21,20 @@ public class Player : KinematicBody2D
 	[Export] public int maxHSpeed;
 	[Export] public int maxVSpeed;
 	[Export] public int jumpPower;
+	[Export] public int magicJumpPower;
 	[Export] public int gravity;
 	[Export] public int wallJumpStrength;
 	[Export] public int wallFallingSpeed;
 	[Export] public int numExtraJumpFrames;
 	[Export] public int pushStrength;
 	[Export] public int climbSpeed;
+	[Export] public float shotDelay;
 
 	//Animation Fields
 	private AnimationTree playerAnimationTree;
 	private AnimationNodeStateMachinePlayback playerANSMP;
+	//Export so animationPlayer can see it
+	[Export] private bool swingingSword;
 
 	//Movement Fields
 	private Vector2 velocity = new Vector2();
@@ -44,12 +48,14 @@ public class Player : KinematicBody2D
 	private bool onMoveableObject;
 	private bool movingAnObject;
 	private int numLadders;
+	private bool hasMagicJumped;
 
 	//Attack Fields
 	public PackedScene PlayerProjectilePath;
 	private bool swordEnabled;
 	private bool rangedAttackEnabled;
 	private bool magicJumpEnabled;
+	private float shotTimePassed;
 
 	// Debug Menu References
 	Control DebugMenu;
@@ -61,8 +67,7 @@ public class Player : KinematicBody2D
 	{
 		playerAnimationTree = GetNode<AnimationTree>("AnimationTree");
 		playerANSMP = playerAnimationTree.Get("parameters/playback") as AnimationNodeStateMachinePlayback;
-
-		framesSinceMissingFloor = numExtraJumpFrames + 1;
+		ResetVariables();
 
 		PlayerProjectilePath = GD.Load<PackedScene>("res://Scenes/PlayerAttack.tscn");
 
@@ -85,11 +90,8 @@ public class Player : KinematicBody2D
 	//Can be thought as being run every frame. Delta is the amount of time it took each frame to be made (This should be constant)
 	public override void _PhysicsProcess(float delta) {
 		//Changes the Character's movement velocity
-		//MoveCharacterOld(delta);
 		MoveCharacter(delta);
-
 		//Shoots a projectile
-		//AttackOld(delta);
 		Attack(delta);
 		//Changes the Character's animations
 		AnimatePlayer();
@@ -182,28 +184,48 @@ public class Player : KinematicBody2D
 			framesSinceMissingFloor = 0;
 			velocity.y = 0;
 		}
+		//jumping with frame forgiveness
 		if (Input.IsActionPressed("move_jump") && (onFloor || onMoveableObject || framesSinceMissingFloor <= numExtraJumpFrames))
         {
 			framesSinceMissingFloor = numExtraJumpFrames + 1;
 			velocity.y = Mathf.Clamp(velocity.y = -jumpPower, -maxVSpeed, maxVSpeed);
+			hasMagicJumped = false;
 		}
-		else if (!onFloor && !onMoveableObject && (numRightWalls >= 2 || numLeftWalls >= 2))
-		{
-			if (Input.IsActionJustPressed("move_jump") && ((Input.IsActionPressed("move_right") && numRightWalls >= 2) || (Input.IsActionPressed("move_left") && numLeftWalls >= 2)))
-			{
-				lastDirection.x = -lastDirection.x;
-				velocity.x += lastDirection.x * (xAcceleration * wallJumpStrength);
-				velocity.y = -jumpPower;
-			}
-			else if (numLadders > 0 && (Input.IsActionPressed("move_left") || Input.IsActionPressed("move_right")))
-			{
-				velocity.y = -climbSpeed;
-			}
-			else
+		else if(!onFloor && !onMoveableObject)
+        {
+			//If detecting a wall
+			if (numRightWalls >= 2 || numLeftWalls >= 2)
             {
-				velocity.y = Mathf.Clamp(velocity.y, -maxVSpeed, wallFallingSpeed);
+				hasMagicJumped = false;
+				//Walljump
+				if (Input.IsActionJustPressed("move_jump") && ((Input.IsActionPressed("move_right") && numRightWalls >= 2) || (Input.IsActionPressed("move_left") && numLeftWalls >= 2)))
+				{
+					velocity.x += -lastDirection.x * (xAcceleration * wallJumpStrength);
+					velocity.y = -jumpPower;
+				}
+				//Climb Ladders in Air
+				else if (numLadders > 0 && (Input.IsActionPressed("move_left") || Input.IsActionPressed("move_right")))
+				{
+					velocity.y = -climbSpeed;
+				}
+				//wallSliding
+				else
+				{
+					velocity.y = Mathf.Clamp(velocity.y, -maxVSpeed, wallFallingSpeed);
+				}
 			}
+            else
+            {
+				//magic jump
+                if (Input.IsActionJustPressed("move_jump") && !hasMagicJumped && magicJumpEnabled && numLadders == 0)
+                {
+					velocity.y = -magicJumpPower;
+					hasMagicJumped = true;
+				}
+            }
+
 		}
+		//Climb Ladders on Ground
 		else if(numLadders > 0 && (Input.IsActionPressed("move_left") || Input.IsActionPressed("move_right")))
         {
 			velocity.y = -climbSpeed;
@@ -217,37 +239,74 @@ public class Player : KinematicBody2D
 
 	public void Attack(float delta)
     {
-		//Ranged Attack
-        if (rangedAttackEnabled && Input.IsActionJustPressed("attack"))
+		shotTimePassed -= delta;
+		//Sword Attack
+		if (Input.IsActionJustPressed("attack_sword") && swordEnabled && !swingingSword)
         {
+			playerANSMP.Travel("SwingSword");
+			swingingSword = true;
+			playerAnimationTree.Set("parameters/SwingSword/blend_position", lastDirection.x);
+		}
+		//Ranged Attack
+		if (Input.IsActionJustPressed("attack_ranged") && rangedAttackEnabled && shotTimePassed <= 0)
+		{
+			shotTimePassed = shotDelay;
 			PlayerAttack RangedAttackInstance = PlayerProjectilePath.Instance() as PlayerAttack;
-			if(lastDirection.x >= 0)
-            {
+			if (lastDirection.x >= 0)
+			{
 				RangedAttackInstance.GlobalPosition = GetNode<Position2D>("RProjectilePosition").GlobalPosition;
 				RangedAttackInstance.SetDirection(Direction.Right);
-            }
-            else
-            {
+			}
+			else
+			{
 				RangedAttackInstance.GlobalPosition = GetNode<Position2D>("LProjectilePosition").GlobalPosition;
 				RangedAttackInstance.SetDirection(Direction.Left);
 			}
-            GetParent().AddChild(RangedAttackInstance);
+			GetParent().AddChild(RangedAttackInstance);
 		}
-    }
+	}
 
 	public void AnimatePlayer()
     {
-		if(velocity.x == 0 && !movingHorizontally)
+		if (velocity.x == 0 && !movingHorizontally)
         {
-			playerANSMP.Travel("Idle");
+			if (swordEnabled)
+			{
+                if (!swingingSword)
+                {
+					playerANSMP.Travel("IdleSword");
+				}
+			}
+            else
+            {
+				playerANSMP.Travel("Idle");
+			}
         }
         else
         {
-			playerANSMP.Travel("Run");
+			if (swordEnabled)
+			{
+                if (!swingingSword)
+                {
+					playerANSMP.Travel("RunSword");
+				}
+			}
+			else
+			{
+				playerANSMP.Travel("Run");
+			}
 		}
 		playerAnimationTree.Set("parameters/" + playerANSMP.GetCurrentNode() + "/blend_position", lastDirection.x);
     }
 
+	public void SetAllBlends()
+    {
+		playerAnimationTree.Set("parameters/Idle/blend_position", lastDirection.x);
+		playerAnimationTree.Set("parameters/Run/blend_position", lastDirection.x);
+		playerAnimationTree.Set("parameters/IdleSword/blend_position", lastDirection.x);
+		playerAnimationTree.Set("parameters/RunSword/blend_position", lastDirection.x);
+		playerAnimationTree.Set("parameters/SwingSword/blend_position", lastDirection.x);
+	}
 	public void updateDMenu()
 	{
 		Sprite playerSprite = GetNode<Sprite>("Sprite");
@@ -266,10 +325,6 @@ public class Player : KinematicBody2D
 		{
 			DebugMenu.Visible = !DebugMenu.Visible;
 		}
-	}
-
-	public void _on_SwordHitbox_body_entered(Node body) {
-		//Removed
 	}
 
 	public void MoveCamera(Vector2 newGlobalPosition)
@@ -316,6 +371,14 @@ public class Player : KinematicBody2D
 		}
 	}
 
+	public void OnSwordCollisionTouched(Node body)
+    {
+        if (body.IsInGroup("Enemy"))
+        {
+			body.QueueFree();
+        }
+    }
+
 	public void SetPlayerAbility(bool add, bool clearFirst, int abilityID)
     {
         if (clearFirst)
@@ -348,7 +411,13 @@ public class Player : KinematicBody2D
 			default:
 				break;
 		}
-    }
+	}
+
+	public void ResetVariables()
+    {
+		swingingSword = false;
+		framesSinceMissingFloor = numExtraJumpFrames + 1;
+	}
 }
 
 

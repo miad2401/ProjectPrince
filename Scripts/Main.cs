@@ -67,6 +67,7 @@ public class Main : Control
 		CurrentLevelNode = CurrentLevelPackedScene.Instance() as Control;
 
 		thePlayer.Position = CurrentLevelNode.GetNode<Position2D>("Environment/Checkpoint" + checkpoint).Position;
+		thePlayer.ResetVariables();
 
 		changePlayerAbilities();
 		//Adds the clean Level to the scene (Starts the level again)
@@ -79,6 +80,7 @@ public class Main : Control
 	{
 		//Adds the specified Level to the curr. packedScene
 		CurrentLevelPackedScene = levelDictionary[nextLevel];
+		CurrentLevelName = nextLevel;
 		CurrentLevelNode.RemoveChild(thePlayer);
 		//Deletes the current Level when it is safe to do so
 		CurrentLevelNode.QueueFree();
@@ -86,6 +88,7 @@ public class Main : Control
 		CurrentLevelNode = CurrentLevelPackedScene.Instance() as Control;
 
 		thePlayer.Position = CurrentLevelNode.GetNode<Position2D>("Environment/Checkpoint" + checkpoint).Position;
+		thePlayer.ResetVariables();
 
 		changePlayerAbilities();
 
@@ -105,10 +108,10 @@ public class Main : Control
 				break;
 			case Level.Level3:
 				thePlayer.SetPlayerAbility(true, true, 0);
+				thePlayer.SetPlayerAbility(true, false, 1);
 				break;
 			case Level.Level3Indoors:
 				thePlayer.SetPlayerAbility(true, true, 0);
-				thePlayer.SetPlayerAbility(true, false, 1);
 				break;
 			case Level.Level4:
 				thePlayer.SetPlayerAbility(true, true, 4);

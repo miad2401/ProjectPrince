@@ -193,7 +193,7 @@ public class DialogueBox : Control
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(float delta) {
 		if (DBL.Visible) {
-			if (Input.IsActionJustPressed("attack")) {
+			if (Input.IsActionJustPressed("attack_sword")) {
 				// If not at end of dialogue
 				if (currentText != (textList.Length-1)) {
 					// Stop any possible shakes
