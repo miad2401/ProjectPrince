@@ -1,9 +1,8 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Art/Fonts/Size8PBW.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Scripts/OpeningCutscene.cs" type="Script" id=2]
 [ext_resource path="res://Art/Fonts/Size16PBW.tres" type="DynamicFont" id=3]
-[ext_resource path="res://Sounds/Music/OpeningDialogueLoop.mp3" type="AudioStream" id=4]
 
 [sub_resource type="Theme" id=1]
 default_font = ExtResource( 1 )
@@ -31,7 +30,7 @@ anchor_bottom = 1.0
 script = ExtResource( 2 )
 spaceTextDelay = 4.0
 spaceTextBlinkSpeed = 0.75
-scrollSpeedScale = 0.4
+scrollSpeedScale = 0.18
 shakeTotalTime = 1.6
 shakeBetweenTime = 0.065
 
@@ -70,7 +69,3 @@ margin_right = 189.0
 margin_bottom = -2.0
 theme = SubResource( 4 )
 text = "Press Space to continue"
-
-[node name="Music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 4 )
-autoplay = true

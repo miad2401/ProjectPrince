@@ -101,12 +101,6 @@ public class Main : Control
 		CurrentLevelNode.AddChild(thePlayer);
 		AddChild(CurrentLevelNode);
 	}
-	
-	public void changeMusic(AudioStream music){
-		var streamPlayer = GetNode<AudioStreamPlayer>("Music");
-		streamPlayer.Stream = music;
-		streamPlayer.Play();
-	}
 
 	public void changePlayerAbilities()
     {

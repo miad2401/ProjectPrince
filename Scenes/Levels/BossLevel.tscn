@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://Scenes/BossLevelDecor.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Art/Placeholder Art/Sprites/08-Box/Idle.png" type="Texture" id=2]
@@ -13,8 +13,6 @@
 [ext_resource path="res://Art/Portraits/silas.png" type="Texture" id=11]
 [ext_resource path="res://Art/Fonts/Size16PBW.tres" type="DynamicFont" id=12]
 [ext_resource path="res://Scripts/DialogueBox.cs" type="Script" id=13]
-[ext_resource path="res://Scripts/BossLevel.cs" type="Script" id=14]
-[ext_resource path="res://Sounds/Music/EndingDialogue.mp3" type="AudioStream" id=15]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 21, 20 )
@@ -295,7 +293,7 @@ tracks/7/keys = {
 "values": [ true ]
 }
 tracks/8/type = "value"
-tracks/8/path = NodePath("EndingDialogue1/DBL:visible")
+tracks/8/path = NodePath("DialogueBox/DBL:visible")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/imported = false
@@ -379,7 +377,7 @@ tracks/3/keys = {
 "values": [ false ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("EndingDialogue1/DBL:visible")
+tracks/4/path = NodePath("DialogueBox/DBL:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -581,7 +579,6 @@ default_font = ExtResource( 12 )
 [node name="BossLevel" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 14 )
 
 [node name="Environment" parent="." instance=ExtResource( 1 )]
 
@@ -815,26 +812,23 @@ anims/PrincessWalkRight = SubResource( 21 )
 anims/RESET = SubResource( 22 )
 
 [node name="EncounterRival" parent="." instance=ExtResource( 9 )]
-visible = false
-textFilename = "./Dialogue/RivalEncounter.tres"
+textList = PoolStringArray( "l   Silas sees Daniel, and the Prince of Gloomwood with his knights.   l", "Silas: \"STOPPPPPP!!\"", "\?\?\?: \"Hmmmm\?\"", "Silas: \"I said stop at once!\"", "\?\?\?: \"you dare talk to me, the Prince of Gloomwood, Malcolm the Great, in such a manner\?\?\"", "Silas: \"Get off your high horse Malcolm, I can see my prince tied up right behind you.\"", "Daniel, muffled: \"Heyyyy..\"", "Silas: \"Now are you gonna let him go the easy way or the hard way\?", "Malcolm: \"No way you are getting him back! After what he tried to do!\"", "Silas: \"What are you talking about\?\"", "Malcolm: \"I won\'t let you manipulate me with your poison tongue. You either leave or meet the same fate as him!", "l   Silas chokes up on his weapon.   l", "Silas: \"I\'ll free you in just a second, my Prince.\"" )
 leftPortraits = PoolStringArray( "", "Silas", "Silas", "Silas", "Silas", "Silas", "", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas" )
 rightPortraits = PoolStringArray( "", "hidden", "hidden", "hidden", "Malcolm", "Malcolm", "Daniel", "Malcolm", "Malcolm", "Malcolm", "Malcolm", "", "" )
 scrollSpeedScales = PoolRealArray( 0, 0, 0, 0, 0.15, 0, 0.15, 0, 0, 0, 0, 0, 0 )
 lineShakes = PoolIntArray( 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 )
-music = ExtResource( 15 )
 
 [node name="DBL" parent="EncounterRival" index="0"]
 visible = false
 
-[node name="EndingDialogue1" parent="." instance=ExtResource( 9 )]
-textFilename = "./Dialogue/PreFinalBattle.tres"
+[node name="DialogueBox" parent="." instance=ExtResource( 9 )]
+textList = PoolStringArray( "l   Malcolm lays on the ground, defeated.   l", "Malcolm: \"I can\'t believe you\'ll take my life, then take my sister! Does your cruelty know no bounds\?!\"", "Silas: \"I was not about to do either of those things.\"", "Malcolm: \"Huh\?\"", "l   Silas moves toward Daniel, ungags him, and begins to untie him.   l", "Daniel: \"Why would I take your sister\?\"", "Malcolm: \"Why else would you, she\'s the cutest little princess anywhere. Who wouldn\'t want to marry her\?\"", "l   Silas and Daniel are shocked.   l", "Silas and Daniel: \"MARRIAGE\?!\?!\?\"", "\?\?\?: \"That\'s quite enough.\"" )
 leftPortraits = PoolStringArray( "", "", "Silas", "Silas", "", "Daniel", "Daniel", "", "Silas", "" )
 rightPortraits = PoolStringArray( "", "Malcolm", "Malcolm", "Malcolm", "", "Malcolm", "Malcolm", "", "Daniel", "hidden" )
 scrollSpeedScales = PoolRealArray( 0.15, 0, 0, 0, 0, 0, 0, 0, 0, 0.15 )
 lineShakes = PoolIntArray( 0, 0, 0, 0, 0, 0, 0, 0, 1, 0 )
-music = ExtResource( 15 )
 
-[node name="DBL" parent="EndingDialogue1" index="0"]
+[node name="DBL" parent="DialogueBox" index="0"]
 visible = false
 
 [node name="Maisie" type="Control" parent="."]
@@ -844,14 +838,13 @@ anchor_bottom = 1.0
 script = ExtResource( 13 )
 startDialogue = false
 scrollSpeedScale = 0.4
-textFilename = "./Dialogue/PostFinalBattle.tres"
+textList = PoolStringArray( "Maisie: \"I\'m very sorry if my brother has caused you any trouble, Your Highness.\"", "Daniel: \"Uhhh...thanks, I\'m fine now. What\'s going on here\?\"", "Maisie: “The head knight just informed me that a group of knights were taken away by my brother for my sake.”", "l   Malcolm is disgruntled.   l", "Malcolm: “I told him not to say anything!”", "Maisie: “Well I’m glad he did because you could’ve really hurt someone!”", "Malcolm: “But what about your marriage to him\?”", "Maisie: ”I wasn’t gonna marry him buffoon!! Father and mother only suggested it.”", "Malcolm: “Oh.., I just assumed. I was just looking out for you.”", "Maisie: “I know you were, but you have to be more informed before you capture another kingdom\'s prince. Understood\?”", "Malcolm: “Yes Maisie.”", "Maisie: “Alright, go wash up, Mother and Father want to see you.”", "Malcolm: “Not again…”", "l   Malcolm grumbles as he heads inside the castle   l", "Maisie: “Again, I’m very sorry for any trouble my brother has caused.”", "Daniel: “It’s okay, no harm done.”", "l   Silas pouts.   l", "Silas: “That’s absolutely not true.”", "Daniel: “… well, either way, you didn’t do anything wrong, so you don’t need to apologize!”", "Silas: “That’s correct, we’ll get an apology out of your brother later.”", "Daniel: “You handled the situation wonderfully, by the way!”", "Daniel: “Anyone would think you were the oldest!”", "Maisie: ” …”", "Maisie: “…thank you…”", "l   Maisie runs off in the same direction as her brother.   l", "l   Silas, Daniel, and the Gloomwood knights stare at each other in silence.   l", "Knights: “…”", "Daniel: “… um”", "Silas: “Hey, morons, this is the part where you escort Maisie and Malcolm back home safely.”", "Knights: ” …”", "Knights: “OH, YES, RIGHT! MEN, LET’S MOVE.”", "l   The knights leave in a hurry.   l", "l   Silas sighs.   l", "Silas: “I don’t usually wish job insecurity on anyone, but oh my lord.”", "l   Daniel starts laughing.   l", "Daniel: “Those knights seem like the type to need protecting, not Malcolm and Maisie.”", "l   Silas starts laughing.   l", "Silas: “Right, those bumbling blue buffoons can barely be called knights.”", "Silas: “I’d consider them to be more luggage than knight.”", "Daniel: “That’s too meeean.”", "l   Silas and Daniel laugh.   l", "Daniel: “Well, that was … fun, wasn’t it\?”", "Silas: “....”", "Daniel: “Something wrong\?”", "Silas: “My Daniel, Daniel, love, salt of the earth, as much as I am incapable of showing it, I was extremely worried.”", "Daniel: “You were\?”", "Silas: “Yes, I was.”", "Silas: “Despite how incompentant those knights are in general, it still was a terrifying sight to see you being taken by them.”", "Silas: “I was barely holding myself together, I was…I-”", "Daniel: “I-uhh…”", "Daniel: “I’m sorry for my crude and joking remarks, that was insensitive of me.”", "Silas: “No-stop, you don’t have to apologize, it’s not-”", "l   Daniel hugs Silas.   l", "Daniel: “It’s alright, I’m alright, okay\?”", "l   Silas hugs Daniel back.   l", "l   After a brief moment, the both of them pull away.   l", "Silas: “In the future, don’t go running off without me.”", "Daniel: “Oh course, I can’t imagine a future adventure with you not by my side.”", "Silas: “God, you-”", "Daniel: “And the next time I get kidnapped, I’ll make sure to drag you with me!”", "l   Silas pouts.   l", "Silas: “Don’t even suggest that, you’re on your own next time.”", "l   Daniel laughs.   l", "l   Silas sighs.   l", "Silas: “I’m going to have to report everything that happened today to your mother, what a pain.”", "Daniel: “Are you really thinking about work right now\?”", "Silas: “Of course! There’s the lacking security in the garden, new relations with Gloomwood, this kidnapping event as a whole-”", "Daniel: “Come on now, there will be time later to think about those things. There is something more important right now to worry about.”", "Silas: “Like what\?”", "Daniel: “You’ve saved your sweet dashing Daniel from being kidnapped, the air is peaceful and there’s a nice, beautiful, frankly ~romantic~ sunset right now.”", "Silas: “…”", "Silas: “I’m taking away all those books, you maniac”", "Daniel: “Hmm, is that a no\?”", "Silas: “That’s not what I said, was it\?”", "Daniel: “You’re right, as you always are.”" )
 leftPortraits = PoolStringArray( "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "", "Silas", "", "", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas", "Silas" )
 rightPortraits = PoolStringArray( "Maisie", "Maisie", "Maisie", "Malcolm", "Malcolm", "Malcolm", "Malcolm", "Malcolm", "Malcolm", "Malcolm", "Malcolm", "Malcolm", "Malcolm", "Malcolm", "Malcolm", "Maisie", "", "", "Maisie", "Maisie", "Maisie", "Maisie", "Maisie", "Maisie", "Maisie", "", "", "", "", "", "", "", "", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "", "Daniel", "", "", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel", "Daniel" )
 scrollSpeedScales = PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.15, 0.15, 0, 0, 0.15, 0.15, 0, 0.15, 0.6, 0, 0.15, 0.15, 0, 0, 0, 0, 0, 0, 0, 0.15, 0.15, 0.15, 0, 0, 0.15, 0, 0.15, 0.15, 0, 0.15, 0.15, 0.15, 0.15, 0.15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.15, 0, 0, 0.15, 0, 0, 0, 0 )
 lineShakes = PoolIntArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 )
 shakeTotalTime = 4.0
 shakeBetweenTime = 0.065
-music = ExtResource( 15 )
 
 [node name="DBL" type="CanvasLayer" parent="Maisie"]
 layer = 11
@@ -1022,4 +1015,4 @@ max_lines_visible = 5
 [editable path="EnemyBarriers/EnemyBarrier8"]
 [editable path="Rival"]
 [editable path="EncounterRival"]
-[editable path="EndingDialogue1"]
+[editable path="DialogueBox"]

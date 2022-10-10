@@ -101,6 +101,8 @@ public class OpeningCutscene : Control
 	// Flag that tracks if currently shaking
 	bool shaking = false;
 	
+	
+	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{	
