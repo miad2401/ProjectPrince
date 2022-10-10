@@ -12,3 +12,5 @@ script = ExtResource( 2 )
 layer = 10
 
 [node name="PauseMenu" parent="GUI" instance=ExtResource( 6 )]
+
+[node name="Music" type="AudioStreamPlayer" parent="."]

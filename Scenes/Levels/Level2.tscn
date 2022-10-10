@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://Art/Tilemaps/MasterTileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Scenes/EnvironmentTools/AcquireAbility.tscn" type="PackedScene" id=2]
@@ -14,7 +14,8 @@
 [ext_resource path="res://Art/Parallax/CAVE_background3.png" type="Texture" id=12]
 [ext_resource path="res://Art/Parallax/CAVE_background4a.png" type="Texture" id=13]
 [ext_resource path="res://Scenes/EnvironmentTools/Note.tscn" type="PackedScene" id=14]
-[ext_resource path="res://Scenes/EnvironmentTools/CheckpointField.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Scripts/Level2.cs" type="Script" id=15]
+[ext_resource path="res://Scenes/EnvironmentTools/CheckpointField.tscn" type="PackedScene" id=16]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 24, 4 )
@@ -67,6 +68,7 @@ extents = Vector2( 20, 11 )
 [node name="Level2" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 15 )
 
 [node name="Environment" type="Node2D" parent="."]
 
@@ -503,7 +505,7 @@ text = "Hope to see you soon,"
 [node name="CollisionShape2D" parent="Note/Area2D" index="0"]
 position = Vector2( -1, -21 )
 
-[node name="SetCheckpointField2" parent="." instance=ExtResource( 15 )]
+[node name="SetCheckpointField2" parent="." instance=ExtResource( 16 )]
 position = Vector2( 2992, -84 )
 scale = Vector2( 0.2, 1.44 )
 nextCheckpoint = 2

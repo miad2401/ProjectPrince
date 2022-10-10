@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Level2ChaseSequence.mp3-bb2f4dbe07f2e7edef280a0a15f4fbef.mp3str"
+
+[deps]
+
+source_file="res://Sounds/Music/Level2ChaseSequence.mp3"
+dest_files=[ "res://.import/Level2ChaseSequence.mp3-bb2f4dbe07f2e7edef280a0a15f4fbef.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
