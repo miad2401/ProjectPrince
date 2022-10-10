@@ -225,8 +225,11 @@ public class Player : KinematicBody2D
 				else
 				{
 					velocity.y = Mathf.Clamp(velocity.y, -maxVSpeed, wallFallingSpeed);
-					playerANSMP.Travel("WallSlide");
-					wallSliding = true;
+                    if (!animationInAction)
+                    {
+						playerANSMP.Travel("WallSlide");
+						wallSliding = true;
+					}
 				}
 			}
             else
