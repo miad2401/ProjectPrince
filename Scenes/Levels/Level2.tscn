@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://Art/Tilemaps/MasterTileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Scenes/EnvironmentTools/AcquireAbility.tscn" type="PackedScene" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://Art/Parallax/CAVE_background3.png" type="Texture" id=12]
 [ext_resource path="res://Art/Parallax/CAVE_background4a.png" type="Texture" id=13]
 [ext_resource path="res://Scenes/EnvironmentTools/Note.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Scenes/EnvironmentTools/CheckpointField.tscn" type="PackedScene" id=15]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 24, 4 )
@@ -157,6 +158,9 @@ tile_data = PoolIntArray( -2490221, 1610612811, 0, -2424715, 1610612811, 0, -242
 
 [node name="Checkpoint1" type="Position2D" parent="Environment"]
 position = Vector2( 0, -40 )
+
+[node name="Checkpoint2" type="Position2D" parent="Environment"]
+position = Vector2( 2963, -73 )
 
 [node name="DeathPit1" type="Area2D" parent="."]
 position = Vector2( 360, 43 )
@@ -345,7 +349,7 @@ text = "Prince"
 position = Vector2( 288, 254 )
 
 [node name="CollisionShape2D" parent="FakeNote/Area2D" index="0"]
-position = Vector2( -1, -21 )
+position = Vector2( -2.5, -22.5 )
 
 [node name="TopLeftBoundary" parent="FakeNote" index="2"]
 position = Vector2( 48, 93 )
@@ -498,6 +502,11 @@ text = "Hope to see you soon,"
 
 [node name="CollisionShape2D" parent="Note/Area2D" index="0"]
 position = Vector2( -1, -21 )
+
+[node name="SetCheckpointField2" parent="." instance=ExtResource( 15 )]
+position = Vector2( 2992, -84 )
+scale = Vector2( 0.2, 1.44 )
+nextCheckpoint = 2
 
 [connection signal="body_entered" from="DeathPit1" to="DeathPit1" method="_on_DeathField_body_entered"]
 [connection signal="body_entered" from="DeathPit2" to="DeathPit2" method="_on_DeathField_body_entered"]

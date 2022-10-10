@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Art/Tilemaps/MasterTileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Scripts/DeathField.cs" type="Script" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://Art/Parallax/FOREST_bakcground_day3.png" type="Texture" id=10]
 [ext_resource path="res://Art/Parallax/FOREST_bakcground_day2.png" type="Texture" id=11]
 [ext_resource path="res://Scenes/EnvironmentTools/Note.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Scenes/EnvironmentTools/CheckpointField.tscn" type="PackedScene" id=13]
 
 [sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 36, 11 )
@@ -138,6 +139,12 @@ __meta__ = {
 
 [node name="Checkpoint1" type="Position2D" parent="Environment"]
 position = Vector2( -16, -24 )
+
+[node name="Checkpoint2" type="Position2D" parent="Environment"]
+position = Vector2( 660, -554 )
+
+[node name="Checkpoint3" type="Position2D" parent="Environment"]
+position = Vector2( -111, -777 )
 
 [node name="DialogueBox" parent="." instance=ExtResource( 3 )]
 margin_left = -12.0
@@ -1037,6 +1044,16 @@ position = Vector2( 7, -16 )
 
 [node name="CollisionShape2D" parent="Note/Area2D" index="0"]
 position = Vector2( -1, -22.5 )
+
+[node name="SetCheckpoint2" parent="." instance=ExtResource( 13 )]
+position = Vector2( 613, -550 )
+scale = Vector2( 0.211757, 0.919909 )
+nextCheckpoint = 2
+
+[node name="SetCheckpoint3" parent="." instance=ExtResource( 13 )]
+position = Vector2( -162, -776 )
+scale = Vector2( 0.211757, 0.919909 )
+nextCheckpoint = 3
 
 [connection signal="body_entered" from="Movement Instructions/HintArea2D" to="Movement Instructions" method="OnHintArea2DBodyEntered"]
 [connection signal="body_exited" from="Movement Instructions/HintArea2D" to="Movement Instructions" method="OnHintArea2DBodyExited"]
