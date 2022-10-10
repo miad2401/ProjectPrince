@@ -1,11 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "O+jC9ScKAY9owliWpNyQDxMtAe/EUkeZkA5F3Ys+moYPcdyGmzSUP1TN2PRDOhIrIM3YFtDlFqqxGaGNkxo9Hw==",
+  "dgSpecHash": "lG9rZUCEDV887NqyqSkpGPUnMmkXQa6REalb47lcCOXLhC6VjsLIud/Uo+exgsi1GhTDzpPjtL+CdY9ho/z7UA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ayira\\Documents\\GitHub\\ProjectPrince\\Project Prince.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\ayira\\.nuget\\packages\\microsoft.netframework.referenceassemblies\\1.0.2\\microsoft.netframework.referenceassemblies.1.0.2.nupkg.sha512",
-    "C:\\Users\\ayira\\.nuget\\packages\\microsoft.netframework.referenceassemblies.net472\\1.0.2\\microsoft.netframework.referenceassemblies.net472.1.0.2.nupkg.sha512"
-  ],
+  "projectFilePath": "C:\\Users\\ayira\\Desktop\\ProjectPrince\\Project Prince.csproj",
+  "expectedPackageFiles": [],
   "logs": []
 }

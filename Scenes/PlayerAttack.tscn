@@ -127,6 +127,6 @@ tree_root = SubResource( 7 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/playback = SubResource( 8 )
-parameters/Moving/blend_position = 0.235469
+parameters/Moving/blend_position = 1.4
 
 [connection signal="body_entered" from="." to="." method="_on_PlayerAttack_body_entered"]

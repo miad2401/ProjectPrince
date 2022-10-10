@@ -1,12 +1,6 @@
 using Godot;
 using System;
 
-public enum Ability
-{
-    Sword,
-    Potion,
-    Book
-}
 public class AcquireAbility : Control
 {
     [Export] Ability newAbility;
@@ -38,29 +32,28 @@ public class AcquireAbility : Control
         }
     }
 
-//  // Called every frame. 'delta' is the elapsed time since the previous frame.
-//  public override void _Process(float delta)
-//  {
-//      
-//  }
-
     public void OnPickupAreaEntered(Node body)
     {
         GetNode<AnimationPlayer>("AnimationPlayer").CurrentAnimation = newAbility.ToString() + "Acquired";
+        Player thePlayer;
+        if (GetParent().Name.Contains("Level"))
+        {
+            thePlayer = GetNode<Player>("../Player");
+        }
+        else
+        {
+            thePlayer = GetNode<Player>("../../Player");
+        }
         switch (newAbility)
         {
             case Ability.Sword:
-                Player.swordHoldEnabled = true;
-                Player.swordEquipped = true;
-                Player.magicEquipped = false;
+                thePlayer.SetPlayerAbility(true,false, 0);
                 break;
             case Ability.Potion:
-                Player.magicAttackEnabled = true;
-                Player.magicEquipped = true;
-                Player.swordEquipped = false;
+                thePlayer.SetPlayerAbility(true,false, 1);
                 break;
             case Ability.Book:
-                Player.magicJumpEnabled = true;
+                thePlayer.SetPlayerAbility(true,false, 2);
                 break;
             default:
                 GD.Print("AcquireAbility failed to Equip");

@@ -9,7 +9,8 @@ public enum Level
 	Level3,
 	Level3Indoors,
 	Level4,
-	BossLevel
+	BossLevel,
+	TestWorld
 }
 
 public enum Direction
@@ -18,4 +19,13 @@ public enum Direction
 	Down,
 	Left,
 	Right
+}
+
+public enum Ability
+{
+	Sword,
+	Potion,
+	Book,
+	NoAbilities,
+	EveryAbility
 }
