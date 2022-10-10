@@ -36,7 +36,7 @@ public class AcquireAbility : Control
     {
         GetNode<AnimationPlayer>("AnimationPlayer").CurrentAnimation = newAbility.ToString() + "Acquired";
         Player thePlayer;
-        if (GetParent().Name.Contains("Level"))
+        if (GetParent().Name.Contains("Level") || GetParent().Name.Contains("Test"))
         {
             thePlayer = GetNode<Player>("../Player");
         }

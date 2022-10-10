@@ -1229,10 +1229,9 @@ shotDelay = 0.5
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0, -2 )
-texture = ExtResource( 8 )
-flip_h = true
-hframes = 5
-frame = 4
+texture = ExtResource( 1 )
+hframes = 4
+frame = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 1 )
