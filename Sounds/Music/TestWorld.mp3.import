@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/TestWorld.mp3-b8596164fb343f7ca4a2bae41c986493.mp3str"
+
+[deps]
+
+source_file="res://Sounds/Music/TestWorld.mp3"
+dest_files=[ "res://.import/TestWorld.mp3-b8596164fb343f7ca4a2bae41c986493.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
