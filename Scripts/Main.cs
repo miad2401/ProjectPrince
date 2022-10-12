@@ -57,6 +57,7 @@ public class Main : Control
 
 		//Allows us to test different levels with the abilities the player would have
 		changePlayerAbilities();
+		changeMusic();
 		//Adds the Level to the Scene (Starts the Level)
 		CurrentLevelNode.AddChild(thePlayer);
 		AddChild(CurrentLevelNode);
@@ -97,6 +98,7 @@ public class Main : Control
 		thePlayer.ResetVariables();
 
 		changePlayerAbilities();
+		changeMusic();
 
 		CurrentLevelNode.AddChild(thePlayer);
 		AddChild(CurrentLevelNode);
@@ -130,5 +132,12 @@ public class Main : Control
 				thePlayer.SetPlayerAbility(true, false, 3);
 				break;
 		}
+    }
+
+	public void changeMusic()
+    {
+		AudioStreamPlayer streamPlayer = GetNode<AudioStreamPlayer>("Music");
+		streamPlayer.Stream = GD.Load<AudioStream>("res://Sounds/Music/" + CurrentLevelName + ".mp3");
+		streamPlayer.Play();
     }
 }
