@@ -201,7 +201,7 @@ public class PauseMenu : Control
 			EmitSignal(nameof(ReloadCurrentLevel));
 		}
 	}
-	
+
 	private void _on_MenuButton_pressed() {
 	// return to main menu button pressed, unpause game then change to main menu
 		paused = false;

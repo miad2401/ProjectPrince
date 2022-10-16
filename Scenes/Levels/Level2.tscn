@@ -507,6 +507,7 @@ position = Vector2( -1, -21 )
 position = Vector2( 2992, -84 )
 scale = Vector2( 0.2, 1.44 )
 nextCheckpoint = 2
+SwordEnabled = true
 
 [connection signal="body_entered" from="DeathPit1" to="DeathPit1" method="_on_DeathField_body_entered"]
 [connection signal="body_entered" from="DeathPit2" to="DeathPit2" method="_on_DeathField_body_entered"]

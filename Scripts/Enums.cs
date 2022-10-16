@@ -29,3 +29,10 @@ public enum Ability
 	NoAbilities,
 	EveryAbility
 }
+
+public enum enemyType
+{
+	Bat,
+	Knight,
+	Rival
+}

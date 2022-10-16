@@ -182,7 +182,7 @@ public class Rival : BaseEnemy
 		GetNode<PauseMenu>("../../GUI/PauseMenu").PauseFromOutsidePauseMenu(pause);
 	}
 
-	public void DialougeBoxClosed()
+	public void DialogueBoxClosed()
 	{
 		if(lastDialouge == 0)
 		{

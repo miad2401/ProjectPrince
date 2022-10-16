@@ -3,9 +3,25 @@ using System;
 
 public class CheckpointField : Area2D
 {
+    [Signal] public delegate void SetPlayerAbility(bool add, bool clearFirst, int abilityID);
+
     //Change values in editor, not in code
     [Export] int nextCheckpoint;
-    [Export] bool activatesMagicJump;
+    [Export] bool SwordEnabled;
+    [Export] bool RangedEnabled;
+    [Export] bool MagicJumpEnabled;
+
+    public override void _Ready()
+    {
+        if (GetParent().Name.Contains("Level") || GetParent().Name.Contains("Test"))
+        {
+            Connect(nameof(SetPlayerAbility), GetNode("../Player"), "SetPlayerAbility");
+        }
+        else
+        {
+            Connect(nameof(SetPlayerAbility), GetNode("../../Player"), "SetPlayerAbility");
+        }
+    }
     private void OnCheckpointFieldBodyEntered(Node body)
     {
         //Checks if the touched object was a player, if so, update checkpoint
@@ -15,18 +31,10 @@ public class CheckpointField : Area2D
                 Main.checkpoint = nextCheckpoint;
             }
 
-            if(activatesMagicJump){
-                Player thePlayer;
-                if (GetParent().Name.Contains("Level"))
-                {
-                    thePlayer = GetNode<Player>("../Player");
-                }
-                else
-                {
-                    thePlayer = GetNode<Player>("../../Player");
-                }
-                thePlayer.SetPlayerAbility(true,false, 2);
-            }
+            if (SwordEnabled) { EmitSignal(nameof(SetPlayerAbility), true, true, 0); }
+            if (RangedEnabled) { EmitSignal(nameof(SetPlayerAbility), true, false, 1); }
+            if (MagicJumpEnabled) { EmitSignal(nameof(SetPlayerAbility), true, false, 2); }
+            QueueFree();
         }
     }
 }

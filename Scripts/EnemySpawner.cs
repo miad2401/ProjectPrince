@@ -2,12 +2,6 @@ using Godot;
 using System;
 using System.Collections;
 
-public enum enemyType
-{
-    Bat,
-    Knight,
-    Rival
-}
 public class EnemySpawner : Control
 {
     [Export] enemyType EnemyType;

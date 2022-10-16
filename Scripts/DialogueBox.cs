@@ -6,6 +6,7 @@ public class DialogueBox : Control
 {
 	//Creates a signal to connect to PauseMenu
 	[Signal] public delegate void PauseForDialogue(bool pause);
+	[Signal] public delegate void DialogueBoxClosed();
 
 	/*
 	 * Export Fields
@@ -24,8 +25,8 @@ public class DialogueBox : Control
 	 * slideProgress - The current progress that the note has slid in/out
 	 * noteActivated - Determines if the node has already been read
 	 */
-	
-	
+
+
 	[Export] bool startDialogue = true;
 	// spaceTextDelay - amount of time in seconds in takes for "press space to continue" to pop up on given line	
 	[Export] float spaceTextDelay = 4f;
@@ -90,7 +91,7 @@ public class DialogueBox : Control
 	Vector2 TextPosition;
 	
 	
-	Control PauseMenu;
+	//Control PauseMenu;
 	
 	
 	// Total amount of time a shake takes (not fully implemented - only affects the "WAKEUP" convo)
@@ -128,7 +129,8 @@ public class DialogueBox : Control
 		//TextPosition = Text.GetPosition();
 		//Connects the PauseForDialogue signal to the PauseMenu
 		Connect(nameof(PauseForDialogue), GetNode("/root/Main/GUI/PauseMenu"), "PauseFromOutsidePauseMenu");
-		PauseMenu = GetNode<Control>("/root/Main/GUI/PauseMenu");
+		Connect(nameof(DialogueBoxClosed), GetNode("../Rival"), "DialogueBoxClosed");
+		//PauseMenu = GetNode<Control>("/root/Main/GUI/PauseMenu");
 		if (startDialogue) {
 			EmitSignal(nameof(PauseForDialogue), true);
 		}
@@ -360,7 +362,8 @@ public class DialogueBox : Control
 		DBL.Visible = false;
 		if (!startDialogue)
 		{
-			GetNode<Rival>("../Rival").DialougeBoxClosed();
+			//GetNode<Rival>("../Rival").DialougeBoxClosed();
+			EmitSignal(nameof(DialogueBoxClosed));
 		}
 		else
 		{

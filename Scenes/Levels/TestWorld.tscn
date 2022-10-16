@@ -62,6 +62,7 @@ margin_left = 160.0
 margin_top = -90.0
 margin_right = 184.0
 margin_bottom = -64.0
+newAbility = 4
 
 [node name="MovableObject" parent="." instance=ExtResource( 4 )]
 position = Vector2( 440, -94 )
@@ -94,5 +95,12 @@ hSpeed = 60
 maxVSpeed = 500
 gravity = 10
 canSpawn = true
+
+[node name="AcquireAbility2" parent="." instance=ExtResource( 3 )]
+margin_left = -15.0
+margin_top = -165.0
+margin_right = 9.0
+margin_bottom = -139.0
+newAbility = 3
 
 [editable path="DeathField"]

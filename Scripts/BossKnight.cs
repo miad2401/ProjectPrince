@@ -21,6 +21,5 @@ public class BossKnight : Knight
 	public override void _PhysicsProcess(float delta)
 	{
 		base._PhysicsProcess(delta);
-
 	}
 }

@@ -3,6 +3,8 @@ using System;
 
 public abstract class BaseEnemy : KinematicBody2D
 {
+	//Signal that tells the PauseMenu if the player died
+	[Signal] public delegate void PlayerDeath();
 
 	/* 
 	 * Export - Changed within Godot editor itself
@@ -19,8 +21,6 @@ public abstract class BaseEnemy : KinematicBody2D
 	[Export] protected bool pushable;
 	protected Vector2 velocity = new Vector2();
 	protected Vector2 floor = new Vector2(0, -1);
-	//Signal that tells the PauseMenu if the player died
-	[Signal] public delegate void PlayerDeath();
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()

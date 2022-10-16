@@ -37,13 +37,13 @@ public class FakeNote : Note
     {
         base.OnExitNotePressed();
         Random rnd = new Random();
-        for(int i = 0; i < numOfBats; i++)
+        for (int i = 0; i < numOfBats; i++)
         {
             Bat instancedBat = batScene.Instance() as Bat;
             instancedBat.SetAmplitude(rnd.Next(ampMin, ampMax));
             instancedBat.SetFrequency((float)(rnd.NextDouble() * (freqMax - freqMin) + freqMin));
             instancedBat.SetHSpeed(batHSpeed);
-            instancedBat.Position = new Vector2(rnd.Next((int)tLBoundary.x,(int)bRBoundary.x), rnd.Next((int)tLBoundary.y, (int)bRBoundary.y));
+            instancedBat.GlobalPosition = new Vector2(rnd.Next((int)tLBoundary.x,(int)bRBoundary.x), rnd.Next((int)tLBoundary.y, (int)bRBoundary.y));
             instancedBat.CollisionMask = (uint)(Math.Pow(2, 0) + Math.Pow(2, 2) + Math.Pow(2, 15));
             GetParent().AddChild(instancedBat);
         }
