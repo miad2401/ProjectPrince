@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Art/Tilemaps/MasterTileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Scenes/EnvironmentTools/DeathField.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Scenes/EnvironmentTools/Ladder.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/Knight.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/EnvironmentTools/EnemySpawner.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/EnvironmentTools/CutScenePlayerField.tscn" type="PackedScene" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1595, 40 )
@@ -102,5 +103,9 @@ margin_top = -165.0
 margin_right = 9.0
 margin_bottom = -139.0
 newAbility = 3
+
+[node name="CutScenePlayerField" parent="." instance=ExtResource( 8 )]
+position = Vector2( 29, -12 )
+cutScene = 1
 
 [editable path="DeathField"]

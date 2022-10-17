@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/VideoPlayerScript.cs" type="Script" id=1]
+
+[node name="VideoPlayer" type="VideoPlayer"]
+margin_right = 480.0
+margin_bottom = 270.0
+script = ExtResource( 1 )
+
+[connection signal="finished" from="." to="." method="_on_VideoPlayer_finished"]
