@@ -170,7 +170,8 @@ public class OpeningCutscene : Control
 		}
 		// If esc is pressed, quit game
 		else if (Input.IsActionPressed("pause")) {
-			GetTree().Quit();
+			//GetTree().Quit();
+			GetTree().ChangeScene("res://Scenes/Main.tscn");
 		}
 		// Process
 		else {
