@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "F7r3Z2U2z8EvwWM763qZHNUC9g/QO1eORYbB/GWxGJegqjVVV8qm/fPh6R2Z76yhNmmT5EGpYXr9o2v9aeoIgA==",
+  "dgSpecHash": "O+jC9ScKAY9owliWpNyQDxMtAe/EUkeZkA5F3Ys+moYPcdyGmzSUP1TN2PRDOhIrIM3YFtDlFqqxGaGNkxo9Hw==",
   "success": true,
-  "projectFilePath": "D:\\Documents\\Programming Stuff\\Godot\\Godot_v3.5-stable_mono_win64\\Projects\\ProjectPrince\\Project Prince.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\ayira\\Documents\\GitHub\\ProjectPrince\\Project Prince.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ayira\\.nuget\\packages\\microsoft.netframework.referenceassemblies\\1.0.2\\microsoft.netframework.referenceassemblies.1.0.2.nupkg.sha512",
+    "C:\\Users\\ayira\\.nuget\\packages\\microsoft.netframework.referenceassemblies.net472\\1.0.2\\microsoft.netframework.referenceassemblies.net472.1.0.2.nupkg.sha512"
+  ],
   "logs": []
 }

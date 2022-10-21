@@ -68,13 +68,11 @@ public class Main : Control
 	public void ReloadCurrentLevel()
 	{
 		//Deletes the current Level when it is safe to do so
-		CurrentLevelNode.RemoveChild(thePlayer);
 		CurrentLevelNode.QueueFree();
 		//Creates a new (clean) instance of the current level
 		CurrentLevelNode = CurrentLevelPackedScene.Instance() as Control;
-
+		thePlayer = playerPackedScene.Instance() as Player;
 		thePlayer.Position = CurrentLevelNode.GetNode<Position2D>("Environment/Checkpoint" + checkpoint).Position;
-		thePlayer.ResetVariables();
 
 		changePlayerAbilities();
 		//Adds the clean Level to the scene (Starts the level again)
