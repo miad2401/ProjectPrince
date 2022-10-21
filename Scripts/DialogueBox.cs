@@ -136,7 +136,7 @@ public class DialogueBox : Control
 		}
 		Text.Text = textList[currentText];
 		chatterLimit = textList[currentText].Length;
-		TextPosition = Text.GetPosition();
+		TextPosition = Text.RectPosition;
 		
 		shaking = lineShakes[currentText] > 0;
 		
@@ -317,17 +317,18 @@ public class DialogueBox : Control
 				if (shakeTotalTimer < shakeTotalTime) {
 					shakeBetweenTimer += delta;
 					if (shakeBetweenTimer > shakeBetweenTime) {
+						Vector2 textPosition = Text.RectPosition;
 						if (currentShakeMovement == 1 || currentShakeMovement == 5 || currentShakeMovement == 8){
-							Text.SetPosition(new Vector2(Text.GetPosition().x+currentShakeStrength,Text.GetPosition().y));
+							Text.SetPosition(new Vector2(textPosition.x+currentShakeStrength,textPosition.y));
 						}
 						else if (currentShakeMovement == 2 || currentShakeMovement == 4){
-							Text.SetPosition(new Vector2(Text.GetPosition().x,Text.GetPosition().y+currentShakeStrength));
+							Text.SetPosition(new Vector2(textPosition.x,textPosition.y+currentShakeStrength));
 						}
 						else if (currentShakeMovement == 3 || currentShakeMovement == 6 || currentShakeMovement == 10) {
-							Text.SetPosition(new Vector2(Text.GetPosition().x-currentShakeStrength,Text.GetPosition().y));
+							Text.SetPosition(new Vector2(textPosition.x-currentShakeStrength,textPosition.y));
 						}
 						else {
-							Text.SetPosition(new Vector2(Text.GetPosition().x,Text.GetPosition().y-currentShakeStrength));
+							Text.SetPosition(new Vector2(textPosition.x,textPosition.y-currentShakeStrength));
 						}
 						currentShakeMovement++;
 						if (currentShakeMovement > 10) {

@@ -112,7 +112,7 @@ public class OpeningCutscene : Control
 		SpaceText.Visible = false;
 		chatterLimit = textList[currentText].Length;
 		CutsceneText.Text = textList[currentText];
-		TextPosition = CutsceneText.GetPosition();
+		TextPosition = CutsceneText.RectPosition;
 	}
 
   // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -204,17 +204,18 @@ public class OpeningCutscene : Control
 			if (shakeTotalTimer < shakeTotalTime) {
 				shakeBetweenTimer += delta;
 				if (shakeBetweenTimer > shakeBetweenTime) {
+					Vector2 textPosition = CutsceneText.RectPosition;
 					if (currentShakeMovement == 1 || currentShakeMovement == 5 || currentShakeMovement == 8){
-						CutsceneText.SetPosition(new Vector2(CutsceneText.GetPosition().x+currentShakeStrength,CutsceneText.GetPosition().y));
+						CutsceneText.SetPosition(new Vector2(textPosition.x+currentShakeStrength,textPosition.y));
 					}
 					else if (currentShakeMovement == 2 || currentShakeMovement == 4){
-						CutsceneText.SetPosition(new Vector2(CutsceneText.GetPosition().x,CutsceneText.GetPosition().y+currentShakeStrength));
+						CutsceneText.SetPosition(new Vector2(textPosition.x,textPosition.y+currentShakeStrength));
 					}
 					else if (currentShakeMovement == 3 || currentShakeMovement == 6 || currentShakeMovement == 10) {
-						CutsceneText.SetPosition(new Vector2(CutsceneText.GetPosition().x-currentShakeStrength,CutsceneText.GetPosition().y));
+						CutsceneText.SetPosition(new Vector2(textPosition.x-currentShakeStrength,textPosition.y));
 					}
 					else {
-						CutsceneText.SetPosition(new Vector2(CutsceneText.GetPosition().x,CutsceneText.GetPosition().y-currentShakeStrength));
+						CutsceneText.SetPosition(new Vector2(textPosition.x,textPosition.y-currentShakeStrength));
 					}
 					currentShakeMovement++;
 					if (currentShakeMovement > 10) {
