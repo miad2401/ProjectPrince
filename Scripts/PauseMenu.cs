@@ -34,6 +34,7 @@ public class PauseMenu : Control
 
 	Panel ResetProgress;
 	CenterContainer PauseCenterContainer;
+	Control SettingsMenu;
 	public Panel DeathPanel;
 	public Panel TransitionPanel;
 	Button RespawnButton;
@@ -56,6 +57,8 @@ public class PauseMenu : Control
 		RespawnButton = GetNode<Button>("DeathPanel/RespawnButton");
 		//Adds reference to RestartButton button
 		RestartButton = GetNode<Button>("PauseCenterContainer/VBoxContainer/RestartButton");
+		//Adds reference to SettingsMenu
+		SettingsMenu = GetNode("../SettingsMenu") as Control;
 	}
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(float delta) {
@@ -155,6 +158,7 @@ public class PauseMenu : Control
 		// if the bool is false (unpaused), hide pause menu
 		if (paused == false) {
 			PauseCenterContainer.Hide();
+			SettingsMenu.Hide();
 		}
 		// else show pause menu
 		else {
@@ -187,11 +191,6 @@ public class PauseMenu : Control
 		Pause();
 	}
 	
-	private void _on_QuitButton_pressed() {
-	// quit button pressed, quit game
-		GetTree().Quit();
-	}
-	
 	private void _on_RestartButton_pressed() {
 	// restart button pressed, unpause game then reload scene
 		if (RestartButton.Visible) {
@@ -202,11 +201,23 @@ public class PauseMenu : Control
 		}
 	}
 
+	private void _on_SettingsButton_pressed(){
+		//Hides PauseMenu
+		PauseCenterContainer.GetParent<Control>().Hide();
+		//Show settings menu
+		SettingsMenu.Show();
+	}
+
 	private void _on_MenuButton_pressed() {
 	// return to main menu button pressed, unpause game then change to main menu
 		paused = false;
 		Pause();
 		GetTree().ChangeScene("res://Scenes/Menu.tscn");
+	}
+
+	private void _on_QuitButton_pressed() {
+	// quit button pressed, quit game
+		GetTree().Quit();
 	}
 
 	private void _on_RespawnButton_pressed()
