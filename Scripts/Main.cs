@@ -103,9 +103,9 @@ public class Main : Control
 	}
 
 	public void changePlayerAbilities()
-    {
-        switch (CurrentLevelName)
-        {
+	{
+		switch (CurrentLevelName)
+		{
 			case Level.Level1:
 				thePlayer.SetPlayerAbility(true, false, 3);
 				break;
@@ -130,12 +130,12 @@ public class Main : Control
 				thePlayer.SetPlayerAbility(true, false, 3);
 				break;
 		}
-    }
+	}
 
 	public void changeMusic()
-    {
+	{
 		AudioStreamPlayer streamPlayer = GetNode<AudioStreamPlayer>("Music");
 		streamPlayer.Stream = GD.Load<AudioStream>("res://Sounds/Music/" + CurrentLevelName + ".mp3");
 		streamPlayer.Play();
-    }
+	}
 }

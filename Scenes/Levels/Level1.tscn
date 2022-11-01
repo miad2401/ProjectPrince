@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Art/Tilemaps/MasterTileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Scripts/DeathField.cs" type="Script" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://Art/Parallax/FOREST_bakcground_day2.png" type="Texture" id=11]
 [ext_resource path="res://Scenes/EnvironmentTools/Note.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Scenes/EnvironmentTools/CheckpointField.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Art/Tilemaps/FewTiles/tree.png" type="Texture" id=14]
 
 [sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 36, 11 )
@@ -145,6 +146,10 @@ position = Vector2( 660, -554 )
 
 [node name="Checkpoint3" type="Position2D" parent="Environment"]
 position = Vector2( -111, -777 )
+
+[node name="Tree" type="Sprite" parent="Environment"]
+position = Vector2( 418, -697 )
+texture = ExtResource( 14 )
 
 [node name="DialogueBox" parent="." instance=ExtResource( 3 )]
 margin_left = -12.0

@@ -1,25 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ayira\\Documents\\GitHub\\ProjectPrince\\Project Prince.csproj": {}
+    "D:\\Work\\Game making\\ProjectPrince\\Project Prince.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ayira\\Documents\\GitHub\\ProjectPrince\\Project Prince.csproj": {
+    "D:\\Work\\Game making\\ProjectPrince\\Project Prince.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ayira\\Documents\\GitHub\\ProjectPrince\\Project Prince.csproj",
+        "projectUniqueName": "D:\\Work\\Game making\\ProjectPrince\\Project Prince.csproj",
         "projectName": "Project Prince",
-        "projectPath": "C:\\Users\\ayira\\Documents\\GitHub\\ProjectPrince\\Project Prince.csproj",
-        "packagesPath": "C:\\Users\\ayira\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ayira\\Documents\\GitHub\\ProjectPrince\\.mono\\temp\\obj\\",
+        "projectPath": "D:\\Work\\Game making\\ProjectPrince\\Project Prince.csproj",
+        "packagesPath": "C:\\Users\\De'shon Mcneil\\.nuget\\packages\\",
+        "outputPath": "D:\\Work\\Game making\\ProjectPrince\\.mono\\temp\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\ayira\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\De'shon Mcneil\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net472"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -37,14 +43,6 @@
       "frameworks": {
         "net472": {
           "targetAlias": "net472",
-          "dependencies": {
-            "Microsoft.NETFramework.ReferenceAssemblies": {
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[1.0.2, )",
-              "autoReferenced": true
-            }
-          },
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
         }
       }
