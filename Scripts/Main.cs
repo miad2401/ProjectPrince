@@ -25,6 +25,7 @@ public class Main : Control
 	{
 		//When Main is loaded, loads the Levels to be used later
 		PackedScene Level1 = GD.Load<PackedScene>("res://Scenes/Levels/Level1.tscn");
+		PackedScene SewerLevel = GD.Load<PackedScene>("res://Scenes/Levels/SewerLevel.tscn");
 		PackedScene Level2 = GD.Load<PackedScene>("res://Scenes/Levels/Level2.tscn");
 		PackedScene Level3 = GD.Load<PackedScene>("res://Scenes/Levels/Level3.tscn");
 		PackedScene Level3Indoors = GD.Load<PackedScene>("res://Scenes/Levels/Level3Indoors.tscn");
@@ -34,6 +35,7 @@ public class Main : Control
 
 		//Adds the levels to the dictionary
 		levelDictionary.Add(Level.Level1, Level1);
+		levelDictionary.Add(Level.SewerLevel, SewerLevel);
 		levelDictionary.Add(Level.Level2, Level2);
 		levelDictionary.Add(Level.Level3, Level3);
 		levelDictionary.Add(Level.Level3Indoors, Level3Indoors);
@@ -127,6 +129,9 @@ public class Main : Control
 				thePlayer.SetPlayerAbility(true, true, 4);
 				break;
 			case Level.TestWorld:
+				thePlayer.SetPlayerAbility(true, false, 3);
+				break;
+			case Level.SewerLevel:
 				thePlayer.SetPlayerAbility(true, false, 3);
 				break;
 		}

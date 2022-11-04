@@ -6,6 +6,7 @@ public enum Level
 {
 	Level1,
 	Level2,
+	SewerLevel,
 	Level3,
 	Level3Indoors,
 	Level4,

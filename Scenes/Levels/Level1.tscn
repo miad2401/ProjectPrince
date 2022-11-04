@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Art/Tilemaps/MasterTileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Scripts/DeathField.cs" type="Script" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://Scenes/EnvironmentTools/Note.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Scenes/EnvironmentTools/CheckpointField.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Art/Tilemaps/FewTiles/tree.png" type="Texture" id=14]
+[ext_resource path="res://Scenes/EnvironmentTools/TransitionField.tscn" type="PackedScene" id=15]
 
 [sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 36, 11 )
@@ -33,9 +34,6 @@ extents = Vector2( 40, 4 )
 [sub_resource type="RectangleShape2D" id=9]
 extents = Vector2( 30, 22 )
 
-[sub_resource type="RectangleShape2D" id=7]
-extents = Vector2( 112, 4 )
-
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 32, 20 )
 
@@ -50,6 +48,9 @@ extents = Vector2( 9, 11 )
 
 [sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 16, 64 )
+
+[sub_resource type="RectangleShape2D" id=15]
+extents = Vector2( 91.5, 8.5 )
 
 [node name="Level1" type="Control"]
 margin_right = 40.0
@@ -566,18 +567,6 @@ align = 2
 position = Vector2( 26, 17 )
 shape = SubResource( 9 )
 
-[node name="WaterPit3" type="Area2D" parent="."]
-position = Vector2( 1064, 56 )
-script = ExtResource( 2 )
-__meta__ = {
-"_edit_group_": true
-}
-hurtPlayer = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WaterPit3"]
-position = Vector2( 88, 4 )
-shape = SubResource( 7 )
-
 [node name="WallJump Instructions" type="Control" parent="."]
 margin_left = 605.0
 margin_top = -20.0
@@ -1060,6 +1049,15 @@ position = Vector2( -162, -776 )
 scale = Vector2( 0.211757, 0.919909 )
 nextCheckpoint = 3
 
+[node name="ToSewerLevel" parent="." instance=ExtResource( 15 )]
+position = Vector2( 1140, 43 )
+nextLevel = 2
+nextCheckpoint = 1
+
+[node name="CollisionShape2D" parent="ToSewerLevel" index="0"]
+position = Vector2( 35.5, 15.5 )
+shape = SubResource( 15 )
+
 [connection signal="body_entered" from="Movement Instructions/HintArea2D" to="Movement Instructions" method="OnHintArea2DBodyEntered"]
 [connection signal="body_exited" from="Movement Instructions/HintArea2D" to="Movement Instructions" method="OnHintArea2DBodyExited"]
 [connection signal="body_entered" from="Jump Instructions/HintArea2D" to="Jump Instructions" method="OnHintArea2DBodyEntered"]
@@ -1070,7 +1068,6 @@ nextCheckpoint = 3
 [connection signal="body_entered" from="WaterPit2" to="WaterPit2" method="_on_DeathField_body_entered"]
 [connection signal="body_entered" from="PopUpHint/HintArea2D" to="PopUpHint" method="OnHintArea2DBodyEntered"]
 [connection signal="body_exited" from="PopUpHint/HintArea2D" to="PopUpHint" method="OnHintArea2DBodyExited"]
-[connection signal="body_entered" from="WaterPit3" to="WaterPit3" method="_on_DeathField_body_entered"]
 [connection signal="body_entered" from="WallJump Instructions/HintArea2D" to="WallJump Instructions" method="OnHintArea2DBodyEntered"]
 [connection signal="body_exited" from="WallJump Instructions/HintArea2D" to="WallJump Instructions" method="OnHintArea2DBodyExited"]
 [connection signal="body_entered" from="Ladders Intructions/HintArea2D" to="Ladders Intructions" method="OnHintArea2DBodyEntered"]
@@ -1082,3 +1079,4 @@ nextCheckpoint = 3
 [connection signal="body_entered" from="ToLevel2" to="ToLevel2" method="OnTransitionFieldBodyEntered"]
 
 [editable path="Note"]
+[editable path="ToSewerLevel"]

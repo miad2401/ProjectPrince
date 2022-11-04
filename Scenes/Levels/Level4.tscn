@@ -944,19 +944,16 @@ nextCheckpoint = 2
 position = Vector2( 724, -583 )
 scale = Vector2( 0.48, 1 )
 nextCheckpoint = 3
-activatesMagicJump = true
 
 [node name="SetCheckpoint4" parent="." instance=ExtResource( 11 )]
 position = Vector2( 1470, -742 )
 scale = Vector2( 0.339503, 1.08554 )
 nextCheckpoint = 4
-activatesMagicJump = true
 
 [node name="SetCheckpoint5" parent="." instance=ExtResource( 11 )]
 position = Vector2( 2072, -264 )
 scale = Vector2( 0.210442, 1.08554 )
 nextCheckpoint = 5
-activatesMagicJump = true
 
 [connection signal="body_entered" from="TransitionField" to="TransitionField" method="OnTransitionFieldBodyEntered"]
 
