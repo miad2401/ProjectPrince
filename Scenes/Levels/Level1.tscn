@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Art/Tilemaps/MasterTileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Scripts/DeathField.cs" type="Script" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://Scenes/EnvironmentTools/CheckpointField.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Art/Tilemaps/FewTiles/tree.png" type="Texture" id=14]
 [ext_resource path="res://Scenes/EnvironmentTools/CutScenePlayerField.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Sounds/Music/Level1New.mp3" type="AudioStream" id=16]
 
 [sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 36, 11 )
@@ -1052,6 +1053,10 @@ position = Vector2( 1177, 53 )
 scale = Vector2( 1.5014, 0.36 )
 z_index = 2
 nextLevel = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 16 )
+volume_db = -6.32
 
 [connection signal="body_entered" from="Movement Instructions/HintArea2D" to="Movement Instructions" method="OnHintArea2DBodyEntered"]
 [connection signal="body_exited" from="Movement Instructions/HintArea2D" to="Movement Instructions" method="OnHintArea2DBodyExited"]

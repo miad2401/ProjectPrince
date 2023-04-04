@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Scenes/Knight.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Art/Tilemaps/MasterTileset.tres" type="TileSet" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Scripts/TransitionField.cs" type="Script" id=9]
 [ext_resource path="res://Scenes/EnvironmentTools/AcquireAbility.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scenes/EnvironmentTools/CheckpointField.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Sounds/Music/Level4New.ogg" type="AudioStream" id=12]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 0.5, 9 )
@@ -928,7 +929,7 @@ script = ExtResource( 9 )
 __meta__ = {
 "_edit_group_": true
 }
-nextLevel = 5
+nextLevel = 6
 nextCheckpoint = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TransitionField"]
@@ -954,6 +955,10 @@ nextCheckpoint = 4
 position = Vector2( 2072, -264 )
 scale = Vector2( 0.210442, 1.08554 )
 nextCheckpoint = 5
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+volume_db = -12.641
 
 [connection signal="body_entered" from="TransitionField" to="TransitionField" method="OnTransitionFieldBodyEntered"]
 

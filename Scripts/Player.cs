@@ -184,20 +184,20 @@ public class Player : KinematicBody2D
 		//If not standing on something, applies gravity
 		//(This IsOnFloor uses Player CollisionShape2D)
 		if (!IsOnFloor() && !onMoveableObject)
-        {
+		{
 			velocity.y = Mathf.Clamp(velocity.y += gravity, -maxVSpeed, maxVSpeed);
 
 		}
 		//If standing on something
-        else
-        {
+		else
+		{
 			framesSinceMissingFloor = 0;
 			velocity.y = 0;
 			hasMagicJumped = true;
 		}
 		//Jumping with frame forgiveness
 		if (Input.IsActionPressed("move_jump") && (onFloor || onMoveableObject || framesSinceMissingFloor <= numExtraJumpFrames))
-        {
+		{
 			framesSinceMissingFloor = numExtraJumpFrames + 1;
 			velocity.y = Mathf.Clamp(velocity.y = -jumpPower, -maxVSpeed, maxVSpeed);
 			hasMagicJumped = false;
@@ -205,10 +205,10 @@ public class Player : KinematicBody2D
 		//Checks if not standing on something
 		//(This onFloor uses the FloorDetector)
 		else if (!onFloor && !onMoveableObject)
-        {
+		{
 			//If next to a wall
 			if (numRightWalls >= 2 || numLeftWalls >= 2)
-            {
+			{
 				hasMagicJumped = false;
 				//Walljump
 				if (Input.IsActionJustPressed("move_jump") && ((Input.IsActionPressed("move_right") && numRightWalls >= 2) || (Input.IsActionPressed("move_left") && numLeftWalls >= 2)))
@@ -225,42 +225,42 @@ public class Player : KinematicBody2D
 				else
 				{
 					velocity.y = Mathf.Clamp(velocity.y, -maxVSpeed, wallFallingSpeed);
-                    if (!animationInAction)
-                    {
+					if (!animationInAction)
+					{
 						playerANSMP.Travel("WallSlide");
 						wallSliding = true;
 					}
 				}
 			}
-            else
-            {
+			else
+			{
 				//magic jump
-                if (Input.IsActionJustPressed("move_jump") && !hasMagicJumped && magicJumpEnabled && numLadders == 0)
-                {
+				if (Input.IsActionJustPressed("move_jump") && !hasMagicJumped && magicJumpEnabled && numLadders == 0)
+				{
 					velocity.y = -magicJumpPower;
 					hasMagicJumped = true;
 				}
-            }
+			}
 
 		}
 		//Climb Ladders on Ground
 		else if(numLadders > 0 && (Input.IsActionPressed("move_left") || Input.IsActionPressed("move_right")))
-        {
+		{
 			velocity.y = -climbSpeed;
-        }
+		}
 		//"false, 4, 0.78598f" are default values
 		//Last argument is for infinite_inertia, We turn this off so environment can be interacted with
 		MoveAndSlide(velocity, floor, false, 4, 1.178097f, false);
 
 		updateDMenu();
-    }
+	}
 
 	public void Attack(float delta)
-    {
+	{
 		shotTimePassed -= delta;
 		//Sword Attack
 		if (Input.IsActionJustPressed("attack_sword") && swordEnabled && !animationInAction)
-        {
+		{
 			playerANSMP.Travel("SwingSword");
 			animationInAction = true;
 		}
@@ -284,11 +284,11 @@ public class Player : KinematicBody2D
 	}
 
 	public void AnimatePlayer()
-    {
+	{
 		String animationName = "";
 		//Checks if Moving horiozntally
-        if (!animationInAction && !wallSliding)
-        {
+		if (!animationInAction && !wallSliding)
+		{
 			animationName = (velocity.x == 0 && !movingHorizontally) ? "Idle" : "Run";
 			if (swordEnabled)
 			{
@@ -297,10 +297,10 @@ public class Player : KinematicBody2D
 			playerANSMP.Travel(animationName);
 		}
 		playerAnimationTree.Set("parameters/" + playerANSMP.GetCurrentNode() + "/blend_position", lastDirection.x);
-    }
+	}
 
 	public void SetAllBlends()
-    {
+	{
 		playerAnimationTree.Set("parameters/Idle/blend_position", lastDirection.x);
 		playerAnimationTree.Set("parameters/Run/blend_position", lastDirection.x);
 		playerAnimationTree.Set("parameters/IdleSword/blend_position", lastDirection.x);
@@ -334,9 +334,9 @@ public class Player : KinematicBody2D
 	}
 
 	public void OnWalljumpBodyTouched(Node body, bool entered, bool right)
-    {
+	{
 		if(body.Name.Equals("Baseground") || body.IsInGroup("WallClimbable"))
-        {
+		{
 			if (right)
 			{
 				numRightWalls += entered ? 1 : -1;
@@ -345,47 +345,47 @@ public class Player : KinematicBody2D
 			{
 				numLeftWalls += entered ? 1 : -1;
 			}
-            if (body.IsInGroup("WallClimbable"))
-            {
+			if (body.IsInGroup("WallClimbable"))
+			{
 				numLadders += entered ? 1 : -1;
 			}
 		}
-    }
+	}
 
 	public void OnFloorDetectorBodyTouched(Node body, bool entered)
-    {
+	{
 		if (body.Name.Equals("Baseground") || body.IsInGroup("WallClimbable"))
 		{
 			onFloor = entered ? true : false;
 		}
 		else if (body.IsInGroup("MoveableObject"))
-        {
+		{
 			onMoveableObject = entered ? true : false;
 		}
 	}
 
 	public void OnSwordCollisionTouched(Node body)
-    {
-        if (body.IsInGroup("Enemy"))
-        {
+	{
+		if (body.IsInGroup("Enemy"))
+		{
 			body.QueueFree();
-        }
+		}
 		else if (body.IsInGroup("Rival"))
-        {
+		{
 			(body as Rival).GotHit();
 		}
-    }
+	}
 
 	public void SetPlayerAbility(bool add, bool clearFirst, int abilityID)
-    {
-        if (clearFirst)
-        {
+	{
+		if (clearFirst)
+		{
 			swordEnabled = false;
 			rangedAttackEnabled = false;
 			magicJumpEnabled = false;
 		}
-        switch (abilityID)
-        {
+		switch (abilityID)
+		{
 			case 0:
 				swordEnabled = add ? true : false;
 				break;
@@ -411,7 +411,7 @@ public class Player : KinematicBody2D
 	}
 
 	public void ResetVariables()
-    {
+	{
 		animationInAction = false;
 		framesSinceMissingFloor = numExtraJumpFrames + 1;
 	}

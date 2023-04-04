@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/SewerLevel.mp3-69edd1e2a2f48a18b71acebe7ce4c60f.mp3str"
+
+[deps]
+
+source_file="res://Sounds/Music/SewerLevel.mp3"
+dest_files=[ "res://.import/SewerLevel.mp3-69edd1e2a2f48a18b71acebe7ce4c60f.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

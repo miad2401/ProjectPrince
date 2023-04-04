@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://Art/Tilemaps/MasterTileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Scenes/EnvironmentTools/AcquireAbility.tscn" type="PackedScene" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://Art/Parallax/CAVE_background4a.png" type="Texture" id=13]
 [ext_resource path="res://Scenes/EnvironmentTools/Note.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Scenes/EnvironmentTools/CheckpointField.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Sounds/Music/Level2.mp3" type="AudioStream" id=16]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 24, 4 )
@@ -507,6 +508,10 @@ position = Vector2( 2992, -84 )
 scale = Vector2( 0.2, 1.44 )
 nextCheckpoint = 2
 SwordEnabled = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 16 )
+volume_db = -8.044
 
 [connection signal="body_entered" from="DeathPit1" to="DeathPit1" method="_on_DeathField_body_entered"]
 [connection signal="body_entered" from="DeathPit2" to="DeathPit2" method="_on_DeathField_body_entered"]
