@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Sounds/Music/TestWorld.mp3" type="AudioStream" id=1]
 [ext_resource path="res://Scripts/Main.cs" type="Script" id=2]
 [ext_resource path="res://Scenes/SettingsMenu.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/VideoPlayer.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/PauseMenu.tscn" type="PackedScene" id=6]
 
 [node name="Main" type="Control"]
@@ -16,6 +17,10 @@ layer = 10
 [node name="PauseMenu" parent="GUI" instance=ExtResource( 6 )]
 
 [node name="SettingsMenu" parent="GUI" instance=ExtResource( 3 )]
+pause_mode = 2
+visible = false
+
+[node name="VideoPlayer" parent="GUI" instance=ExtResource( 4 )]
 pause_mode = 2
 visible = false
 

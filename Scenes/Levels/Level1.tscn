@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Art/Tilemaps/MasterTileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Scripts/DeathField.cs" type="Script" id=2]
@@ -14,7 +14,7 @@
 [ext_resource path="res://Scenes/EnvironmentTools/Note.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Scenes/EnvironmentTools/CheckpointField.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Art/Tilemaps/FewTiles/tree.png" type="Texture" id=14]
-[ext_resource path="res://Scenes/EnvironmentTools/TransitionField.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Scenes/EnvironmentTools/CutScenePlayerField.tscn" type="PackedScene" id=15]
 
 [sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 36, 11 )
@@ -48,9 +48,6 @@ extents = Vector2( 9, 11 )
 
 [sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 16, 64 )
-
-[sub_resource type="RectangleShape2D" id=15]
-extents = Vector2( 91.5, 8.5 )
 
 [node name="Level1" type="Control"]
 margin_right = 40.0
@@ -1049,14 +1046,12 @@ position = Vector2( -162, -776 )
 scale = Vector2( 0.211757, 0.919909 )
 nextCheckpoint = 3
 
-[node name="ToSewerLevel" parent="." instance=ExtResource( 15 )]
-position = Vector2( 1140, 43 )
+[node name="CutScenePlayerField" parent="." instance=ExtResource( 15 )]
+pause_mode = 1
+position = Vector2( 1177, 53 )
+scale = Vector2( 1.5014, 0.36 )
+z_index = 2
 nextLevel = 2
-nextCheckpoint = 1
-
-[node name="CollisionShape2D" parent="ToSewerLevel" index="0"]
-position = Vector2( 35.5, 15.5 )
-shape = SubResource( 15 )
 
 [connection signal="body_entered" from="Movement Instructions/HintArea2D" to="Movement Instructions" method="OnHintArea2DBodyEntered"]
 [connection signal="body_exited" from="Movement Instructions/HintArea2D" to="Movement Instructions" method="OnHintArea2DBodyExited"]
@@ -1079,4 +1074,3 @@ shape = SubResource( 15 )
 [connection signal="body_entered" from="ToLevel2" to="ToLevel2" method="OnTransitionFieldBodyEntered"]
 
 [editable path="Note"]
-[editable path="ToSewerLevel"]
